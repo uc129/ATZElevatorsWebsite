@@ -11,7 +11,7 @@ related:
   - ../adr/0003-content-as-typed-modules-no-db.md
 ---
 
-> Progress: step 0 (Node.js 26 LTS, machine PATH) done 18-Nov-2026. Step 1 (repo bootstrap) done 18-Nov-2026.
+> Progress: step 0 (Node.js 26 LTS, machine PATH) done 18-Nov-2026. Step 1 (repo bootstrap) done 18-Nov-2026. Step 2 (tokens, fonts, /styleguide) done 18-Nov-2026: headings use Manrope (as on the prototype) rather than General Sans, so all three fonts self-host through next/font/google; status info is blue so cyan stays interactive; `cn()` registers the custom token names with tailwind-merge.
 
 # Website foundation plan
 

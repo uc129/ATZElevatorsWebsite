@@ -1,0 +1,139 @@
+/*
+ * ATZ design tokens for the website.
+ *
+ * Ported (copied, not imported) from the ERP design system:
+ *   ATZElevatorsERP/Architecture/ATZ ERP Design/ERP design system for elevators/tokens/*.css
+ * with the lighter surface values approved on the website prototype canvas.
+ *
+ * Tailwind's default palette, type scale, radii and shadows are switched off
+ * (`--x-*: initial`) so only these tokens can be used. If a value is missing,
+ * add it here, never as an arbitrary value in markup.
+ *
+ * Spacing uses Tailwind's 4px multiplier. The ERP scale maps to:
+ *   4 → 1, 8 → 2, 16 → 4, 24 → 6, 32 → 8, 48 → 12, 64 → 16, 96 → 24, 128 → 32
+ *   section padding (104px) → py-26
+ */
+
+@theme {
+  /* Colour ------------------------------------------------------------ */
+  --color-*: initial;
+
+  --color-white: #ffffff;
+
+  /* Text and headings (on white: navy 16.6:1, ink 15.3:1, muted 8.3:1, subtle 5.4:1) */
+  --color-navy: #0b1f33;
+  --color-ink: #10243a;
+  --color-muted: #3f5468;
+  --color-subtle: #5a6e80;
+
+  /* Brand cyan: interactive accent only, used sparingly. Never large fills. */
+  --color-brand: #0e7a99; /* fill behind white text (AA) */
+  --color-brand-hover: #0b617a;
+  --color-brand-ink: #0b617a; /* cyan as text on white (5.9:1) */
+  --color-brand-line: #1fa3c4; /* strokes, focus ring, illustration */
+  --color-brand-ice: #8fe7ff;
+
+  /* Surfaces: white page, soft grey containers */
+  --color-box: #f5f6f7;
+  --color-box-line: #eceef0;
+  --color-tint: #f2f3f5;
+  --color-tint-line: #e3e5e8;
+  --color-line: #e6e8eb;
+  --color-line-strong: #d5d9de;
+
+  /* Status (text always shown with the colour) */
+  --color-success: #1e7f3c;
+  --color-success-light: #e5f4e9;
+  --color-success-text: #196332;
+  --color-warning: #b45309;
+  --color-warning-light: #fcf1e0;
+  --color-warning-text: #8a4106;
+  --color-danger: #bc2f2f;
+  --color-danger-light: #fbe9e9;
+  --color-danger-text: #9e2323;
+  --color-info: #2f5fbf;
+  --color-info-light: #e9effa;
+  --color-info-text: #24499c;
+  --color-neutral: #66737f;
+  --color-neutral-light: #f1f4f6;
+  --color-neutral-line: #e1e7eb;
+  --color-neutral-text: #44525e;
+
+  /* WhatsApp button (user-supplied style) */
+  --color-whatsapp: #25d366;
+  --color-whatsapp-hover: #1fbf5b;
+  --color-whatsapp-ink: #111b21; /* 10:1 on the green */
+
+  --color-overlay: rgb(11 31 51 / 0.55);
+
+  /* Type -------------------------------------------------------------- */
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-manrope), var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  --text-*: initial;
+  --text-display: clamp(2.375rem, 1.5rem + 3.2vw, 3.75rem); /* 38 → 60 */
+  --text-display--line-height: 1.05;
+  --text-h1: clamp(2rem, 1.6rem + 1.4vw, 2.75rem); /* 32 → 44 */
+  --text-h1--line-height: 1.1;
+  --text-h2: clamp(2rem, 1.7rem + 1vw, 2.5rem); /* 32 → 40 */
+  --text-h2--line-height: 1.12;
+  --text-h3: 1.375rem; /* 22 */
+  --text-h3--line-height: 1.25;
+  --text-h4: 1.125rem; /* 18 */
+  --text-h4--line-height: 1.35;
+  --text-lg: 1.125rem; /* 18, lead paragraphs */
+  --text-lg--line-height: 1.65;
+  --text-base: 1rem; /* 16, body minimum */
+  --text-base--line-height: 1.5;
+  --text-sm: 0.875rem; /* 14 */
+  --text-sm--line-height: 1.45;
+  --text-caption: 0.8125rem; /* 13, captions and eyebrow labels */
+  --text-caption--line-height: 1.4;
+  --text-xs: 0.75rem; /* 12, tags and badges only */
+  --text-xs--line-height: 1.35;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.08em;
+
+  /* Shape ------------------------------------------------------------- */
+  --radius-*: initial;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-control: 10px; /* buttons, inputs, tabs */
+  --radius-md: 12px;
+  --radius-lg: 16px; /* cards */
+  --radius-full: 9999px;
+
+  /* Elevation: navy-tinted, plus brand-tinted lifts for hover and active */
+  --shadow-*: initial;
+  --shadow-xs: 0 1px 2px rgb(11 31 51 / 0.06);
+  --shadow-sm: 0 1px 3px rgb(11 31 51 / 0.08), 0 1px 2px rgb(11 31 51 / 0.04);
+  --shadow-md: 0 4px 12px rgb(11 31 51 / 0.1);
+  --shadow-lg: 0 12px 32px rgb(11 31 51 / 0.16);
+  --shadow-xl: 0 24px 56px rgb(11 31 51 / 0.22);
+  --shadow-lift: 0 12px 32px rgb(14 122 153 / 0.12); /* card hover */
+  --shadow-active: 0 8px 24px rgb(14 122 153 / 0.14); /* active stage */
+  --shadow-bar: 0 -8px 24px rgb(14 122 153 / 0.1); /* mobile action bar */
+
+  /* Layout ------------------------------------------------------------ */
+  --container-content: 77.5rem; /* 1240px */
+
+  /* Motion ------------------------------------------------------------ */
+  --ease-default: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-mechanical: cubic-bezier(0.4, 0, 0.6, 1); /* elevator travel: constant-feeling */
+
+  /* Style guide demo of the mechanical easing */
+  --animate-travel: travel 4s var(--ease-mechanical) infinite alternate;
+  @keyframes travel {
+    from {
+      left: 0.5rem;
+    }
+    to {
+      left: calc(100% - 3rem);
+    }
+  }
+}
