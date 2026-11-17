@@ -45,7 +45,9 @@ describe("photos and credits", () => {
         expect(photo.atz).toBe(true);
       }
     }
-    expect([...used].sort()).toEqual(Object.keys(credits).sort());
+    // The film credit is used by the video, not a photo.
+    const photoCreditIds = Object.keys(credits).filter((id) => id !== "cityInMotion");
+    expect([...used].sort()).toEqual(photoCreditIds.sort());
     expect(photoCredits).toHaveLength(Object.keys(credits).length);
   });
 

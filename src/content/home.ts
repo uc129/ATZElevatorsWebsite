@@ -8,7 +8,10 @@ export const hero = {
   eyebrow: "ATZ Elevators · Patna, since 2002",
   lead: "ATZ manufactures, installs, maintains and modernises passenger, home, hospital and freight lifts, and services every make. Rooted in Patna, with engineers across Bihar, Jharkhand, Odisha and Assam.",
   assurances: ["Every make serviced", "24×7 breakdown support", "Free site survey"],
-  photos: { main: "panoramicAtrium", inset: "glassCarInterior" } satisfies Record<string, PhotoId>,
+  photos: { main: "patnaSkyline", inset: "patnaLiftConstruction" } satisfies Record<
+    string,
+    PhotoId
+  >,
 };
 
 /** No numbers: short claims that read as promises. */
@@ -20,9 +23,9 @@ export const highlights = [
 ];
 
 export const inMotion = {
-  eyebrow: "See us in motion",
-  title: "Smooth rides, quiet doors, glass that lets the building breathe.",
-  text: "From the first survey to the last safety check, every ATZ lift is built to feel effortless for the people who ride it.",
+  eyebrow: "Cities on the move",
+  title: "Every busy building runs on vertical transport.",
+  text: "Malls, hospitals and homes across India move people floor to floor all day. We keep that movement safe, smooth and on time, from the first survey to the last safety check.",
 };
 
 export type Stage = { floor: string; title: string; text: string; tag: string };
@@ -67,7 +70,7 @@ export const services = [
     text: "Survey, design, manufacture, installation and handover, with one engineer responsible from start to finish.",
     href: "/services/installation",
     cta: "Plan a new lift",
-    photo: "glassLiftTower",
+    photo: "patnaDighaHighrises",
     icon: "building",
   },
   {
@@ -75,7 +78,7 @@ export const services = [
     text: "Scheduled preventive visits, safety checks and priority callouts on an annual maintenance contract.",
     href: "/services/amc",
     cta: "See AMC plans",
-    photo: "carTopMaintenance",
+    photo: "patnaPmchAshokRajpath",
     icon: "calendar",
   },
   {
@@ -83,7 +86,7 @@ export const services = [
     text: "Upgrade old controllers, drives, doors and cabins to today's safety and comfort standards, without replacing the whole lift.",
     href: "/services/modernisation",
     cta: "Upgrade a lift",
-    photo: "glassCarInterior",
+    photo: "patnaTheMall",
     icon: "refresh",
   },
   {
@@ -91,7 +94,7 @@ export const services = [
     text: "Breakdown response and repairs for any brand of lift, by engineers based near you.",
     href: "/services/repairs",
     cta: "Book a repair",
-    photo: "carTopInspection",
+    photo: "patnaOneMall",
     icon: "wrench",
   },
 ] as const satisfies readonly {

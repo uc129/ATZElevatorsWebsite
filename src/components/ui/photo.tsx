@@ -16,6 +16,7 @@ export function Photo({
   eager,
   tag = "bottom-left",
   hideTag,
+  focus = "center",
 }: {
   id: PhotoId;
   className?: string;
@@ -24,6 +25,8 @@ export function Photo({
   eager?: boolean;
   tag?: "bottom-left" | "bottom-right" | "top-left";
   hideTag?: boolean;
+  /** Which part of the photo to keep when cropped */
+  focus?: "center" | "left" | "right";
 }) {
   const photo = photos[id];
   const label = "credit" in photo && photo.credit ? creditLine(photo.credit) : "ATZ installation";
@@ -36,7 +39,11 @@ export function Photo({
         sizes={sizes}
         placeholder="blur"
         loading={eager ? "eager" : "lazy"}
-        className="object-cover"
+        className={cn(
+          "object-cover",
+          focus === "left" && "object-left",
+          focus === "right" && "object-right",
+        )}
       />
       {hideTag ? null : (
         <figcaption

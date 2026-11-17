@@ -1,56 +1,78 @@
 /**
- * Credits for third-party photos (Creative Commons, via Wikimedia Commons).
- * Every third-party photo on the site must be listed here; the footer renders
- * this list. ATZ's own photos need no credit.
+ * Credits for third-party photos and video. Photos are Creative Commons, from
+ * Wikimedia Commons, all taken in Patna (user, 18-Nov-2026: organic, local
+ * photos only). Every third-party item on the site must be listed here; the
+ * footer renders this list. ATZ's own photos need no credit.
  */
 export type PhotoCredit = {
   subject: string;
   author: string;
-  license: "CC BY 2.0" | "CC BY 4.0" | "CC BY-SA 4.0";
+  license: "CC BY-SA 3.0" | "CC BY-SA 4.0" | "CC BY 4.0" | "Pexels License";
   licenseUrl: string;
   sourceUrl: string;
 };
 
-const BY_2 = "https://creativecommons.org/licenses/by/2.0/";
 const BY_4 = "https://creativecommons.org/licenses/by/4.0/";
+const BY_SA_3 = "https://creativecommons.org/licenses/by-sa/3.0/";
 const BY_SA_4 = "https://creativecommons.org/licenses/by-sa/4.0/";
 const commons = (file: string) => `https://commons.wikimedia.org/wiki/File:${file}`;
 
 export const credits = {
-  panoramicAtrium: {
-    subject: "Panoramic lifts in a hotel atrium",
-    author: 'OOO TD "Vek"',
+  patnaSkyline: {
+    subject: "Patna from Golghar",
+    author: "Nandanupadhyay",
+    license: "CC BY-SA 3.0",
+    licenseUrl: BY_SA_3,
+    sourceUrl: commons("View_of_Patna_city_from_the_top_of_Golghar.jpg"),
+  },
+  patnaLiftConstruction: {
+    subject: "Lift tower under construction, Patna",
+    author: "Shivam Setu",
+    license: "CC BY-SA 3.0",
+    licenseUrl: BY_SA_3,
+    sourceUrl: commons("Sxs_lift_construction.jpg"),
+  },
+  patnaDighaHighrises: {
+    subject: "High-rises on the Digha–AIIMS road, Patna",
+    author: "Sntshkumar750",
     license: "CC BY-SA 4.0",
     licenseUrl: BY_SA_4,
-    sourceUrl: commons("Panoramic_VEK_Elevator_shafts_in_Beton_Brut_Hotel_(Anapa).jpg"),
+    sourceUrl: commons("Digha-AIIMS_Elevated_Road.jpg"),
   },
-  glassCar: {
-    subject: "Glass lift car",
-    author: "Baron Maddock",
-    license: "CC BY 4.0",
-    licenseUrl: BY_4,
-    sourceUrl: commons("Inside_of_the_glass_elevator_at_Tysons_Mall.jpg"),
-  },
-  carTopMaintenance: {
-    subject: "Lift maintenance",
-    author: "Killarnee",
+  patnaPmchAshokRajpath: {
+    subject: "PMCH from Ashok Rajpath, Patna",
+    author: "Drgopalpmch",
     license: "CC BY-SA 4.0",
     licenseUrl: BY_SA_4,
-    sourceUrl: commons("Elevator_maintenance_1.jpg"),
+    sourceUrl: commons("Patna_medical_college_view_from_ashok_raj_path.jpg"),
   },
-  carTopInspection: {
-    subject: "Lift inspection",
-    author: "Killarnee",
+  patnaOneMall: {
+    subject: "Patna One Mall",
+    author: "Shivam Setu",
     license: "CC BY-SA 4.0",
     licenseUrl: BY_SA_4,
-    sourceUrl: commons("Elevator_maintenance_2.jpg"),
+    sourceUrl: commons("Patna_One_Mall_01.jpg"),
   },
-  glassTower: {
-    subject: "Glass lift tower",
-    author: "Metropolitan Transportation Authority",
-    license: "CC BY 2.0",
-    licenseUrl: BY_2,
-    sourceUrl: commons("New_Elevator_Installed_at_8_Av_Station_in_Brooklyn_(53059355346).jpg"),
+  patnaTheMall: {
+    subject: "The Mall, Patna",
+    author: "Shivam Setu",
+    license: "CC BY-SA 4.0",
+    licenseUrl: BY_SA_4,
+    sourceUrl: commons("The_Mall_Patna.JPG"),
+  },
+  patnaPmMallNight: {
+    subject: "P&M Mall at night, Patna",
+    author: "Kharbaan Ghaltaan",
+    license: "CC BY-SA 4.0",
+    licenseUrl: BY_SA_4,
+    sourceUrl: commons("P%26M_Mall_night1.jpg"),
+  },
+  patnaFordHospital: {
+    subject: "Ford Hospital, Patna",
+    author: "Saigeindia",
+    license: "CC BY-SA 3.0",
+    licenseUrl: BY_SA_3,
+    sourceUrl: commons("Ford_Hospital_and_Research_Centre_Patna.JPG"),
   },
   patnaHospital: {
     subject: "Hospital in Patna",
@@ -65,6 +87,13 @@ export const credits = {
     license: "CC BY 4.0",
     licenseUrl: BY_4,
     sourceUrl: commons("PMCH_at_night.jpg"),
+  },
+  cityInMotion: {
+    subject: "Escalators in a Pune shopping mall (film)",
+    author: "Amit Patekar",
+    license: "Pexels License",
+    licenseUrl: "https://www.pexels.com/license/",
+    sourceUrl: "https://www.pexels.com/video/shopping-mall-escalator-in-mall-14393755/",
   },
 } satisfies Record<string, PhotoCredit>;
 

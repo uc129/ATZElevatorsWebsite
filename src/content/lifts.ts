@@ -48,7 +48,6 @@ export const liftCategories: LiftCategory[] = [
   {
     slug: "mrl",
     icon: "cog",
-    photo: "glassLiftTower",
     name: "MRL and gearless",
     short: "No machine room",
     blurb:
@@ -58,7 +57,7 @@ export const liftCategories: LiftCategory[] = [
   {
     slug: "panoramic",
     icon: "panorama",
-    photo: "panoramicAtrium",
+    photo: "patnaPmMallNight",
     name: "Panoramic lifts",
     short: "Glass cars",
     blurb:
@@ -68,6 +67,7 @@ export const liftCategories: LiftCategory[] = [
   {
     slug: "hospital",
     icon: "hospital",
+    photo: "patnaFordHospital",
     name: "Hospital lifts",
     short: "Stretcher and bed",
     blurb: "Deep cars sized for stretchers and beds, for hospitals, clinics and nursing homes.",

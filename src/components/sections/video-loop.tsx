@@ -62,14 +62,14 @@ export function VideoLoop({
         loop
         playsInline
         preload="metadata"
-        poster="/media/atz-in-motion-poster.jpg"
+        poster="/media/city-in-motion-poster.jpg"
         aria-label={label}
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         className="absolute inset-0 size-full object-cover"
       >
-        <source src="/media/atz-in-motion-1080.mp4" type="video/mp4" media="(min-width: 1280px)" />
-        <source src="/media/atz-in-motion-720.mp4" type="video/mp4" />
+        <source src="/media/city-in-motion-1080.mp4" type="video/mp4" media="(min-width: 1280px)" />
+        <source src="/media/city-in-motion-720.mp4" type="video/mp4" />
       </video>
       <button
         type="button"

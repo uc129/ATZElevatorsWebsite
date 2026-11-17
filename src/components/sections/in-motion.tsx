@@ -1,9 +1,10 @@
 import { Container, Section } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { credits } from "@/content/credits";
 import { inMotion } from "@/content/home";
 import { VideoLoop } from "./video-loop";
 
-/** Promo film from the earlier ATZ site, trimmed before its old end card. */
+/** Film: escalators in a busy Pune mall (Pexels, Amit Patekar). Credited in the footer. */
 export function InMotion() {
   return (
     <Section aria-labelledby="in-motion-title" className="lg:pb-16">
@@ -17,9 +18,12 @@ export function InMotion() {
         </div>
         <div className="rounded-lg border border-box-line bg-box p-1.5 shadow-diffuse lg:col-span-8">
           <VideoLoop
-            label="ATZ film: glass panoramic lifts and escalators moving through a bright shopping atrium"
+            label="Shoppers riding escalators across the floors of a busy Indian shopping mall"
             className="aspect-video rounded-md"
           />
+          <p className="px-2 pt-2 pb-1 text-xs text-subtle">
+            Film: {credits.cityInMotion.author}, {credits.cityInMotion.license}
+          </p>
         </div>
       </Container>
     </Section>

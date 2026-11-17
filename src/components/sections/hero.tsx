@@ -49,6 +49,7 @@ export function Hero() {
             id={hero.photos.inset}
             sizes="(min-width: 1024px) 24vw, 48vw"
             hideTag
+            focus="right"
             className="absolute bottom-0 left-0 h-2/5 w-1/2 rounded-lg border-6 border-white shadow-lift"
           />
           <div className="absolute top-12 left-6 hidden flex-col gap-0.5 rounded-md border border-line bg-white/95 px-4.5 py-3.5 shadow-diffuse backdrop-blur-sm sm:flex lg:left-10">

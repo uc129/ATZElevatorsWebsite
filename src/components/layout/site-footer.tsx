@@ -101,7 +101,7 @@ export function SiteFooter() {
           </nav>
           {photoCredits.length > 0 ? (
             <p className="basis-full text-xs">
-              Photo credits:{" "}
+              Photo and film credits:{" "}
               {photoCredits.map((c, i) => (
                 <span key={c.subject}>
                   {i > 0 ? "; " : null}
@@ -112,7 +112,7 @@ export function SiteFooter() {
                   )
                 </span>
               ))}
-              . Photos are resized or cropped.
+              . Photos are resized or cropped; the film is trimmed.
             </p>
           ) : null}
         </div>

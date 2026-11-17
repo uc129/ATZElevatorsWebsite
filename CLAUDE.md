@@ -52,6 +52,7 @@ Plan: [docshub/plans/2026-11-18-website-foundation-plan.md](docshub/plans/2026-1
 - The ERP is the source of truth for company facts (legal details, phones, regions, head office). Branch addresses are not in the ERP, so branches show city only. Kolkata is left out.
 - Clients are handpicked by ATZ. Government emblems (Government of Bihar, MES) are shown by name, never as a logo.
 - Do not use the old ATZ group (team) photo.
+- Photos are organic and local: real Patna and Bihar streets and buildings (Creative Commons, credited), or ATZ's own. No generic or foreign stock. Video: Indian city footage, ideally lifts or escalators.
 - Phones: marketing and sales 72570 01413 (also WhatsApp, enquiries); service and breakdowns 93341 19103.
 - Sample photos and testimonials stay labelled as samples ("Verification pending" badge) until real ones arrive. Every photo has a credit in `src/content/credits.ts`.
 - No database. The enquiry form sends through one seam, `submitEnquiry()` in `src/lib/enquiry.ts`, until the ERP endpoint is provided.

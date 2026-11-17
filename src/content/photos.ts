@@ -1,18 +1,22 @@
 /**
  * Photo registry. Static imports give next/image the size and a blur
  * placeholder. Third-party photos point at their credit (content/credits.ts);
- * `atz: true` marks ATZ's own photos.
+ * `atz: true` marks ATZ's own photos. Only organic, local photos: Patna
+ * streets and buildings, no generic stock (user, 18-Nov-2026).
  */
 import type { StaticImageData } from "next/image";
 import atzManualCollapsible from "../../public/photos/atz-manual-collapsible.jpg";
 import atzSwingDoor from "../../public/photos/atz-swing-door.jpg";
-import carTopInspection from "../../public/photos/car-top-inspection.jpg";
-import carTopMaintenance from "../../public/photos/car-top-maintenance.jpg";
-import glassCarInterior from "../../public/photos/glass-car-interior.jpg";
-import glassLiftTower from "../../public/photos/glass-lift-tower.jpg";
-import panoramicAtrium from "../../public/photos/panoramic-atrium.jpg";
+import patnaDighaHighrises from "../../public/photos/patna-digha-highrises.jpg";
+import patnaFordHospital from "../../public/photos/patna-ford-hospital.jpg";
 import patnaHospital from "../../public/photos/patna-hospital.jpg";
+import patnaLiftConstruction from "../../public/photos/patna-lift-construction.jpg";
+import patnaOneMall from "../../public/photos/patna-one-mall.jpg";
+import patnaPmMallNight from "../../public/photos/patna-pm-mall-night.jpg";
+import patnaPmchAshokRajpath from "../../public/photos/patna-pmch-ashok-rajpath.jpg";
 import patnaPmchNight from "../../public/photos/patna-pmch-night.jpg";
+import patnaSkylineGolghar from "../../public/photos/patna-skyline-golghar.jpg";
+import patnaTheMall from "../../public/photos/patna-the-mall.jpg";
 import type { CreditId } from "./credits";
 
 export type Photo = {
@@ -31,30 +35,45 @@ export const photos = {
     alt: "ATZ passenger lift with a white swing landing door",
     atz: true,
   },
-  panoramicAtrium: {
-    src: panoramicAtrium,
-    alt: "Panoramic glass lift shafts rising through a hotel atrium",
-    credit: "panoramicAtrium",
+  patnaSkyline: {
+    src: patnaSkylineGolghar,
+    alt: "Patna seen from the top of Golghar: offices, the round Biscomaun tower and green treetops",
+    credit: "patnaSkyline",
   },
-  glassCarInterior: {
-    src: glassCarInterior,
-    alt: "Stainless steel lift car with glass side walls",
-    credit: "glassCar",
+  patnaLiftConstruction: {
+    src: patnaLiftConstruction,
+    alt: "A new lift tower rising in bamboo scaffolding against a school building in Patna",
+    credit: "patnaLiftConstruction",
   },
-  carTopMaintenance: {
-    src: carTopMaintenance,
-    alt: "Maintenance on top of a lift car, with ropes and controller",
-    credit: "carTopMaintenance",
+  patnaDighaHighrises: {
+    src: patnaDighaHighrises,
+    alt: "Residential high-rises beside the Digha–AIIMS elevated road in Patna",
+    credit: "patnaDighaHighrises",
   },
-  carTopInspection: {
-    src: carTopInspection,
-    alt: "Inspection box on top of a lift car",
-    credit: "carTopInspection",
+  patnaPmchAshokRajpath: {
+    src: patnaPmchAshokRajpath,
+    alt: "Patna Medical College and Hospital buildings seen from Ashok Rajpath",
+    credit: "patnaPmchAshokRajpath",
   },
-  glassLiftTower: {
-    src: glassLiftTower,
-    alt: "Newly installed glass lift tower beside a building",
-    credit: "glassTower",
+  patnaOneMall: {
+    src: patnaOneMall,
+    alt: "Patna One Mall, a multi-storey shopping centre with a green facade",
+    credit: "patnaOneMall",
+  },
+  patnaTheMall: {
+    src: patnaTheMall,
+    alt: "The Mall, Patna: a red and glass commercial building",
+    credit: "patnaTheMall",
+  },
+  patnaPmMallNight: {
+    src: patnaPmMallNight,
+    alt: "P&M Mall in Patna at night, lit up with crowds at the entrance",
+    credit: "patnaPmMallNight",
+  },
+  patnaFordHospital: {
+    src: patnaFordHospital,
+    alt: "Ford Hospital, a multi-storey hospital building in Patna",
+    credit: "patnaFordHospital",
   },
   patnaHospital: {
     src: patnaHospital,
