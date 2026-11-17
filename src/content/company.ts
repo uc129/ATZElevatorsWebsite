@@ -34,7 +34,7 @@ export const company = {
     ],
     mapsUrl: "https://maps.google.com/?q=West+Boring+Canal+Road+Patna+800001",
   },
-  regions: ["Patna", "Ranchi", "Jamshedpur", "Bhubaneswar", "Guwahati"],
+  regions: ["Patna", "Ranchi", "Kolkata", "Bhubaneswar", "Guwahati"],
   /** Fixed rather than computed: Cache Components forbids reading the clock here. */
   copyrightYear: 2026,
 } as const;

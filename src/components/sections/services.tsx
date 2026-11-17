@@ -65,7 +65,6 @@ export function Services() {
                   id={s.photo}
                   sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 100vw"
                   className="aspect-video"
-                  hideTag
                 />
                 <div className="flex flex-1 flex-col gap-3.5 p-6">
                   <span className="inline-flex size-12 items-center justify-center rounded-control bg-tint text-brand">

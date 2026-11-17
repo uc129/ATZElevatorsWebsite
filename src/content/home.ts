@@ -6,7 +6,7 @@ import type { PhotoId } from "./photos";
 
 export const hero = {
   eyebrow: "ATZ Elevators · Patna, since 2002",
-  lead: "ATZ manufactures, installs, maintains and modernises passenger, home, hospital and freight lifts, and services every make. Rooted in Patna, with engineers across Bihar, Jharkhand, Odisha and Assam.",
+  lead: "ATZ manufactures, installs, maintains and modernises passenger, home, hospital and freight lifts, and services every make. Rooted in Patna, with engineers across Bihar, Jharkhand, West Bengal, Odisha and Assam.",
   assurances: ["Every make serviced", "24×7 breakdown support", "Free site survey"],
   photos: { main: "patnaSkyline", inset: "patnaLiftConstruction" } satisfies Record<
     string,
@@ -17,7 +17,10 @@ export const hero = {
 /** No numbers: short claims that read as promises. */
 export const highlights = [
   { title: "Rooted in Patna", text: "Built and run from Bihar since 2002." },
-  { title: "Reach across the east", text: "Engineers in Bihar, Jharkhand, Odisha and Assam." },
+  {
+    title: "Reach across the east",
+    text: "Engineers in Bihar, Jharkhand, West Bengal, Odisha and Assam.",
+  },
   { title: "Any make, any age", text: "Maintained, repaired and modernised." },
   { title: "Always on call", text: "A breakdown line that never sleeps." },
 ];
@@ -27,6 +30,24 @@ export const inMotion = {
   title: "Every busy building runs on vertical transport.",
   text: "Malls, hospitals and homes across India move people floor to floor all day. We keep that movement safe, smooth and on time, from the first survey to the last safety check.",
 };
+
+/**
+ * Patna drone film (On Road, Instagram), slowed to 0.625x. For the About page
+ * (step 6). Permission from the creator is pending: do not ship until confirmed.
+ */
+export const patnaRising = {
+  eyebrow: "Patna is rising",
+  title: "New floors go up across the city every season.",
+  text: "Hospitals, offices and homes are climbing higher along the Ganga. Every new floor needs a lift that is planned early, built right and cared for over a lifetime. That is the work we do.",
+  video: "/media/patna-rising.mp4",
+  poster: "/media/patna-rising-poster.jpg",
+};
+
+/** Client buildings with openly licensed photos (PMCH). Others to follow from ATZ. */
+export const clientBuildings = [
+  { photo: "patnaPmchNight", caption: "PMCH, Patna" },
+  { photo: "patnaPmchAshokRajpath", caption: "PMCH from Ashok Rajpath" },
+] as const satisfies readonly { photo: PhotoId; caption: string }[];
 
 export type Stage = { floor: string; title: string; text: string; tag: string };
 
@@ -70,7 +91,7 @@ export const services = [
     text: "Survey, design, manufacture, installation and handover, with one engineer responsible from start to finish.",
     href: "/services/installation",
     cta: "Plan a new lift",
-    photo: "patnaDighaHighrises",
+    photo: "patnaCybotech",
     icon: "building",
   },
   {
@@ -78,7 +99,7 @@ export const services = [
     text: "Scheduled preventive visits, safety checks and priority callouts on an annual maintenance contract.",
     href: "/services/amc",
     cta: "See AMC plans",
-    photo: "patnaPmchAshokRajpath",
+    photo: "liftLobby",
     icon: "calendar",
   },
   {
@@ -86,7 +107,7 @@ export const services = [
     text: "Upgrade old controllers, drives, doors and cabins to today's safety and comfort standards, without replacing the whole lift.",
     href: "/services/modernisation",
     cta: "Upgrade a lift",
-    photo: "patnaTheMall",
+    photo: "liftPanel",
     icon: "refresh",
   },
   {
@@ -94,7 +115,7 @@ export const services = [
     text: "Breakdown response and repairs for any brand of lift, by engineers based near you.",
     href: "/services/repairs",
     cta: "Book a repair",
-    photo: "patnaOneMall",
+    photo: "patnaCentralMall",
     icon: "wrench",
   },
 ] as const satisfies readonly {
@@ -131,12 +152,12 @@ export const testimonials = [
   },
 ];
 
-/** Offices from the ERP regions master (Kolkata left out at the user's request). */
+/** Offices from the ERP regions master. Jamshedpur is not shown (user, 18-Nov-2026); branch contact details to follow. */
 export const offices = {
-  photos: ["patnaHospital", "patnaPmchNight"] satisfies PhotoId[],
+  photos: ["patnaBiscomaun", "patnaSecretariat"] satisfies PhotoId[],
   branches: [
     { city: "Ranchi", state: "Jharkhand" },
-    { city: "Jamshedpur", state: "Jharkhand" },
+    { city: "Kolkata", state: "West Bengal" },
     { city: "Bhubaneswar", state: "Odisha" },
     { city: "Guwahati", state: "Assam" },
   ],

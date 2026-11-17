@@ -22,7 +22,7 @@ export const liftCategories: LiftCategory[] = [
   {
     slug: "passenger",
     icon: "users",
-    photo: "atzManualCollapsible",
+    photo: "liftDoors",
     name: "Passenger lifts",
     short: "Residential and commercial",
     blurb:
@@ -39,6 +39,7 @@ export const liftCategories: LiftCategory[] = [
   {
     slug: "home",
     icon: "home",
+    photo: "liftCar",
     name: "Home lifts",
     short: "Villas and duplexes",
     blurb:
@@ -48,6 +49,7 @@ export const liftCategories: LiftCategory[] = [
   {
     slug: "mrl",
     icon: "cog",
+    photo: "mrlGearless",
     name: "MRL and gearless",
     short: "No machine room",
     blurb:
@@ -67,7 +69,7 @@ export const liftCategories: LiftCategory[] = [
   {
     slug: "hospital",
     icon: "hospital",
-    photo: "patnaFordHospital",
+    photo: "patnaHospital",
     name: "Hospital lifts",
     short: "Stretcher and bed",
     blurb: "Deep cars sized for stretchers and beds, for hospitals, clinics and nursing homes.",

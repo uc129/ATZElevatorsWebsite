@@ -5,16 +5,22 @@
  * - Autoplays only when the visitor allows motion; otherwise shows the poster
  *   and waits for Play.
  * - Pauses while off screen to save battery and data.
- * - 1080p source on wide screens, 720p elsewhere.
  */
 import { Pause, Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 
+export type VideoSource = { src: string; type?: string; media?: string };
+
 export function VideoLoop({
+  sources,
+  poster,
   label,
   className,
 }: {
+  /** In order of preference; add `media` to pick by screen size */
+  sources: VideoSource[];
+  poster: string;
   /** Describes the video for screen readers */
   label: string;
   className?: string;
@@ -62,14 +68,15 @@ export function VideoLoop({
         loop
         playsInline
         preload="metadata"
-        poster="/media/city-in-motion-poster.jpg"
+        poster={poster}
         aria-label={label}
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         className="absolute inset-0 size-full object-cover"
       >
-        <source src="/media/city-in-motion-1080.mp4" type="video/mp4" media="(min-width: 1280px)" />
-        <source src="/media/city-in-motion-720.mp4" type="video/mp4" />
+        {sources.map((s) => (
+          <source key={s.src} src={s.src} type={s.type ?? "video/mp4"} media={s.media} />
+        ))}
       </video>
       <button
         type="button"

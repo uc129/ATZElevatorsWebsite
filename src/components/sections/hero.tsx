@@ -42,13 +42,11 @@ export function Hero() {
             id={hero.photos.main}
             eager
             sizes="(min-width: 1024px) 38vw, 76vw"
-            tag="bottom-right"
             className="absolute top-0 right-0 bottom-10 w-3/4 rounded-lg shadow-lg"
           />
           <Photo
             id={hero.photos.inset}
             sizes="(min-width: 1024px) 24vw, 48vw"
-            hideTag
             focus="right"
             className="absolute bottom-0 left-0 h-2/5 w-1/2 rounded-lg border-6 border-white shadow-lift"
           />

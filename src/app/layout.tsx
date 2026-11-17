@@ -20,7 +20,7 @@ const plexMono = IBM_Plex_Mono({
 });
 
 const description =
-  "Lifts and escalators: new installations, modernisation, maintenance and 24x7 breakdown service across Bihar, Jharkhand, Odisha and Assam.";
+  "Lifts and escalators: new installations, modernisation, maintenance and 24x7 breakdown service across Bihar, Jharkhand, West Bengal, Odisha and Assam.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

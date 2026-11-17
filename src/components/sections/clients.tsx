@@ -1,8 +1,10 @@
 import { Landmark } from "lucide-react";
 import Image from "next/image";
 import { Container, Section } from "@/components/ui/container";
+import { Photo } from "@/components/ui/photo";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { clients } from "@/content/clients";
+import { clientBuildings } from "@/content/home";
 
 /**
  * Client wall. Logos sit greyed and soft until hover or focus, so no brand
@@ -19,6 +21,18 @@ export function Clients() {
           title="Chosen where reliability is not optional."
           lead="Hospitals, government buildings, schools, hotels and homes across the east rely on ATZ to keep people moving."
         />
+        <ul className="grid gap-4 md:grid-cols-2">
+          {clientBuildings.map((b) => (
+            <li key={b.photo} className="flex flex-col gap-2">
+              <Photo
+                id={b.photo}
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="aspect-video rounded-lg"
+              />
+              <span className="text-sm font-semibold text-ink">{b.caption}</span>
+            </li>
+          ))}
+        </ul>
         <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {clients.map((c) => (
             <li

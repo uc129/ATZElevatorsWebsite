@@ -71,6 +71,7 @@ export const clients: Client[] = [
     sector: "Education",
     logo: stMichaels,
   },
+  { name: "Don Bosco Academy", about: "School, Patna", sector: "Education" },
   {
     name: "Hotel Samrat International",
     about: "Hotel, Patna",

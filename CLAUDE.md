@@ -49,12 +49,13 @@ Plan: [docshub/plans/2026-11-18-website-foundation-plan.md](docshub/plans/2026-1
 - Copy in sentence case, no emoji. Currency as ₹ with Indian digit grouping; dates `dd-MMM-yyyy`, IST.
 - No statistics in marketing copy (installations, cities, years in business): use short marketing phrases instead. A unit test enforces this for the homepage.
 - Founded 2002 ("since 2002"). Older material saying 1998 (logo variant, video end card, old site) is not used.
-- The ERP is the source of truth for company facts (legal details, phones, regions, head office). Branch addresses are not in the ERP, so branches show city only. Kolkata is left out.
+- The ERP is the source of truth for company facts (legal details, phones, regions, head office). Branch addresses are not in the ERP, so branches show city only until the user supplies them. Branches: Ranchi, Kolkata, Bhubaneswar, Guwahati (Jamshedpur is not shown; user, 18-Nov-2026).
 - Clients are handpicked by ATZ. Government emblems (Government of Bihar, MES) are shown by name, never as a logo.
 - Do not use the old ATZ group (team) photo.
-- Photos are organic and local: real Patna and Bihar streets and buildings (Creative Commons, credited), or ATZ's own. No generic or foreign stock. Video: Indian city footage, ideally lifts or escalators.
+- Photos: recognisable Patna buildings and streets (Creative Commons) and clean lift close-ups (Pexels); ATZ's own photos when they arrive. No generic or foreign building stock. Credits are never shown on the page, on hover or in the footer: every asset is listed on `/credits` (from `src/content/credits.ts`), linked from the footer legal links.
+- Video: the homepage uses the Indian mall escalator film. The Patna drone reel (On Road, Instagram) is slowed and reserved for the About page; do not publish it until the creator's permission is confirmed.
 - Phones: marketing and sales 72570 01413 (also WhatsApp, enquiries); service and breakdowns 93341 19103.
-- Sample photos and testimonials stay labelled as samples ("Verification pending" badge) until real ones arrive. Every photo has a credit in `src/content/credits.ts`.
+- Sample photos and testimonials stay labelled as samples ("Verification pending" badge) until real ones arrive. Every photo and film has an entry in `src/content/credits.ts`.
 - No database. The enquiry form sends through one seam, `submitEnquiry()` in `src/lib/enquiry.ts`, until the ERP endpoint is provided.
 
 ## Git and docs

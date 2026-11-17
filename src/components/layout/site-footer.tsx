@@ -1,12 +1,11 @@
 /**
  * Site footer: company, phones, navigation groups, head office, legal line
- * and photo credits (from content/credits.ts).
+ * (photo and film credits live on /credits, linked from the legal links).
  */
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { company, telHref } from "@/content/company";
-import { photoCredits } from "@/content/credits";
 import { footerNav, legalNav } from "@/content/navigation";
 import { Logo } from "./logo";
 
@@ -99,22 +98,6 @@ export function SiteFooter() {
               </Link>
             ))}
           </nav>
-          {photoCredits.length > 0 ? (
-            <p className="basis-full text-xs">
-              Photo and film credits:{" "}
-              {photoCredits.map((c, i) => (
-                <span key={c.subject}>
-                  {i > 0 ? "; " : null}
-                  {c.subject} by {c.author} (
-                  <a href={c.licenseUrl} rel="noopener license">
-                    {c.license}
-                  </a>
-                  )
-                </span>
-              ))}
-              . Photos are resized or cropped; the film is trimmed.
-            </p>
-          ) : null}
         </div>
       </Container>
     </footer>

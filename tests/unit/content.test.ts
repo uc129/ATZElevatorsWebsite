@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { clients } from "@/content/clients";
 import { company } from "@/content/company";
-import { credits, photoCredits } from "@/content/credits";
+import { allCredits, credits, videoCreditIds } from "@/content/credits";
 import { highlights, hero, inMotion, services, stages, testimonials } from "@/content/home";
 import { liftCategories } from "@/content/lifts";
 import { photos } from "@/content/photos";
@@ -38,17 +38,16 @@ describe("photos and credits", () => {
   it("credits every third-party photo, and every credit is used", () => {
     const used = new Set<string>();
     for (const photo of Object.values(photos)) {
-      if ("credit" in photo && photo.credit) {
-        expect(credits).toHaveProperty(photo.credit);
-        used.add(photo.credit);
-      } else {
-        expect(photo.atz).toBe(true);
-      }
+      expect(credits).toHaveProperty(photo.credit);
+      used.add(photo.credit);
     }
-    // The film credit is used by the video, not a photo.
-    const photoCreditIds = Object.keys(credits).filter((id) => id !== "cityInMotion");
+    // Film credits are used by video, not photos.
+    const photoCreditIds = Object.keys(credits).filter(
+      (id) => !videoCreditIds.includes(id as keyof typeof credits),
+    );
     expect([...used].sort()).toEqual(photoCreditIds.sort());
-    expect(photoCredits).toHaveLength(Object.keys(credits).length);
+    expect(allCredits).toHaveLength(Object.keys(credits).length);
+    for (const c of allCredits) expect(c.asset).toMatch(/^(photos|media)\//);
   });
 
   it("gives every photo alt text", () => {
