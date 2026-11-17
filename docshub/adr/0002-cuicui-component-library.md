@@ -28,4 +28,6 @@ We will use cuicui as the only component library. A component is copied into `sr
 
 - Each copied component must be checked for accessibility (keyboard, focus, reduced motion) because cuicui does not guarantee it; fix it in the copy.
 - Upstream fixes are pulled by hand, guided by the source URL comment.
-- Interactive needs cuicui lacks (dialog focus trap, menus) are built in `ui/` on the same tokens, not by adding a second library.
+- Interactive needs cuicui lacks (dialog focus trap, menus, tabs) are built in `ui/` on the same tokens, not by adding a second library.
+- Design elements are also taken from the cuicui website itself (user, 18-Nov-2026): diffused light (`glow-diffuse`, `shadow-diffuse`), the pointer-following card light (`Spotlight`), framed cards, press and lift micro-interactions, and the status badge recipe (tint, soft border, deep AA text). Kept within ATZ rules: faint ice-cyan only, no bounce, static for reduced motion.
+- cuicui components that need the `motion` library are rebuilt with CSS instead, so the site has no animation dependency.

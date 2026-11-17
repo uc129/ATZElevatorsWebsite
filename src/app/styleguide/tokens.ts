@@ -44,18 +44,18 @@ export const colourGroups: { title: string; note: string; swatches: Swatch[] }[]
   },
   {
     title: "Status",
-    note: "Always paired with a text label. Info is blue so cyan stays interactive.",
+    note: "After cuicui badges: tint, soft border, deep text (AA). Always with a text label. Info is blue so cyan stays interactive.",
     swatches: [
-      { name: "success", hex: "#1E7F3C", className: "bg-success", use: "Done, active" },
-      { name: "warning", hex: "#B45309", className: "bg-warning", use: "Attention" },
-      { name: "danger", hex: "#BC2F2F", className: "bg-danger", use: "Errors" },
-      { name: "info", hex: "#2F5FBF", className: "bg-info", use: "Information" },
-      { name: "neutral", hex: "#66737F", className: "bg-neutral", use: "Pending, inactive" },
+      { name: "success", hex: "#00A63E", className: "bg-success", use: "Text #016630" },
+      { name: "warning", hex: "#F54900", className: "bg-warning", use: "Text #CA3500" },
+      { name: "danger", hex: "#E7000B", className: "bg-danger", use: "Text #C10007" },
+      { name: "info", hex: "#155DFC", className: "bg-info", use: "Text #1447E6" },
+      { name: "neutral", hex: "#737373", className: "bg-neutral", use: "Text #525252" },
     ],
   },
   {
     title: "WhatsApp",
-    note: "Only for WhatsApp actions, with dark text and a thin dark border.",
+    note: "Only for WhatsApp actions. Same shape as other buttons, with near-black text.",
     swatches: [
       { name: "whatsapp", hex: "#25D366", className: "bg-whatsapp", use: "Button fill" },
       { name: "whatsapp-ink", hex: "#111B21", className: "bg-whatsapp-ink", use: "Text, border" },

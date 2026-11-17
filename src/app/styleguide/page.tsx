@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { cn } from "@/lib/cn";
+import { ComponentsDemo } from "./components-demo";
 import { colourGroups, radii, shadows, typeScale } from "./tokens";
 
 export const metadata: Metadata = {
@@ -131,6 +132,13 @@ export default function StyleguidePage() {
         <a href="#top" className="w-fit rounded-sm px-1 font-semibold">
           A focusable link
         </a>
+      </Section>
+
+      <Section
+        title="Components"
+        note="Primitives in src/components/ui. Adapted from cuicui where it has a source (see each file)."
+      >
+        <ComponentsDemo />
       </Section>
     </main>
   );

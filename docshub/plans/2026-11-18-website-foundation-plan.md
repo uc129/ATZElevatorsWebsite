@@ -11,7 +11,7 @@ related:
   - ../adr/0003-content-as-typed-modules-no-db.md
 ---
 
-> Progress: step 0 (Node.js 26 LTS, machine PATH) done 18-Nov-2026. Step 1 (repo bootstrap) done 18-Nov-2026. Step 2 (tokens, fonts, /styleguide) done 18-Nov-2026: headings use Manrope (as on the prototype) rather than General Sans, so all three fonts self-host through next/font/google; status info is blue so cyan stays interactive; `cn()` registers the custom token names with tailwind-merge.
+> Progress: step 0 (Node.js 26 LTS, machine PATH) done 18-Nov-2026. Step 1 (repo bootstrap) done 18-Nov-2026. Step 2 (tokens, fonts, /styleguide) done 18-Nov-2026: headings use Manrope (as on the prototype) rather than General Sans, so all three fonts self-host through next/font/google; status info is blue so cyan stays interactive; `cn()` registers the custom token names with tailwind-merge. Step 3 (UI primitives) done 18-Nov-2026: Button (WhatsApp variant same shape as the others), Badge and VerifiedBadge, Card, FramedCard, Spotlight, Input/Textarea/Select, Tabs, Skeleton, Eyebrow, Container/Section; status colours follow cuicui badges; Navigation moved to step 4 with the header.
 
 # Website foundation plan
 

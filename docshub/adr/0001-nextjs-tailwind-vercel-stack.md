@@ -29,4 +29,5 @@ We will build the website with Next.js (App Router, `src/`, TypeScript strict) a
 - The ERP repo, its lanes and its CI stay untouched. Shared knowledge (design tokens, company facts) is copied in, not imported.
 - Node.js 22+ is required (installed machine-wide: 26 LTS).
 - The npm package is named `atz-website` because npm forbids capitals.
-- Vercel needs the repo on GitHub before it can deploy.
+- Vercel needs the repo on GitHub before it can deploy (remote: https://github.com/uc129/ATZElevatorsWebsite).
+- Tailwind runs through `@tailwindcss/postcss` (`postcss.config.mjs`), as the Next.js 16 docs recommend. The scaffold's `@tailwindcss/turbopack` loader served stale CSS in dev and was removed (18-Nov-2026).

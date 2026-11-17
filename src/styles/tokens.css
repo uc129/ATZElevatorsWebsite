@@ -41,23 +41,37 @@
   --color-line: #e6e8eb;
   --color-line-strong: #d5d9de;
 
-  /* Status (text always shown with the colour) */
-  --color-success: #1e7f3c;
-  --color-success-light: #e5f4e9;
-  --color-success-text: #196332;
-  --color-warning: #b45309;
-  --color-warning-light: #fcf1e0;
-  --color-warning-text: #8a4106;
-  --color-danger: #bc2f2f;
-  --color-danger-light: #fbe9e9;
-  --color-danger-text: #9e2323;
-  --color-info: #2f5fbf;
-  --color-info-light: #e9effa;
-  --color-info-text: #24499c;
-  --color-neutral: #66737f;
-  --color-neutral-light: #f1f4f6;
-  --color-neutral-line: #e1e7eb;
-  --color-neutral-text: #44525e;
+  /*
+   * Status, after cuicui "Advanced badges" (https://cuicui.day/common-ui/badges):
+   * a tinted fill (the 400 hue at ~12% on white, made solid so contrast holds
+   * on grey cards), a soft border (the 200 hue) and deep text, from Tailwind's
+   * own palette as cuicui uses it. Text is AA on its tint (ratios below).
+   * Status is always shown with a text label, never colour alone.
+   *   -     solid: icons, dots, input borders
+   *   -light tint: badge and alert fill
+   *   -line  soft border
+   *   -text  label text
+   */
+  --color-success: #00a63e;
+  --color-success-light: #e1fbee;
+  --color-success-line: #b9f8cf;
+  --color-success-text: #016630; /* 6.5:1 on tint */
+  --color-warning: #f54900;
+  --color-warning-light: #fff1e1;
+  --color-warning-line: #ffd6a7;
+  --color-warning-text: #ca3500; /* 4.7:1 */
+  --color-danger: #e7000b;
+  --color-danger-light: #ffeced;
+  --color-danger-line: #ffc9c9;
+  --color-danger-text: #c10007; /* 5.7:1 */
+  --color-info: #155dfc;
+  --color-info-light: #eaf4ff;
+  --color-info-line: #bedbff;
+  --color-info-text: #1447e6; /* 6.1:1 */
+  --color-neutral: #737373;
+  --color-neutral-light: #f4f4f4;
+  --color-neutral-line: #e5e5e5;
+  --color-neutral-text: #525252; /* 7.1:1 */
 
   /* WhatsApp button (user-supplied style) */
   --color-whatsapp: #25d366;
@@ -126,6 +140,9 @@
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-mechanical: cubic-bezier(0.4, 0, 0.6, 1); /* elevator travel: constant-feeling */
 
+  /* Diffused lighting (cuicui-inspired): very soft, wide shadow */
+  --shadow-diffuse: 0 24px 64px -24px rgb(11 31 51 / 0.14), 0 2px 6px rgb(11 31 51 / 0.04);
+
   /* Style guide demo of the mechanical easing */
   --animate-travel: travel 4s var(--ease-mechanical) infinite alternate;
   @keyframes travel {
@@ -135,5 +152,48 @@
     to {
       left: calc(100% - 3rem);
     }
+  }
+}
+
+/*
+ * Diffused lighting and micro-interactions, adapted from the cuicui website
+ * (https://cuicui.day): soft light rather than hard shadows. Kept faint and
+ * ice-cyan so cyan stays sparse. Static when reduced motion is on.
+ */
+
+/* Wide, soft wash of light for hero and feature bands. Sits on white. */
+@utility glow-diffuse {
+  background-image:
+    radial-gradient(60% 55% at 12% 0%, rgb(143 231 255 / 0.22), transparent 70%),
+    radial-gradient(45% 45% at 92% 8%, rgb(14 122 153 / 0.07), transparent 70%);
+}
+
+/*
+ * Pointer-following light inside a card. The Spotlight component sets
+ * --spot-x / --spot-y; without JS the light sits in the centre on hover.
+ */
+@utility spotlight {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(
+      320px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      rgb(31 163 196 / 0.13),
+      transparent 70%
+    );
+    transition: opacity 250ms var(--ease-default);
+  }
+
+  &:hover::before,
+  &:focus-within::before {
+    opacity: 1;
   }
 }

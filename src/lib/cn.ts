@@ -11,7 +11,7 @@ const twMerge = extendTailwindMerge({
     theme: {
       text: ["display", "h1", "h2", "h3", "h4", "lg", "base", "sm", "caption", "xs"],
       radius: ["xs", "sm", "control", "md", "lg", "full"],
-      shadow: ["xs", "sm", "md", "lg", "xl", "lift", "active", "bar"],
+      shadow: ["xs", "sm", "md", "lg", "xl", "lift", "active", "bar", "diffuse"],
       ease: ["default", "in", "out", "mechanical"],
     },
   },
