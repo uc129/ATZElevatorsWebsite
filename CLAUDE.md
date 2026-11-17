@@ -47,6 +47,11 @@ Plan: [docshub/plans/2026-11-18-website-foundation-plan.md](docshub/plans/2026-1
 **Content**
 
 - Copy in sentence case, no emoji. Currency as ₹ with Indian digit grouping; dates `dd-MMM-yyyy`, IST.
+- No statistics in marketing copy (installations, cities, years in business): use short marketing phrases instead. A unit test enforces this for the homepage.
+- Founded 2002 ("since 2002"). Older material saying 1998 (logo variant, video end card, old site) is not used.
+- The ERP is the source of truth for company facts (legal details, phones, regions, head office). Branch addresses are not in the ERP, so branches show city only. Kolkata is left out.
+- Clients are handpicked by ATZ. Government emblems (Government of Bihar, MES) are shown by name, never as a logo.
+- Do not use the old ATZ group (team) photo.
 - Phones: marketing and sales 72570 01413 (also WhatsApp, enquiries); service and breakdowns 93341 19103.
 - Sample photos and testimonials stay labelled as samples ("Verification pending" badge) until real ones arrive. Every photo has a credit in `src/content/credits.ts`.
 - No database. The enquiry form sends through one seam, `submitEnquiry()` in `src/lib/enquiry.ts`, until the ERP endpoint is provided.

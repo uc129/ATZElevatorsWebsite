@@ -1,7 +1,11 @@
 /**
  * Lift categories. Copy from the prototype canvas (product tabs and mega
- * menu). Photos and credits are added with the homepage (step 5).
+ * menu). A category without a good photo shows its icon until ATZ supplies
+ * one (brochure crops are too small for the web).
  */
+import type { PhotoId } from "./photos";
+
+export type LiftIcon = "users" | "home" | "cog" | "panorama" | "hospital" | "package" | "utensils";
 
 export type LiftCategory = {
   slug: string;
@@ -10,11 +14,15 @@ export type LiftCategory = {
   short: string;
   blurb: string;
   variants: string[];
+  icon: LiftIcon;
+  photo?: PhotoId;
 };
 
 export const liftCategories: LiftCategory[] = [
   {
     slug: "passenger",
+    icon: "users",
+    photo: "atzManualCollapsible",
     name: "Passenger lifts",
     short: "Residential and commercial",
     blurb:
@@ -30,6 +38,7 @@ export const liftCategories: LiftCategory[] = [
   },
   {
     slug: "home",
+    icon: "home",
     name: "Home lifts",
     short: "Villas and duplexes",
     blurb:
@@ -38,6 +47,8 @@ export const liftCategories: LiftCategory[] = [
   },
   {
     slug: "mrl",
+    icon: "cog",
+    photo: "glassLiftTower",
     name: "MRL and gearless",
     short: "No machine room",
     blurb:
@@ -46,6 +57,8 @@ export const liftCategories: LiftCategory[] = [
   },
   {
     slug: "panoramic",
+    icon: "panorama",
+    photo: "panoramicAtrium",
     name: "Panoramic lifts",
     short: "Glass cars",
     blurb:
@@ -54,6 +67,7 @@ export const liftCategories: LiftCategory[] = [
   },
   {
     slug: "hospital",
+    icon: "hospital",
     name: "Hospital lifts",
     short: "Stretcher and bed",
     blurb: "Deep cars sized for stretchers and beds, for hospitals, clinics and nursing homes.",
@@ -61,6 +75,7 @@ export const liftCategories: LiftCategory[] = [
   },
   {
     slug: "freight",
+    icon: "package",
     name: "Freight lifts",
     short: "Goods and industrial",
     blurb: "Heavy-duty goods lifts for warehouses, factories, showrooms and commercial kitchens.",
@@ -68,6 +83,7 @@ export const liftCategories: LiftCategory[] = [
   },
   {
     slug: "dumbwaiter",
+    icon: "utensils",
     name: "Dumbwaiters",
     short: "Small service lifts",
     blurb:

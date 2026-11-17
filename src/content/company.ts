@@ -14,10 +14,7 @@ export const company = {
   brand: "ATZ Elevators",
   legalName: "Amba Tirupati Zetetic Engineering Pvt Ltd",
   tagline: "Keeping the world in motion.",
-  /**
-   * Incorporation year from the CIN. Brochures say 1998; to confirm with the
-   * user before it appears in large type.
-   */
+  /** Incorporation year (CIN). Confirmed by the user, 18-Nov-2026; older material saying 1998 is not used. */
   founded: 2002,
   gstin: "10AAECA7035L1ZX",
   cin: "U00514BR2002PTC009801",

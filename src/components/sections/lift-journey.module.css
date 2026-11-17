@@ -1,0 +1,307 @@
+/*
+ * One 20s timeline drives the lift journey: the car rides G→4 and back,
+ * the counterweight moves at 2:1, the floor indicator scrolls, the floor
+ * slab lights and the matching stage card lifts out. Built with
+ * Learning/09_Isometric_Wireframe (ERP repo). Static for reduced motion.
+ */
+
+.car,
+.weight,
+.indicator {
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+  animation-timing-function: var(--ease-mechanical);
+}
+.car {
+  animation-name: ride;
+}
+.weight {
+  animation-name: counterweight;
+}
+.indicator {
+  animation-name: indicator;
+}
+
+.stage {
+  border-color: var(--color-line);
+  animation: 20s linear infinite;
+}
+.stG {
+  animation-name: hl-g;
+}
+.st1 {
+  animation-name: hl-1;
+}
+.st2 {
+  animation-name: hl-2;
+}
+.st3 {
+  animation-name: hl-3;
+}
+.st4 {
+  animation-name: hl-4;
+}
+
+.floor {
+  fill: var(--color-brand-line);
+  fill-opacity: 0;
+  animation: 20s linear infinite;
+}
+.flG {
+  animation-name: fl-g;
+}
+.fl1 {
+  animation-name: fl-1;
+}
+.fl2 {
+  animation-name: fl-2;
+}
+.fl3 {
+  animation-name: fl-3;
+}
+.fl4 {
+  animation-name: fl-4;
+}
+
+@keyframes ride {
+  0%,
+  10% {
+    transform: translateY(0);
+  }
+  14%,
+  24% {
+    transform: translateY(-104px);
+  }
+  28%,
+  38% {
+    transform: translateY(-208px);
+  }
+  42%,
+  52% {
+    transform: translateY(-312px);
+  }
+  56%,
+  70% {
+    transform: translateY(-416px);
+  }
+  88%,
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes counterweight {
+  0%,
+  10% {
+    transform: translateY(0);
+  }
+  14%,
+  24% {
+    transform: translateY(52px);
+  }
+  28%,
+  38% {
+    transform: translateY(104px);
+  }
+  42%,
+  52% {
+    transform: translateY(156px);
+  }
+  56%,
+  70% {
+    transform: translateY(208px);
+  }
+  88%,
+  100% {
+    transform: translateY(0);
+  }
+}
+/* The strip lists 4,3,2,1,G; each row is 44px (h-11). */
+@keyframes indicator {
+  0%,
+  10% {
+    transform: translateY(-176px);
+  }
+  14%,
+  24% {
+    transform: translateY(-132px);
+  }
+  28%,
+  38% {
+    transform: translateY(-88px);
+  }
+  42%,
+  52% {
+    transform: translateY(-44px);
+  }
+  56%,
+  70% {
+    transform: translateY(0);
+  }
+  88%,
+  100% {
+    transform: translateY(-176px);
+  }
+}
+
+@keyframes hl-g {
+  0%,
+  10%,
+  88%,
+  100% {
+    border-color: var(--color-brand-line);
+    box-shadow: var(--shadow-active);
+    transform: translateX(8px);
+  }
+  13%,
+  85% {
+    border-color: var(--color-line);
+    box-shadow: none;
+    transform: none;
+  }
+}
+@keyframes hl-1 {
+  0%,
+  11%,
+  27%,
+  100% {
+    border-color: var(--color-line);
+    box-shadow: none;
+    transform: none;
+  }
+  14%,
+  24% {
+    border-color: var(--color-brand-line);
+    box-shadow: var(--shadow-active);
+    transform: translateX(8px);
+  }
+}
+@keyframes hl-2 {
+  0%,
+  25%,
+  41%,
+  100% {
+    border-color: var(--color-line);
+    box-shadow: none;
+    transform: none;
+  }
+  28%,
+  38% {
+    border-color: var(--color-brand-line);
+    box-shadow: var(--shadow-active);
+    transform: translateX(8px);
+  }
+}
+@keyframes hl-3 {
+  0%,
+  39%,
+  55%,
+  100% {
+    border-color: var(--color-line);
+    box-shadow: none;
+    transform: none;
+  }
+  42%,
+  52% {
+    border-color: var(--color-brand-line);
+    box-shadow: var(--shadow-active);
+    transform: translateX(8px);
+  }
+}
+@keyframes hl-4 {
+  0%,
+  53%,
+  73%,
+  100% {
+    border-color: var(--color-line);
+    box-shadow: none;
+    transform: none;
+  }
+  56%,
+  70% {
+    border-color: var(--color-brand-line);
+    box-shadow: var(--shadow-active);
+    transform: translateX(8px);
+  }
+}
+
+@keyframes fl-g {
+  0%,
+  10%,
+  88%,
+  100% {
+    fill-opacity: 0.16;
+  }
+  13%,
+  85% {
+    fill-opacity: 0;
+  }
+}
+@keyframes fl-1 {
+  0%,
+  11%,
+  27%,
+  100% {
+    fill-opacity: 0;
+  }
+  14%,
+  24% {
+    fill-opacity: 0.16;
+  }
+}
+@keyframes fl-2 {
+  0%,
+  25%,
+  41%,
+  100% {
+    fill-opacity: 0;
+  }
+  28%,
+  38% {
+    fill-opacity: 0.16;
+  }
+}
+@keyframes fl-3 {
+  0%,
+  39%,
+  55%,
+  100% {
+    fill-opacity: 0;
+  }
+  42%,
+  52% {
+    fill-opacity: 0.16;
+  }
+}
+@keyframes fl-4 {
+  0%,
+  53%,
+  73%,
+  100% {
+    fill-opacity: 0;
+  }
+  56%,
+  70% {
+    fill-opacity: 0.16;
+  }
+}
+
+/* Reduced motion: a still picture, with the car at ground and stage G lit. */
+@media (prefers-reduced-motion: reduce) {
+  .car,
+  .weight,
+  .stage,
+  .floor {
+    animation: none;
+  }
+  .indicator {
+    animation: none;
+    transform: translateY(-176px);
+  }
+  .stG {
+    border-color: var(--color-brand-line);
+    box-shadow: var(--shadow-active);
+  }
+  .flG {
+    fill-opacity: 0.16;
+  }
+}

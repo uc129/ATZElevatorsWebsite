@@ -80,6 +80,18 @@
 
   --color-overlay: rgb(11 31 51 / 0.55);
 
+  /* Isometric wireframe illustration (blue-grey line tones, light fills) */
+  --color-wire-faint: #d3e1ea;
+  --color-wire-light: #b9ccd8;
+  --color-wire: #a9c0cf;
+  --color-wire-mid: #7fa6bf;
+  --color-wire-strong: #6e93ab;
+  --color-wire-weight: #7e93a8;
+  --color-wire-rope: #8a949e;
+  --color-wire-fill: #eef4f8;
+  --color-wire-fill-top: #dce8ef;
+  --color-wire-car-top: #e6f6fa;
+
   /* Type -------------------------------------------------------------- */
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-heading: var(--font-manrope), var(--font-inter), system-ui, sans-serif;
@@ -202,3 +214,11 @@
 
 /* The current page in a navigation list (aria-current="page"). */
 @custom-variant current (&[aria-current="page"]);
+
+/* Faint engineering grid behind hero and illustration panels. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(rgb(14 122 153 / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(14 122 153 / 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
