@@ -20,8 +20,9 @@ import { Photo } from "@/components/ui/photo";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Tabs } from "@/components/ui/tabs";
 import { liftCategories, liftHref, type LiftCategory, type LiftIcon } from "@/content/lifts";
+import { cn } from "@/lib/cn";
 
-const icons: Record<LiftIcon, LucideIcon> = {
+export const liftIcons: Record<LiftIcon, LucideIcon> = {
   users: Users,
   home: House,
   cog: Cog,
@@ -32,10 +33,15 @@ const icons: Record<LiftIcon, LucideIcon> = {
 };
 
 /** Shown until ATZ supplies a photo for this lift type. */
-function IconPanel({ lift }: { lift: LiftCategory }) {
-  const Icon = icons[lift.icon];
+export function IconPanel({ lift, compact }: { lift: LiftCategory; compact?: boolean }) {
+  const Icon = liftIcons[lift.icon];
   return (
-    <div className="relative flex h-full min-h-80 flex-col items-center justify-center gap-4 bg-tint glow-diffuse">
+    <div
+      className={cn(
+        "relative flex h-full flex-col items-center justify-center gap-4 bg-tint glow-diffuse",
+        !compact && "min-h-80",
+      )}
+    >
       <div aria-hidden="true" className="absolute inset-0 bg-grid" />
       <span className="relative inline-flex size-24 items-center justify-center rounded-lg border border-tint-line bg-white text-brand shadow-diffuse">
         <Icon aria-hidden="true" className="size-12" strokeWidth={1.5} />

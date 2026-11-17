@@ -1,4 +1,5 @@
-import { MapPin, Phone } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
+import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Container, Section } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -6,6 +7,7 @@ import { Photo } from "@/components/ui/photo";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { company, telHref } from "@/content/company";
 import { offices } from "@/content/home";
+import { officeHref, officeList } from "@/content/offices";
 
 /** Offices from the ERP: full address for Patna, branches by city. */
 export function Offices() {
@@ -61,21 +63,23 @@ export function Offices() {
             </a>
           </Card>
           <ul className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
-            {offices.branches.map((b) => (
-              <li key={b.city}>
-                <Card className="flex h-full flex-col gap-2 p-6">
-                  <Eyebrow className="text-subtle">Branch</Eyebrow>
-                  <h3 className="text-h4 font-bold">{b.city}</h3>
-                  <p className="text-sm text-muted">{b.state}</p>
-                  <a
-                    href={telHref(company.phones.service)}
-                    className="mt-auto inline-flex min-h-11 items-center gap-2 text-sm font-semibold"
-                  >
-                    <Phone aria-hidden="true" className="size-4" /> Call the service desk
-                  </a>
-                </Card>
-              </li>
-            ))}
+            {officeList
+              .filter((o) => o.kind === "Branch")
+              .map((b) => (
+                <li key={b.slug}>
+                  <Card interactive className="relative flex h-full flex-col gap-2 p-6">
+                    <Eyebrow className="text-subtle">Branch</Eyebrow>
+                    <h3 className="text-h4 font-bold">{b.city}</h3>
+                    <p className="text-sm text-muted">{b.state}</p>
+                    <Link
+                      href={officeHref(b.slug)}
+                      className="mt-auto inline-flex min-h-11 items-center gap-2 text-sm font-semibold no-underline after:absolute after:inset-0"
+                    >
+                      ATZ in {b.city} <ArrowRight aria-hidden="true" className="size-4" />
+                    </Link>
+                  </Card>
+                </li>
+              ))}
           </ul>
         </div>
       </Container>

@@ -85,47 +85,7 @@ export const stages: Stage[] = [
   },
 ];
 
-export const services = [
-  {
-    title: "New installation",
-    text: "Survey, design, manufacture, installation and handover, with one engineer responsible from start to finish.",
-    href: "/services/installation",
-    cta: "Plan a new lift",
-    photo: "patnaCybotech",
-    icon: "building",
-  },
-  {
-    title: "AMC and maintenance",
-    text: "Scheduled preventive visits, safety checks and priority callouts on an annual maintenance contract.",
-    href: "/services/amc",
-    cta: "See AMC plans",
-    photo: "liftLobby",
-    icon: "calendar",
-  },
-  {
-    title: "Modernisation",
-    text: "Upgrade old controllers, drives, doors and cabins to today's safety and comfort standards, without replacing the whole lift.",
-    href: "/services/modernisation",
-    cta: "Upgrade a lift",
-    photo: "liftPanel",
-    icon: "refresh",
-  },
-  {
-    title: "Repairs, all makes",
-    text: "Breakdown response and repairs for any brand of lift, by engineers based near you.",
-    href: "/services/repairs",
-    cta: "Book a repair",
-    photo: "patnaCentralMall",
-    icon: "wrench",
-  },
-] as const satisfies readonly {
-  title: string;
-  text: string;
-  href: string;
-  cta: string;
-  photo: PhotoId;
-  icon: "building" | "calendar" | "refresh" | "wrench";
-}[];
+export { services } from "./services";
 
 /**
  * Sample quotes for layout, clearly labelled. Replaced by real, verified

@@ -16,11 +16,14 @@ export type LiftCategory = {
   variants: string[];
   icon: LiftIcon;
   photo?: PhotoId;
+  /** Buildings this lift suits, for the detail page */
+  idealFor: string[];
 };
 
 export const liftCategories: LiftCategory[] = [
   {
     slug: "passenger",
+    idealFor: ["Apartment blocks", "Offices", "Shops and showrooms", "Schools and colleges"],
     icon: "users",
     photo: "liftDoors",
     name: "Passenger lifts",
@@ -38,6 +41,7 @@ export const liftCategories: LiftCategory[] = [
   },
   {
     slug: "home",
+    idealFor: ["Independent houses", "Duplexes and villas", "Homes with elderly members"],
     icon: "home",
     photo: "liftCar",
     name: "Home lifts",
@@ -48,6 +52,11 @@ export const liftCategories: LiftCategory[] = [
   },
   {
     slug: "mrl",
+    idealFor: [
+      "New buildings with no room on the roof",
+      "Offices and apartments",
+      "Buildings where a quiet ride matters",
+    ],
     icon: "cog",
     photo: "mrlGearless",
     name: "MRL and gearless",
@@ -58,6 +67,7 @@ export const liftCategories: LiftCategory[] = [
   },
   {
     slug: "panoramic",
+    idealFor: ["Malls", "Hotels", "Atriums and showrooms"],
     icon: "panorama",
     photo: "patnaPmMallNight",
     name: "Panoramic lifts",
@@ -68,6 +78,7 @@ export const liftCategories: LiftCategory[] = [
   },
   {
     slug: "hospital",
+    idealFor: ["Hospitals", "Nursing homes", "Clinics and diagnostic centres"],
     icon: "hospital",
     photo: "patnaHospital",
     name: "Hospital lifts",
@@ -77,6 +88,7 @@ export const liftCategories: LiftCategory[] = [
   },
   {
     slug: "freight",
+    idealFor: ["Warehouses", "Factories", "Showrooms and commercial kitchens"],
     icon: "package",
     name: "Freight lifts",
     short: "Goods and industrial",
@@ -85,6 +97,7 @@ export const liftCategories: LiftCategory[] = [
   },
   {
     slug: "dumbwaiter",
+    idealFor: ["Restaurants and hotels", "Hospitals", "Offices moving files"],
     icon: "utensils",
     name: "Dumbwaiters",
     short: "Small service lifts",
@@ -93,6 +106,10 @@ export const liftCategories: LiftCategory[] = [
     variants: ["Dumbwaiter"],
   },
 ];
+
+export function findLift(slug: string) {
+  return liftCategories.find((c) => c.slug === slug);
+}
 
 export function liftHref(slug: string) {
   return `/lifts/${slug}`;
