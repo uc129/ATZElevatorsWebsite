@@ -25,6 +25,11 @@
     @apply text-navy;
   }
 
+  /* No page scroll behind the open enquiry drawer. */
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+
   /* Focus is always visible (ERP rule). */
   :focus-visible {
     @apply outline-3 outline-offset-2 outline-brand-line;

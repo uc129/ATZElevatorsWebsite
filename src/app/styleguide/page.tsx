@@ -30,7 +30,7 @@ function Section({
 
 export default function StyleguidePage() {
   return (
-    <main className="mx-auto w-full max-w-content px-4 py-16 md:px-8">
+    <div className="mx-auto w-full max-w-content px-4 py-16 md:px-8">
       <header className="flex flex-col gap-3 pb-8">
         <p className="text-caption font-semibold tracking-wide text-brand-ink uppercase">
           Internal · not indexed
@@ -140,6 +140,6 @@ export default function StyleguidePage() {
       >
         <ComponentsDemo />
       </Section>
-    </main>
+    </div>
   );
 }

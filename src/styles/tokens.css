@@ -133,6 +133,8 @@
 
   /* Layout ------------------------------------------------------------ */
   --container-content: 77.5rem; /* 1240px */
+  --spacing-header: 4.75rem; /* 76px sticky header */
+  --spacing-below-header: calc(100dvh - 4.75rem); /* menus that fill the screen under it */
 
   /* Motion ------------------------------------------------------------ */
   --ease-default: cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -197,3 +199,6 @@
     opacity: 1;
   }
 }
+
+/* The current page in a navigation list (aria-current="page"). */
+@custom-variant current (&[aria-current="page"]);
