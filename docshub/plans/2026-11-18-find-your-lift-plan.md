@@ -35,7 +35,7 @@ It sits on the site only. There is no database and no ERP work.
 
 ### Route
 
-`/find-your-lift`. It is short, easy to say on the phone and has nothing to do with `/lifts/[slug]`. The result is the same page with the answers in the query string, for example `/find-your-lift?building=hospital&stage=new&moves=stretcher&floors=6&roof=unsure&city=patna`.
+`/find-your-lift`. It is short, easy to say on the phone and has nothing to do with `/lifts/[slug]`. The result is the same page with the answers in the query string, for example `/find-your-lift?building=hospital&stage=new&carry=stretcher&floors=6&roof=unsure&city=patna`.
 
 ### Questions
 
