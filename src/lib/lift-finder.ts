@@ -9,6 +9,7 @@ import {
   buildingOptions,
   carryOptions,
   cityOptions,
+  finderQuestions,
   finderReasons,
   floorLimits,
   officeReason,
@@ -79,6 +80,16 @@ export function parseAnswers(params: SearchParams): PartialAnswers {
 
 export function isComplete(answers: PartialAnswers): boolean {
   return questionsFor(answers).every((key) => answers[key] !== undefined);
+}
+
+/** Questions on the visitor's path that still need an answer. */
+export function missingAnswers(answers: PartialAnswers): FinderKey[] {
+  return questionsFor(answers).filter((key) => answers[key] === undefined);
+}
+
+/** True when the URL has any guide answer, valid or not: the form was sent. */
+export function wasSubmitted(params: SearchParams): boolean {
+  return finderKeys.some((key) => key in params);
 }
 
 /** The query string for a set of answers, in question order. */
@@ -211,21 +222,26 @@ const labelOf = (options: readonly { value: string; label: string }[], value: st
 
 const liftName = (slug: string) => liftCategories.find((l) => l.slug === slug)?.name ?? slug;
 
+/** The visitor's answers as short label and value pairs, in question order. */
+export function answerList(
+  answers: PartialAnswers,
+): { key: FinderKey; label: string; value: string }[] {
+  return questionsFor(answers).flatMap((key) => {
+    const value = answers[key];
+    if (value === undefined) return [];
+    const question = finderQuestions[key];
+    const text = "options" in question ? labelOf(question.options, String(value)) : String(value);
+    return [{ key, label: question.label, value: text }];
+  });
+}
+
 /** A plain-text summary of the answers, for the enquiry message and WhatsApp. */
 export function answersSummary(answers: FinderAnswers, rec: Recommendation): string {
   const lines = [
     "From the Find your lift guide:",
-    `Building: ${labelOf(buildingOptions, answers.building)}`,
-    `Lift now: ${labelOf(stageOptions, answers.stage)}`,
+    ...answerList(answers).map((a) => `${a.label}: ${a.value}`),
   ];
-  if (rec.kind === "lift") {
-    lines.push(
-      `Carries: ${labelOf(carryOptions, answers.carry)}`,
-      `Floors: ${answers.floors}`,
-      `Room for a machine room: ${labelOf(roofOptions, answers.roof)}`,
-      `Suggested: ${liftName(rec.primary)}`,
-    );
-  }
+  if (rec.kind === "lift") lines.push(`Suggested: ${liftName(rec.primary)}`);
   return lines.join("\n");
 }
 

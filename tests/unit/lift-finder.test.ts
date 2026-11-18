@@ -12,13 +12,16 @@ import {
 import { liftCategories } from "@/content/lifts";
 import { enquirySchema, liftTypeOptions } from "@/lib/enquiry";
 import {
+  answerList,
   answersToQuery,
   enquiryDefaultsFromAnswers,
   finderThresholds,
   isComplete,
+  missingAnswers,
   parseAnswers,
   questionsFor,
   recommendLift,
+  wasSubmitted,
   type FinderAnswers,
 } from "@/lib/lift-finder";
 
@@ -75,6 +78,30 @@ describe("question path", () => {
     expect(isComplete({ ...base, roof: undefined })).toBe(false);
     expect(isComplete({ building: "office", stage: "maintain", city: "ranchi" })).toBe(true);
     expect(recommendLift({ building: "office" })).toBeNull();
+  });
+
+  it("lists the questions still to answer, and knows when the form was sent", () => {
+    expect(missingAnswers({ building: "home" })).toEqual([
+      "stage",
+      "carry",
+      "floors",
+      "roof",
+      "city",
+    ]);
+    expect(missingAnswers({ stage: "maintain" })).toEqual(["building", "city"]);
+    expect(wasSubmitted({ building: "rocket" })).toBe(true);
+    expect(wasSubmitted({ edit: "1" })).toBe(false);
+  });
+
+  it("labels the answers for the summary", () => {
+    expect(answerList(base)).toEqual([
+      { key: "building", label: "Building", value: "Apartment society" },
+      { key: "stage", label: "Lift now", value: "No, it needs a new lift" },
+      { key: "carry", label: "Carries", value: "People" },
+      { key: "floors", label: "Floors", value: "4" },
+      { key: "roof", label: "Room for a machine room", value: "Yes" },
+      { key: "city", label: "City", value: "Patna" },
+    ]);
   });
 
   it("leaves skipped answers out of the query string", () => {

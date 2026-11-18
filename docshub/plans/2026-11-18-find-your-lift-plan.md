@@ -80,7 +80,7 @@ The thresholds are named constants, so ATZ engineers can tune them in one place.
 
 | Piece                                         | Kind                 | Notes                                                                                                                                                                                                                                                                                                                                                              |
 | --------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `src/app/find-your-lift/page.tsx`             | Server               | Metadata and the page header. It reads `searchParams` inside `<Suspense>` (Cache Components), parses them with a zod schema and shows the questions or the result. Bad or partial parameters show the questions again with the valid answers kept, never an error                                                                                                  |
+| `src/app/find-your-lift/page.tsx`             | Server               | Metadata and the page header. It reads `searchParams` (outside Suspense, `instant = false`, so the result is in the first HTML without JavaScript), parses them with a zod schema and shows the questions or the result. Bad or partial parameters show the questions again with the valid answers kept, never an error                                            |
 | `components/ui/choice-card.tsx`               | New shared primitive | A large radio card (icon, label, hint) built on a real `<input type="radio">` inside a `<label>`. It uses the token focus ring and selected state, with no arbitrary values. It is reusable for the modernisation guide (survey item 2)                                                                                                                            |
 | `components/sections/lift-finder.tsx`         | Client, progressive  | It wraps a normal `<form method="get" action="/find-your-lift">` holding all six fieldsets. **Without JS**, every question shows on one page and Submit loads the result. **With JS**, it shows one question at a time. Choosing an option moves to the next question. It has Back and Next buttons, a "Question 2 of 6" label, and moves focus to each new legend |
 | `components/sections/lift-recommendation.tsx` | Server               | The recommended lift card (reusing `cardStyles()`, the lift photo or icon panel and `idealFor`), the "Why this lift" reasons, the alternatives as small cards, the next step (link to the service), the nearest office, and the actions below                                                                                                                      |
@@ -92,7 +92,7 @@ There are small changes to existing code:
 
 - `EnquiryForm` takes an optional `defaults` prop: need, liftType, floors, city and message. The message is a summary of the answers.
 - `EnquiryProvider.open(defaults?)` passes the defaults on. `EnquiryButton` gets an optional `defaults` prop. Without JS it falls back to the `/quote?…` link.
-- `/quote` reads `searchParams` inside `<Suspense>` and passes the parsed defaults to the form.
+- `/quote` reads `searchParams` (outside Suspense, like the guide) and passes the parsed defaults to the form.
 - One helper, `enquiryDefaultsFromAnswers()` in `lib/lift-finder.ts`, builds the defaults. The WhatsApp text comes from the same summary, through the existing `enquiryWhatsappUrl` style.
 
 ### Entry points
@@ -132,7 +132,7 @@ Branch: `feature/find-your-lift` from `master`. Merge `docs/elevator-websites-su
 ## Risks
 
 - **Wrong advice.** The rules are a starting point, not engineering. The result always says that an ATZ engineer confirms the lift after a free site survey. ATZ should review the rules table before launch.
-- **searchParams makes the page dynamic.** The questions shell still prerenders. Only the result streams in Suspense, as `/contact/[office]` does today.
+- **searchParams makes the page dynamic.** Found in step 3: content streamed behind `<Suspense>` is swapped in by an inline script, so without JavaScript the visitor only ever sees the fallback. The page therefore reads `searchParams` outside Suspense with `export const instant = false` and renders on each request (`ƒ`). The page is light, so this costs little. `/quote` needs the same treatment in step 5.
 - **Drawer state.** Pre-filled defaults must not survive into the next blank opening. `formKey` already remounts the form on each opening.
 
 ## Decisions from ATZ (18-Nov-2026)

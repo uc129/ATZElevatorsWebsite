@@ -95,28 +95,56 @@ export const cityOptions = [
 /** Floors use the same range as the enquiry form. */
 export const floorLimits = { min: 2, max: 60 } as const;
 
+/** `label` is the short name used in the answers summary. */
 export const finderQuestions = {
-  building: { title: "What kind of building is it?", options: buildingOptions },
-  stage: { title: "Is there a lift there now?", options: stageOptions },
-  carry: { title: "What will the lift mostly carry?", options: carryOptions },
+  building: { label: "Building", title: "What kind of building is it?", options: buildingOptions },
+  stage: { label: "Lift now", title: "Is there a lift there now?", options: stageOptions },
+  carry: {
+    label: "Carries",
+    title: "What will the lift mostly carry?",
+    options: carryOptions,
+  },
   floors: {
+    label: "Floors",
     title: "How many floors, including the ground?",
     hint: "Count every floor the lift will stop at.",
   },
-  roof: { title: "Is there room on the roof for a machine room?", options: roofOptions },
-  city: { title: "Which city is the building in?", options: cityOptions },
+  roof: {
+    label: "Room for a machine room",
+    title: "Is there room on the roof for a machine room?",
+    options: roofOptions,
+  },
+  city: { label: "City", title: "Which city is the building in?", options: cityOptions },
+} as const;
+
+export const finderForm = {
+  submit: "Show my lift",
+  errorSummary: (count: number) =>
+    count === 1 ? "Answer the question marked below." : "Answer the questions marked below.",
+  choose: "Choose an answer.",
+  floors: "Enter a number of floors from two to sixty.",
+  skipNote: "Only need maintenance or repairs? Skip the next three questions.",
 } as const;
 
 export const finderPage = {
   eyebrow: "Find your lift",
   title: "Which lift is right for your building?",
   lead: "Answer a few quick questions and we will suggest the lift that fits, with the reasons. It takes about a minute.",
-  resultTitle: "Our suggestion for your building",
+  resultEyebrow: "Our suggestion",
   disclaimer:
     "This is a starting point. An ATZ engineer confirms the right lift after a free site survey of your shaft, load and power supply.",
   alternativesTitle: "Also worth a look",
   reasonsTitle: "Why this lift",
+  answersTitle: "Your answers",
+  changeAnswers: "Change answers",
   startAgain: "Start again",
+  quote: "Get a quote with these answers",
+  whatsapp: "Send on WhatsApp",
+  whatsappIntro: "Hello ATZ, I would like a quote.",
+  nextTitle: "Next step",
+  officeTitle: "Your nearest team",
+  otherCity:
+    "We work across Bihar, Jharkhand, West Bengal, Odisha and Assam. Call us and we will tell you which team covers your city.",
 } as const;
 
 /** One sentence per rule that applied. Keys match the rules in lib/lift-finder.ts. */
