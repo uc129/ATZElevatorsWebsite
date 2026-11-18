@@ -17,6 +17,12 @@ Started on 18-Nov-2026. The design prototype (audit, sitemap, desktop and phone 
 | ---------- | ----------------------------------------------------------------------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 2026-11-18 | [Survey of elevator company websites](notes/2026-11-18-elevator-websites-survey.md) | done   | Otis, KONE, Schindler, TK Elevator, Johnson Lifts and Nibav: features, patterns and 16 ranked recommendations for ATZ (decision tools, AMC switching, modernisation guide, self-service with the ERP) |
 
+## Requests
+
+| Date       | Doc                                                                                                     | Status | Summary                                                                                                                                                                                  |
+| ---------- | ------------------------------------------------------------------------------------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-18 | [Request to the ERP for website enquiries and complaints](requests/2026-11-18-erp-enquiries-request.md) | open   | Asks the ERP backend for a website enquiry endpoint (key, idempotency, exact value lists); outlines complaint logging and tracking, which need ATZ decisions first; filed as ERP PR #327 |
+
 ## Decisions (ADRs)
 
 See the [decision log](adr/README.md).

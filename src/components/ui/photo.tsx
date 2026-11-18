@@ -13,14 +13,17 @@ export function Photo({
   sizes,
   eager,
   focus = "center",
+  zoom = 1,
 }: {
   id: PhotoId;
   className?: string;
-  /** next/image sizes, e.g. "(min-width: 1024px) 40vw, 100vw" */
+  /** next/image sizes, e.g. "(min-width: 1024px) 40vw, 100vw". With `zoom`, ask for a larger image. */
   sizes: string;
   eager?: boolean;
-  /** Which part of the photo to keep when cropped */
+  /** Which part of the photo to keep when cropped (and to zoom towards) */
   focus?: "center" | "left" | "right";
+  /** Crop in further: 2 shows the photo at 200%, centred on `focus`. */
+  zoom?: 1 | 1.5 | 2;
 }) {
   const photo = photos[id];
   return (
@@ -34,8 +37,10 @@ export function Photo({
         loading={eager ? "eager" : "lazy"}
         className={cn(
           "object-cover",
-          focus === "left" && "object-left",
-          focus === "right" && "object-right",
+          focus === "left" && "origin-left object-left",
+          focus === "right" && "origin-right object-right",
+          zoom === 1.5 && "scale-150",
+          zoom === 2 && "scale-200",
         )}
       />
     </div>

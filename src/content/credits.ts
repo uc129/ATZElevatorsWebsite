@@ -157,20 +157,11 @@ export const credits = {
     licenseUrl: PEXELS,
     sourceUrl: "https://www.pexels.com/video/shopping-mall-escalator-in-mall-14393755/",
   },
-  patnaRising: {
-    asset: "media/patna-rising.mp4",
-    subject: "Drone film of construction beside the Ganga, Patna (slowed)",
-    author: "On Road (Instagram)",
-    /** Set to "Used with permission" once the creator agrees; do not ship before. */
-    license: "Permission pending",
-    licenseUrl: "https://www.instagram.com/",
-    sourceUrl: "https://www.instagram.com/",
-  },
 } satisfies Record<string, PhotoCredit>;
 
 export type CreditId = keyof typeof credits;
 
 /** Credits used by video rather than photos. */
-export const videoCreditIds: CreditId[] = ["cityInMotion", "patnaRising"];
+export const videoCreditIds: CreditId[] = ["cityInMotion"];
 
 export const allCredits: PhotoCredit[] = Object.values(credits);

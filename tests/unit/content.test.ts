@@ -2,7 +2,15 @@ import { describe, expect, it } from "vitest";
 import { clients } from "@/content/clients";
 import { company } from "@/content/company";
 import { allCredits, credits, videoCreditIds } from "@/content/credits";
-import { highlights, hero, inMotion, services, stages, testimonials } from "@/content/home";
+import {
+  highlights,
+  hero,
+  inMotion,
+  services,
+  stages,
+  testimonials,
+  testimonialSetSize,
+} from "@/content/home";
 import { liftCategories } from "@/content/lifts";
 import { photos } from "@/content/photos";
 
@@ -41,6 +49,12 @@ describe("content rules", () => {
     for (const t of testimonials) {
       expect(t).not.toHaveProperty("name");
     }
+  });
+
+  it("has whole sets of sample testimonials, with no figures in them", () => {
+    expect(testimonials.length % testimonialSetSize).toBe(0);
+    expect(testimonials.length / testimonialSetSize).toBeGreaterThan(1);
+    for (const t of testimonials) expect(t.quote).not.toMatch(/\d/);
   });
 });
 

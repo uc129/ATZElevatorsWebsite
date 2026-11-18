@@ -31,18 +31,6 @@ export const inMotion = {
   text: "Malls, hospitals and homes across India move people floor to floor all day. We keep that movement safe, smooth and on time, from the first survey to the last safety check.",
 };
 
-/**
- * Patna drone film (On Road, Instagram), slowed to 0.625x. For the About page
- * (step 6). Permission from the creator is pending: do not ship until confirmed.
- */
-export const patnaRising = {
-  eyebrow: "Patna is rising",
-  title: "New floors go up across the city every season.",
-  text: "Hospitals, offices and homes are climbing higher along the Ganga. Every new floor needs a lift that is planned early, built right and cared for over a lifetime. That is the work we do.",
-  video: "/media/patna-rising.mp4",
-  poster: "/media/patna-rising-poster.jpg",
-};
-
 /** Client buildings with openly licensed photos (PMCH). Others to follow from ATZ. */
 export const clientBuildings = [
   { photo: "patnaPmchNight", caption: "PMCH, Patna" },
@@ -89,8 +77,12 @@ export { services } from "./services";
 
 /**
  * Sample quotes for layout, clearly labelled. Replaced by real, verified
- * client testimonials (with permission) when ATZ supplies them.
+ * client testimonials (with permission) when ATZ supplies them. Shown in sets
+ * of three that rotate on the homepage (`testimonialSetSize`); keep the count a
+ * multiple of three.
  */
+export const testimonialSetSize = 3;
+
 export const testimonials = [
   {
     quote:
@@ -109,6 +101,42 @@ export const testimonials = [
       "ATZ took over maintenance of a lift another company had installed, and fixed faults that had kept coming back. The quotation was clear and there were no surprises.",
     role: "Owner, showroom",
     place: "Muzaffarpur, Bihar",
+  },
+  {
+    quote:
+      "We wanted a lift for my parents without giving up a room. ATZ planned a compact home lift beside the stairwell, and my mother now goes upstairs on her own.",
+    role: "Owner, independent house",
+    place: "Gaya, Bihar",
+  },
+  {
+    quote:
+      "Our school lift runs every day of term. The engineers visit on schedule and plan any repair work around exam days, so it is always ready when the children need it.",
+    role: "Principal, school",
+    place: "Ranchi, Jharkhand",
+  },
+  {
+    quote:
+      "Guests notice the lift before almost anything else. ATZ fitted a quiet, smooth car with a finish that suits our lobby, and took care of every detail at handover.",
+    role: "General manager, hotel",
+    place: "Bhubaneswar, Odisha",
+  },
+  {
+    quote:
+      "We chose to modernise an old lift in our office building instead of replacing it. ATZ kept the shaft, renewed the controller and doors, and the building stayed open throughout.",
+    role: "Executive engineer, government building",
+    place: "Patna, Bihar",
+  },
+  {
+    quote:
+      "On our residential projects, ATZ shares the shaft drawings early, so our site teams build it right the first time. Every handover has been on time.",
+    role: "Project manager, real estate developer",
+    place: "Kolkata, West Bengal",
+  },
+  {
+    quote:
+      "Our goods lift carries heavy loads all day. When a part wore out, ATZ fitted a replacement quickly and kept the floor moving.",
+    role: "Plant manager, factory",
+    place: "Guwahati, Assam",
   },
 ];
 

@@ -31,3 +31,122 @@ test.describe("with reduced motion", () => {
     expect(animation).toBe("none");
   });
 });
+
+test("the About page story: no video, photo first, then the heading and text", async ({ page }) => {
+  await page.goto("/about");
+  await expect(page.locator("main video")).toHaveCount(0);
+  const photo = page.getByRole("img", { name: /Patna seen from the top of Golghar/ });
+  const heading = page.getByRole("heading", { name: "Rooted in Patna, rising with the city." });
+  await expect(photo).toBeVisible();
+  const photoTop = (await photo.boundingBox())!.y;
+  const headingTop = (await heading.boundingBox())!.y;
+  expect(headingTop).toBeGreaterThan(photoTop);
+  const textTop = (await page
+    .locator("#story-title ~ *, section:has(#story-title) p")
+    .filter({ hasText: /was incorporated in Patna/ })
+    .first()
+    .boundingBox())!.y;
+  expect(textTop).toBeGreaterThan(headingTop);
+});
+
+test.describe("homepage lift types move on by themselves", () => {
+  // One interval is 6 s (--animate-tab-progress); allow a little over.
+  const interval = 6_000;
+  const selected = (page: import("@playwright/test").Page, name: string) =>
+    page.locator("#lifts").getByRole("tab", { name: new RegExp(`^${name}`) });
+
+  async function showLifts(page: import("@playwright/test").Page) {
+    await page.goto("/");
+    await page.locator("#lifts").scrollIntoViewIfNeeded();
+    await page.mouse.move(0, 0); // hovering pauses it
+  }
+
+  test("the next lift type is selected after one interval", async ({ page }) => {
+    await showLifts(page);
+    await expect(selected(page, "Passenger lifts")).toHaveAttribute("aria-selected", "true");
+    await expect(selected(page, "Home lifts")).toHaveAttribute("aria-selected", "true", {
+      timeout: interval + 3_000,
+    });
+  });
+
+  test("choosing a lift type stops it", async ({ page }) => {
+    await showLifts(page);
+    await selected(page, "Hospital lifts").click();
+    await page.mouse.move(0, 0);
+    await expect(page.getByRole("button", { name: /Pause the list/ })).toHaveCount(0);
+    await page.waitForTimeout(interval + 1_000);
+    await expect(selected(page, "Hospital lifts")).toHaveAttribute("aria-selected", "true");
+  });
+
+  test("Pause holds it and Play starts it again", async ({ page }) => {
+    await showLifts(page);
+    await page.getByRole("button", { name: /Pause the list/ }).click();
+    await page.mouse.move(0, 0);
+    await page.waitForTimeout(interval + 1_000);
+    await expect(selected(page, "Passenger lifts")).toHaveAttribute("aria-selected", "true");
+    await page.getByRole("button", { name: /^Play: move through the list/ }).click();
+    await page.mouse.move(0, 0);
+    await expect(selected(page, "Home lifts")).toHaveAttribute("aria-selected", "true", {
+      timeout: interval + 3_000,
+    });
+  });
+});
+
+test.describe("homepage lift types with reduced motion", () => {
+  test.use({ reducedMotion: "reduce" });
+
+  test("they stay put and offer no Pause button", async ({ page }) => {
+    await page.goto("/");
+    await page.locator("#lifts").scrollIntoViewIfNeeded();
+    await expect(page.getByRole("button", { name: /Pause the list/ })).toHaveCount(0);
+    await page.waitForTimeout(7_000);
+    await expect(
+      page.locator("#lifts").getByRole("tab", { name: /^Passenger lifts/ }),
+    ).toHaveAttribute("aria-selected", "true");
+  });
+});
+
+test.describe("homepage testimonials rotate in sets", () => {
+  const interval = 10_000; // --animate-set-progress
+  const set = (page: import("@playwright/test").Page, n: number) =>
+    page.getByRole("group", { name: `Testimonials, set ${n} of 3` });
+
+  async function showTestimonials(page: import("@playwright/test").Page) {
+    await page.goto("/");
+    // The cards themselves must be on screen (on a phone they stack into a tall block).
+    await page
+      .getByRole("group", { name: "Testimonials, set 1 of 3" })
+      .evaluate((el) => el.scrollIntoView({ block: "start" }));
+    await page.mouse.move(0, 0);
+  }
+
+  test("the next set shows after one interval", async ({ page }) => {
+    test.setTimeout(30_000);
+    await showTestimonials(page);
+    await expect(set(page, 1)).toBeVisible();
+    await expect(set(page, 2)).toBeHidden();
+    await expect(set(page, 2)).toBeVisible({ timeout: interval + 4_000 });
+    await expect(set(page, 1)).toBeHidden();
+  });
+
+  test("choosing a set shows it and stops the rotation", async ({ page }) => {
+    test.setTimeout(30_000);
+    await showTestimonials(page);
+    await page.getByRole("button", { name: "Show set 3 of 3" }).click();
+    await page.mouse.move(0, 0);
+    await expect(set(page, 3)).toBeVisible();
+    await expect(page.getByRole("button", { name: /Pause testimonials/ })).toHaveCount(0);
+    await page.waitForTimeout(interval + 1_000);
+    await expect(set(page, 3)).toBeVisible();
+  });
+});
+
+test.describe("homepage testimonials with reduced motion", () => {
+  test.use({ reducedMotion: "reduce" });
+
+  test("stay on the first set with no Pause button", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.getByRole("button", { name: /Pause testimonials/ })).toHaveCount(0);
+    await expect(page.getByRole("group", { name: "Testimonials, set 1 of 3" })).toBeVisible();
+  });
+});

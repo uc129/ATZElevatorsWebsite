@@ -107,6 +107,7 @@ export function LiftShowcase() {
         <Tabs
           label="Lift types"
           orientation="vertical"
+          autoAdvance
           listClassName="rounded-lg border border-box-line bg-white p-2 lg:w-72 lg:shrink-0"
           items={liftCategories.map((lift) => ({
             id: lift.slug,

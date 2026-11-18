@@ -167,6 +167,39 @@
       left: calc(100% - 3rem);
     }
   }
+
+  /*
+   * Auto-advancing tabs (homepage lift types): the bar under the active tab
+   * fills over this time, and the next tab is selected when it ends. Change
+   * the duration here to change the interval.
+   */
+  --animate-tab-progress: tab-progress 6s linear forwards;
+  /* Testimonial sets: three quotes to read, so a longer interval. */
+  --animate-set-progress: tab-progress 10s linear forwards;
+  @keyframes tab-progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  /* A rotating panel or set fading in (lift tabs, testimonials): slow enough to read as calm. */
+  --animate-fade-in: fade-in 450ms var(--ease-out);
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+/* Holds a running animation where it is (paused auto-advancing tabs). */
+@utility animation-paused {
+  animation-play-state: paused;
 }
 
 /*
