@@ -1,8 +1,8 @@
 /**
  * The Find your lift questions as one plain GET form. Without JavaScript
  * every question shows and Submit loads the result (the answers go in the
- * URL, so a result can be shared). Step 4 of the plan adds the one question
- * at a time mode on top of this markup.
+ * URL, so a result can be shared). The same single page is used with
+ * JavaScript: ATZ chose not to have a one-question-at-a-time form.
  */
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
