@@ -7,6 +7,9 @@ import {
   quoteHrefWith,
   startingValues,
   visitorCityFrom,
+  enquiryMessage,
+  liftTypeOptions,
+  needOptions,
 } from "@/lib/enquiry";
 
 const valid = {
@@ -106,14 +109,33 @@ describe("pre-filled enquiries", () => {
 });
 
 describe("starting values", () => {
-  it("starts with six floors and a short message for the need", () => {
+  it("starts with six floors and a message in the visitor's voice", () => {
     expect(startingValues()).toEqual({
       floors: "6",
-      message: "Please call me to book a free site survey.",
+      message: "Hi, I'd like to talk about a lift for our building. Could you give me a call?",
     });
-    expect(startingValues({ need: "repair" }).message).toBe(
-      "Our lift needs a repair. Please call me.",
+    expect(startingValues({ need: "new", liftType: "home" }).message).toBe(
+      "Hi, I'd like to talk about installing a home lift at our building. Could you call me to arrange a site visit?",
     );
+    expect(startingValues({ need: "message-wins", message: "My own words" }).message).toBe(
+      "My own words",
+    );
+  });
+
+  it("writes a message for every need and lift type, without selling phrases", () => {
+    expect(enquiryMessage({ need: "modernise", liftType: "mrl", place: "office" })).toBe(
+      "Hi, I'd like to talk about upgrading the machine-room-less lift at our office. Could you give me a call?",
+    );
+    expect(enquiryMessage({ need: "repair", liftType: "unsure" })).toBe(
+      "Hi, the lift at our building needs a repair. Could you give me a call?",
+    );
+    for (const need of [...needOptions.map((o) => o.value), undefined])
+      for (const liftType of liftTypeOptions.map((o) => o.value)) {
+        const message = enquiryMessage({ need, liftType });
+        expect(message).toMatch(/^Hi, /);
+        expect(message).not.toMatch(/free|survey|ATZ/i);
+        expect(enquirySchema.shape.message.safeParse(message).success).toBe(true);
+      }
   });
 
   it("uses the visitor's city unless the page knows one, and ignores empty values", () => {

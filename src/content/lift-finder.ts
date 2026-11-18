@@ -48,6 +48,18 @@ export const buildingOptions = [
   { value: "institution", label: "Government or institution", icon: "landmark" },
 ] as const satisfies readonly FinderOption[];
 
+/** Each building as it reads after "our" in the ready-made enquiry message. */
+export const buildingPlaces: Record<(typeof buildingOptions)[number]["value"], string> = {
+  home: "house",
+  apartment: "apartment building",
+  hospital: "hospital",
+  office: "office",
+  mall: "building",
+  factory: "factory",
+  restaurant: "restaurant",
+  institution: "building",
+};
+
 export const stageOptions = [
   {
     value: "new",

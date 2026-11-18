@@ -7,6 +7,7 @@
 import { z } from "zod";
 import {
   buildingOptions,
+  buildingPlaces,
   carryOptions,
   cityOptions,
   finderQuestions,
@@ -17,9 +18,9 @@ import {
   stageOptions,
   type FinderReason,
 } from "@/content/lift-finder";
-import { liftCategories, type LiftCategory } from "@/content/lifts";
+import type { LiftCategory } from "@/content/lifts";
 import { findOffice, type Office } from "@/content/offices";
-import { needMessage, type EnquiryDefaults } from "@/lib/enquiry";
+import { enquiryMessage, type EnquiryDefaults } from "@/lib/enquiry";
 
 /**
  * Thresholds, in floors including the ground. Named here so ATZ engineers
@@ -220,8 +221,6 @@ export function recommendLift(answers: PartialAnswers): Recommendation | null {
 const labelOf = (options: readonly { value: string; label: string }[], value: string) =>
   options.find((o) => o.value === value)?.label ?? value;
 
-const liftName = (slug: string) => liftCategories.find((l) => l.slug === slug)?.name ?? slug;
-
 /** The visitor's answers as short label and value pairs, in question order. */
 export function answerList(
   answers: PartialAnswers,
@@ -236,23 +235,21 @@ export function answerList(
 }
 
 /**
- * Defaults for the enquiry form, with the same field names and values. The
- * message is one short line: the other answers travel as their own fields.
- * Floors and city are left out when unknown, so the form's standard ones
- * (six floors, the visitor's city) apply.
+ * Defaults for the enquiry form, with the same field names and values, and
+ * a ready-to-send message naming the lift and the building. Floors and city
+ * are left out when unknown, so the form's standard ones (six floors, the
+ * visitor's city) apply.
  */
 export function enquiryDefaultsFromAnswers(answers: PartialAnswers): EnquiryDefaults | null {
   const rec = recommendLift(answers);
   if (!rec) return null;
   const a = answers as FinderAnswers;
   const need = ({ new: "new", upgrade: "modernise", maintain: "amc" } as const)[a.stage];
+  const liftType = rec.kind === "lift" ? rec.primary : "unsure";
   const defaults: EnquiryDefaults = {
     need,
-    liftType: rec.kind === "lift" ? rec.primary : "unsure",
-    message:
-      rec.kind === "lift"
-        ? `Find your lift suggested: ${liftName(rec.primary)}. ${needMessage(need)}`
-        : needMessage(need),
+    liftType,
+    message: enquiryMessage({ need, liftType, place: buildingPlaces[a.building] }),
   };
   if (rec.kind === "lift") defaults.floors = String(a.floors);
   if (rec.office) defaults.city = rec.office.city;

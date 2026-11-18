@@ -130,25 +130,55 @@ const labelOf = (options: readonly { value: string; label: string }[], value: st
 export const defaultFloors = "6";
 
 type Need = (typeof needOptions)[number]["value"];
+type LiftType = (typeof liftTypeOptions)[number]["value"];
+
+/** Each lift type as it reads in a sentence, with its article. */
+const liftPhrases: Record<LiftType, string> = {
+  unsure: "a lift",
+  passenger: "a passenger lift",
+  home: "a home lift",
+  mrl: "a machine-room-less lift",
+  panoramic: "a panoramic glass lift",
+  hospital: "a hospital lift",
+  freight: "a goods lift",
+  dumbwaiter: "a dumbwaiter",
+};
 
 /**
- * One short line, ready to send. It does not repeat the need, lift type,
- * floors or city: those travel as their own fields, so the line cannot go
- * out of date when the visitor edits one.
+ * A ready-to-send message in the visitor's own voice (never ATZ's selling
+ * phrases, such as "free site survey"), from what the page knows.
+ * `place` is the building as it reads after "our", e.g. "hospital"; it
+ * comes from the Find your lift guide. It never guesses a number of lifts.
  */
-export function needMessage(need?: string) {
-  const messages: Record<Need, string> = {
-    new: "Please call me to book a free site survey.",
-    amc: "Please call me about an AMC for our lift.",
-    modernise: "Please call me about modernising our lift.",
-    repair: "Our lift needs a repair. Please call me.",
-  };
-  return messages[need as Need] ?? messages.new;
+export function enquiryMessage({
+  need,
+  liftType,
+  place = "building",
+}: {
+  need?: string;
+  liftType?: string;
+  place?: string;
+}) {
+  const lift = liftPhrases[liftType as LiftType] ?? liftPhrases.unsure;
+  const theLift = lift.replace(/^an? /, "the ");
+  switch (need as Need | undefined) {
+    case "new":
+      return `Hi, I'd like to talk about installing ${lift} at our ${place}. Could you call me to arrange a site visit?`;
+    case "modernise":
+      return `Hi, I'd like to talk about upgrading ${theLift} at our ${place}. Could you give me a call?`;
+    case "amc":
+      return `Hi, I'd like to talk about an AMC for ${theLift} at our ${place}. Could you give me a call?`;
+    case "repair":
+      return `Hi, ${theLift} at our ${place} needs a repair. Could you give me a call?`;
+    default:
+      return `Hi, I'd like to talk about ${lift} for our ${place}. Could you give me a call?`;
+  }
 }
 
 /**
- * What a fresh form starts with: the standard floors and message, the
- * visitor's city when known, then whatever the page or link knows on top.
+ * What a fresh form starts with: the standard floors, a message written
+ * from the need and lift type, the visitor's city when known, then whatever
+ * the page or link knows on top (a link's own message wins).
  */
 export function startingValues(defaults: EnquiryDefaults = {}, visitorCity?: string) {
   const known = Object.fromEntries(
@@ -156,7 +186,7 @@ export function startingValues(defaults: EnquiryDefaults = {}, visitorCity?: str
   ) as EnquiryDefaults;
   return {
     floors: defaultFloors,
-    message: needMessage(known.need),
+    message: enquiryMessage({ need: known.need, liftType: known.liftType }),
     ...(visitorCity ? { city: visitorCity } : {}),
     ...known,
   } satisfies EnquiryDefaults;

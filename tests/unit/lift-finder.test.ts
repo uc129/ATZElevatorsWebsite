@@ -199,7 +199,7 @@ describe("enquiryDefaultsFromAnswers", () => {
       city: "Patna",
     });
     expect(defaults?.message).toBe(
-      "Find your lift suggested: Hospital lifts. Please call me to book a free site survey.",
+      "Hi, I'd like to talk about installing a hospital lift at our hospital. Could you call me to arrange a site visit?",
     );
     const parsed = enquirySchema.safeParse({ ...defaults, name: "Asha", phone: "9876543210" });
     expect(parsed.success).toBe(true);
@@ -216,7 +216,8 @@ describe("enquiryDefaultsFromAnswers", () => {
     expect(maintain).toEqual({
       need: "amc",
       liftType: "unsure",
-      message: "Please call me about an AMC for our lift.",
+      message:
+        "Hi, I'd like to talk about an AMC for the lift at our office. Could you give me a call?",
     });
   });
 
