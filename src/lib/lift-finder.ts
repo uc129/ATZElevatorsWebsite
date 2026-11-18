@@ -19,7 +19,7 @@ import {
 } from "@/content/lift-finder";
 import { liftCategories, type LiftCategory } from "@/content/lifts";
 import { findOffice, type Office } from "@/content/offices";
-import type { EnquiryField } from "@/lib/enquiry";
+import type { EnquiryDefaults } from "@/lib/enquiry";
 
 /**
  * Thresholds, in floors including the ground. Named here so ATZ engineers
@@ -244,8 +244,6 @@ export function answersSummary(answers: FinderAnswers, rec: Recommendation): str
   if (rec.kind === "lift") lines.push(`Suggested: ${liftName(rec.primary)}`);
   return lines.join("\n");
 }
-
-export type EnquiryDefaults = Partial<Record<EnquiryField, string>>;
 
 /** Defaults for the enquiry form, with the same field names and values. */
 export function enquiryDefaultsFromAnswers(answers: PartialAnswers): EnquiryDefaults | null {

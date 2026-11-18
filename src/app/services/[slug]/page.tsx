@@ -9,10 +9,19 @@ import { Container, Section } from "@/components/ui/container";
 import { Photo } from "@/components/ui/photo";
 import { company, telHref } from "@/content/company";
 import { services } from "@/content/services";
+import type { EnquiryDefaults } from "@/lib/enquiry";
 
 function findService(slug: string) {
   return services.find((s) => s.slug === slug);
 }
+
+/** What each service page pre-fills in the enquiry form. */
+const serviceNeeds: Record<string, EnquiryDefaults["need"]> = {
+  installation: "new",
+  amc: "amc",
+  modernisation: "modernise",
+  repairs: "repair",
+};
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -51,7 +60,9 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
               Call {company.phones.service.display}
             </ButtonLink>
           ) : (
-            <EnquiryButton size="lg">{service.cta}</EnquiryButton>
+            <EnquiryButton size="lg" defaults={{ need: serviceNeeds[service.slug] }}>
+              {service.cta}
+            </EnquiryButton>
           )
         }
         aside={

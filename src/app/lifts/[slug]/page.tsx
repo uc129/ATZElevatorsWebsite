@@ -44,7 +44,9 @@ export default async function LiftPage({ params }: PageProps<"/lifts/[slug]">) {
         trail={[{ label: "Lifts", href: "/lifts" }]}
         actions={
           <>
-            <EnquiryButton size="lg">Get a quote for this lift</EnquiryButton>
+            <EnquiryButton size="lg" defaults={{ need: "new", liftType: lift.slug }}>
+              Get a quote for this lift
+            </EnquiryButton>
             <ButtonLink href="/lifts" variant="outline" size="lg">
               All lifts
             </ButtonLink>

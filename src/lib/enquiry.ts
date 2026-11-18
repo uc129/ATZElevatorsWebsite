@@ -8,6 +8,7 @@
  */
 import { z } from "zod";
 import { company, whatsappHref } from "@/content/company";
+import { quoteHref } from "@/content/navigation";
 
 export const needOptions = [
   { value: "new", label: "New lift installation" },
@@ -77,6 +78,50 @@ export const fieldNames: EnquiryField[] = [
   "phone",
   "message",
 ];
+
+/**
+ * Fields a link may pre-fill, e.g. from the Find your lift guide or a lift
+ * page. The visitor's name and mobile number never travel in a URL.
+ */
+export const prefillFields = ["need", "liftType", "floors", "city", "message"] as const;
+export type EnquiryDefaults = Partial<Record<(typeof prefillFields)[number], string>>;
+
+const prefillSchemas = {
+  need: z.enum(values(needOptions)),
+  liftType: z.enum(values(liftTypeOptions)),
+  floors: z.coerce
+    .number()
+    .int()
+    .min(2)
+    .max(60)
+    .transform((n) => String(n)),
+  city: z.string().trim().min(1).max(60),
+  message: z.string().trim().min(1).max(1000),
+};
+
+/** Read pre-fill values from a query string, keeping the valid ones only. */
+export function parseEnquiryDefaults(
+  params: Record<string, string | string[] | undefined>,
+): EnquiryDefaults {
+  const defaults: EnquiryDefaults = {};
+  for (const field of prefillFields) {
+    const raw = params[field];
+    const value = Array.isArray(raw) ? raw[0] : raw;
+    if (value === undefined) continue;
+    const parsed = prefillSchemas[field].safeParse(value);
+    if (parsed.success) defaults[field] = parsed.data;
+  }
+  return defaults;
+}
+
+/** The /quote link for a set of defaults; plain /quote when there are none. */
+export function quoteHrefWith(defaults?: EnquiryDefaults) {
+  const entries = prefillFields.flatMap((field) => {
+    const value = defaults?.[field];
+    return value ? [[field, value] as [string, string]] : [];
+  });
+  return entries.length ? `${quoteHref}?${new URLSearchParams(entries)}` : quoteHref;
+}
 
 const labelOf = (options: readonly { value: string; label: string }[], value: string) =>
   options.find((o) => o.value === value)?.label ?? value;

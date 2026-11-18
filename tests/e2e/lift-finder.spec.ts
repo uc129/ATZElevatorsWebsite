@@ -65,3 +65,63 @@ test.describe("Find your lift without JavaScript", () => {
     await expect(page.getByRole("alert")).toHaveCount(0);
   });
 });
+
+const hospitalResult =
+  "/find-your-lift?building=hospital&stage=new&carry=stretcher&floors=6&roof=unsure&city=patna";
+
+test.describe("Find your lift to a pre-filled quote", () => {
+  test("without JavaScript, the quote page opens filled in", async ({ browser }) => {
+    const context = await browser.newContext({ javaScriptEnabled: false });
+    const page = await context.newPage();
+    await page.goto(hospitalResult);
+    await page.getByRole("link", { name: "Get a quote with these answers" }).click();
+
+    await expect(page).toHaveURL(/\/quote\?/);
+    const form = page.getByRole("main");
+    await expect(form.getByLabel("What do you need?")).toHaveValue("new");
+    await expect(form.getByLabel("Lift type")).toHaveValue("hospital");
+    await expect(form.getByLabel("Floors (incl. ground)")).toHaveValue("6");
+    await expect(form.getByLabel("City")).toHaveValue("Patna");
+    await expect(form.getByLabel("Anything else?")).toHaveValue(/Suggested: Hospital lifts/);
+    await expect(form.getByLabel("Your name")).toHaveValue("");
+    await context.close();
+  });
+
+  test("with JavaScript, the drawer opens filled in, and the next opening is clean", async ({
+    page,
+    isMobile,
+  }) => {
+    await page.goto(hospitalResult);
+    await page
+      .getByRole("main")
+      .getByRole("link", { name: "Get a quote with these answers" })
+      .click();
+
+    const drawer = page.getByRole("dialog", { name: "Get a free quote" });
+    await expect(drawer).toBeVisible();
+    await expect(page).toHaveURL(hospitalResult);
+    await expect(drawer.getByLabel("Lift type")).toHaveValue("hospital");
+    await expect(drawer.getByLabel("City")).toHaveValue("Patna");
+    await expect(drawer.getByLabel("Anything else?")).toHaveValue(/From the Find your lift guide/);
+
+    await page.keyboard.press("Escape");
+    await expect(drawer).toBeHidden();
+    const quote = isMobile
+      ? page
+          .getByRole("navigation", { name: "Quick contact" })
+          .getByRole("link", { name: "Get a quote" })
+      : page.getByRole("banner").getByRole("link", { name: "Get a quote" });
+    await quote.click();
+    await expect(drawer).toBeVisible();
+    await expect(drawer.getByLabel("Lift type")).toHaveValue("unsure");
+    await expect(drawer.getByLabel("Anything else?")).toHaveValue("");
+  });
+
+  test("a lift page's quote button pre-fills that lift", async ({ page }) => {
+    await page.goto("/lifts/home");
+    await page.getByRole("link", { name: "Get a quote for this lift" }).click();
+    const drawer = page.getByRole("dialog", { name: "Get a free quote" });
+    await expect(drawer.getByLabel("What do you need?")).toHaveValue("new");
+    await expect(drawer.getByLabel("Lift type")).toHaveValue("home");
+  });
+});

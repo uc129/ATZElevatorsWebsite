@@ -11,11 +11,24 @@ import { sendEnquiry } from "@/app/actions/enquiry";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Input, Select, Textarea } from "@/components/ui/field";
 import { company, telHref } from "@/content/company";
-import { liftTypeOptions, needOptions, type EnquiryState } from "@/lib/enquiry";
+import {
+  liftTypeOptions,
+  needOptions,
+  type EnquiryDefaults,
+  type EnquiryField,
+  type EnquiryState,
+} from "@/lib/enquiry";
 
 const initialState: EnquiryState = { status: "idle" };
 
-export function EnquiryForm({ onDone }: { onDone?: () => void }) {
+export function EnquiryForm({
+  onDone,
+  defaults,
+}: {
+  onDone?: () => void;
+  /** Pre-filled answers, e.g. from the Find your lift guide. Never name or mobile. */
+  defaults?: EnquiryDefaults;
+}) {
   const [state, formAction, pending] = useActionState(sendEnquiry, initialState);
   const formRef = useRef<HTMLFormElement>(null);
   const attempt = state.status === "invalid" ? state.attempt : "idle";
@@ -73,7 +86,8 @@ export function EnquiryForm({ onDone }: { onDone?: () => void }) {
   }
 
   const errors = state.status === "invalid" ? state.errors : {};
-  const values = state.status === "invalid" ? state.values : {};
+  const values: Partial<Record<EnquiryField, string>> =
+    state.status === "invalid" ? state.values : (defaults ?? {});
   const errorCount = Object.keys(errors).length;
 
   return (

@@ -2,15 +2,26 @@ import type { Metadata } from "next";
 import { EnquiryForm } from "@/components/layout/enquiry-form";
 import { Container, Section } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { parseEnquiryDefaults } from "@/lib/enquiry";
 
 export const metadata: Metadata = {
   title: "Get a free quote",
   description:
     "Tell us about your building and an ATZ engineer will call you back to book a free site survey.",
+  // Pre-filled variants live on query strings; index the plain page.
+  alternates: { canonical: "/quote" },
 };
 
+/**
+ * The page waits for the query string so a pre-filled form (from the Find
+ * your lift guide or a lift page) is in the first HTML, without JavaScript.
+ * Streaming it behind Suspense would need JavaScript to swap the fallback.
+ */
+export const instant = false;
+
 /** The quote form as a page: the fallback for the enquiry drawer. */
-export default function QuotePage() {
+export default async function QuotePage({ searchParams }: PageProps<"/quote">) {
+  const defaults = parseEnquiryDefaults(await searchParams);
   return (
     <Section>
       <Container className="grid gap-10 lg:grid-cols-12">
@@ -23,7 +34,7 @@ export default function QuotePage() {
           </p>
         </div>
         <div className="lg:col-span-6 lg:col-start-7">
-          <EnquiryForm />
+          <EnquiryForm defaults={defaults} />
         </div>
       </Container>
     </Section>

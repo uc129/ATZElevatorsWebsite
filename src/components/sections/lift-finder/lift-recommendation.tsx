@@ -5,6 +5,7 @@
  */
 import { ArrowRight, Check, MessageCircle, Phone } from "lucide-react";
 import Link from "next/link";
+import { EnquiryButton } from "@/components/layout/enquiry";
 import { ButtonLink } from "@/components/ui/button";
 import { Card, FramedCard } from "@/components/ui/card";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -45,15 +46,13 @@ function Reasons({ reasons }: { reasons: string[] }) {
 
 function Actions({ answers }: { answers: FinderAnswers }) {
   const defaults = enquiryDefaultsFromAnswers(answers) ?? {};
-  const quoteQuery = new URLSearchParams(
-    Object.entries(defaults).filter((entry): entry is [string, string] => Boolean(entry[1])),
-  ).toString();
   const whatsappText = `${finderPage.whatsappIntro}\n${defaults.message ?? ""}`;
   return (
     <div className="flex flex-wrap gap-3">
-      <ButtonLink href={`/quote?${quoteQuery}`} size="lg">
+      {/* Opens the drawer pre-filled; without JavaScript, /quote pre-filled. */}
+      <EnquiryButton size="lg" defaults={defaults}>
         {finderPage.quote}
-      </ButtonLink>
+      </EnquiryButton>
       <ButtonLink
         href={whatsappHref(company.phones.marketing, whatsappText)}
         variant="whatsapp"

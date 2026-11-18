@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { sendEnquiry } from "@/app/actions/enquiry";
-import { enquirySchema, enquiryWhatsappUrl } from "@/lib/enquiry";
+import {
+  enquirySchema,
+  enquiryWhatsappUrl,
+  parseEnquiryDefaults,
+  quoteHrefWith,
+} from "@/lib/enquiry";
 
 const valid = {
   need: "new",
@@ -69,5 +74,31 @@ describe("sendEnquiry", () => {
   it("ignores bots that fill the hidden field", async () => {
     const state = await sendEnquiry({ status: "idle" }, form({ ...valid, company: "Spam Ltd" }));
     expect(state.status).toBe("idle");
+  });
+});
+
+describe("pre-filled enquiries", () => {
+  it("keeps only valid pre-fill values, and never name or mobile", () => {
+    expect(
+      parseEnquiryDefaults({
+        need: "modernise",
+        liftType: "rocket",
+        floors: ["8", "9"],
+        city: "  Ranchi ",
+        message: "",
+        name: "Someone",
+        phone: "9876543210",
+      }),
+    ).toEqual({ need: "modernise", floors: "8", city: "Ranchi" });
+    expect(parseEnquiryDefaults({ floors: "1" })).toEqual({});
+  });
+
+  it("builds the /quote link from defaults, skipping empty ones", () => {
+    expect(quoteHrefWith()).toBe("/quote");
+    expect(quoteHrefWith({ need: "new", city: "" })).toBe("/quote?need=new");
+    const href = quoteHrefWith({ liftType: "home", message: "Line one\nLine two" });
+    expect(
+      parseEnquiryDefaults(Object.fromEntries(new URL(href, "http://x").searchParams)),
+    ).toEqual({ liftType: "home", message: "Line one\nLine two" });
   });
 });
