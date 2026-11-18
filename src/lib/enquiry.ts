@@ -169,7 +169,7 @@ export function enquiryMessage({
     case "amc":
       return `Hi, I'd like to talk about an AMC for ${theLift} at our ${place}. I would be grateful if you could contact me at your earliest convenience.`;
     case "repair":
-      return `Hi, ${theLift} at our ${place} needs a repair. Please contact me as soon as possible.`;
+      return `Hi, ${theLift} at our ${place} needs a repair. I would be grateful if someone from your team could get in touch as soon as possible.`;
     default:
       return `Hi, I'd like to talk about ${lift} for our ${place}. I would be grateful if you could contact me at your earliest convenience.`;
   }

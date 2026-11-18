@@ -128,7 +128,7 @@ describe("starting values", () => {
       "Hi, I'd like to talk about upgrading the machine-room-less lift at our office. I would be grateful if you could contact me at your earliest convenience.",
     );
     expect(enquiryMessage({ need: "repair", liftType: "unsure" })).toBe(
-      "Hi, the lift at our building needs a repair. Please contact me as soon as possible.",
+      "Hi, the lift at our building needs a repair. I would be grateful if someone from your team could get in touch as soon as possible.",
     );
     for (const need of [...needOptions.map((o) => o.value), undefined])
       for (const liftType of liftTypeOptions.map((o) => o.value)) {
