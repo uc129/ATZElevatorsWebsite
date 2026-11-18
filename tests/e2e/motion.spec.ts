@@ -48,3 +48,60 @@ test("the About page story: no video, photo first, then the heading and text", a
     .boundingBox())!.y;
   expect(textTop).toBeGreaterThan(headingTop);
 });
+
+test.describe("homepage lift types move on by themselves", () => {
+  // One interval is 6 s (--animate-tab-progress); allow a little over.
+  const interval = 6_000;
+  const selected = (page: import("@playwright/test").Page, name: string) =>
+    page.locator("#lifts").getByRole("tab", { name: new RegExp(`^${name}`) });
+
+  async function showLifts(page: import("@playwright/test").Page) {
+    await page.goto("/");
+    await page.locator("#lifts").scrollIntoViewIfNeeded();
+    await page.mouse.move(0, 0); // hovering pauses it
+  }
+
+  test("the next lift type is selected after one interval", async ({ page }) => {
+    await showLifts(page);
+    await expect(selected(page, "Passenger lifts")).toHaveAttribute("aria-selected", "true");
+    await expect(selected(page, "Home lifts")).toHaveAttribute("aria-selected", "true", {
+      timeout: interval + 3_000,
+    });
+  });
+
+  test("choosing a lift type stops it", async ({ page }) => {
+    await showLifts(page);
+    await selected(page, "Hospital lifts").click();
+    await page.mouse.move(0, 0);
+    await expect(page.getByRole("button", { name: /Pause the list/ })).toHaveCount(0);
+    await page.waitForTimeout(interval + 1_000);
+    await expect(selected(page, "Hospital lifts")).toHaveAttribute("aria-selected", "true");
+  });
+
+  test("Pause holds it and Play starts it again", async ({ page }) => {
+    await showLifts(page);
+    await page.getByRole("button", { name: /Pause the list/ }).click();
+    await page.mouse.move(0, 0);
+    await page.waitForTimeout(interval + 1_000);
+    await expect(selected(page, "Passenger lifts")).toHaveAttribute("aria-selected", "true");
+    await page.getByRole("button", { name: /^Play: move through the list/ }).click();
+    await page.mouse.move(0, 0);
+    await expect(selected(page, "Home lifts")).toHaveAttribute("aria-selected", "true", {
+      timeout: interval + 3_000,
+    });
+  });
+});
+
+test.describe("homepage lift types with reduced motion", () => {
+  test.use({ reducedMotion: "reduce" });
+
+  test("they stay put and offer no Pause button", async ({ page }) => {
+    await page.goto("/");
+    await page.locator("#lifts").scrollIntoViewIfNeeded();
+    await expect(page.getByRole("button", { name: /Pause the list/ })).toHaveCount(0);
+    await page.waitForTimeout(7_000);
+    await expect(
+      page.locator("#lifts").getByRole("tab", { name: /^Passenger lifts/ }),
+    ).toHaveAttribute("aria-selected", "true");
+  });
+});
