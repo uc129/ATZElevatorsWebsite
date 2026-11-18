@@ -113,10 +113,10 @@ describe("starting values", () => {
     expect(startingValues()).toEqual({
       floors: "6",
       message:
-        "Hi, I'd like to talk about a lift for our building. Could you please get in touch at your convenience?",
+        "Hi, I'd like to talk about a lift for our building. Could you please get in touch soon?\nThanks!",
     });
     expect(startingValues({ need: "new", liftType: "home" }).message).toBe(
-      "Hi, I'd like to talk about installing a home lift at our building. Could you please contact me to arrange a site visit?",
+      "Hi, I'd like to talk about installing a home lift at our building. Could you please contact me to arrange a site visit?\nThanks!",
     );
     expect(startingValues({ need: "message-wins", message: "My own words" }).message).toBe(
       "My own words",
@@ -125,15 +125,16 @@ describe("starting values", () => {
 
   it("writes a message for every need and lift type, without selling phrases", () => {
     expect(enquiryMessage({ need: "modernise", liftType: "mrl", place: "office" })).toBe(
-      "Hi, I'd like to talk about upgrading the machine-room-less lift at our office. Could you please get in touch at your convenience?",
+      "Hi, I'd like to talk about upgrading the machine-room-less lift at our office. Could you please get in touch soon?\nThanks!",
     );
     expect(enquiryMessage({ need: "repair", liftType: "unsure" })).toBe(
-      "Hi, the lift at our building needs a repair. Could someone from your team please get in touch as soon as possible?",
+      "Hi, the lift at our building needs a repair. Could someone from your team please get in touch as soon as possible?\nThanks!",
     );
     for (const need of [...needOptions.map((o) => o.value), undefined])
       for (const liftType of liftTypeOptions.map((o) => o.value)) {
         const message = enquiryMessage({ need, liftType });
         expect(message).toMatch(/^Hi, /);
+        expect(message).toMatch(/\nThanks!$/);
         expect(message).not.toMatch(/free|survey|ATZ/i);
         expect(enquirySchema.shape.message.safeParse(message).success).toBe(true);
       }

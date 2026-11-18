@@ -149,6 +149,7 @@ const liftPhrases: Record<LiftType, string> = {
  * phrases, such as "free site survey"), from what the page knows.
  * `place` is the building as it reads after "our", e.g. "hospital"; it
  * comes from the Find your lift guide. It never guesses a number of lifts.
+ * Every message ends with the sign-off on its own line.
  */
 export function enquiryMessage({
   need,
@@ -161,19 +162,26 @@ export function enquiryMessage({
 }) {
   const lift = liftPhrases[liftType as LiftType] ?? liftPhrases.unsure;
   const theLift = lift.replace(/^an? /, "the ");
-  switch (need as Need | undefined) {
-    case "new":
-      return `Hi, I'd like to talk about installing ${lift} at our ${place}. Could you please contact me to arrange a site visit?`;
-    case "modernise":
-      return `Hi, I'd like to talk about upgrading ${theLift} at our ${place}. Could you please get in touch at your convenience?`;
-    case "amc":
-      return `Hi, I'd like to talk about an AMC for ${theLift} at our ${place}. Could you please get in touch at your convenience?`;
-    case "repair":
-      return `Hi, ${theLift} at our ${place} needs a repair. Could someone from your team please get in touch as soon as possible?`;
-    default:
-      return `Hi, I'd like to talk about ${lift} for our ${place}. Could you please get in touch at your convenience?`;
-  }
+  const soon = "Could you please get in touch soon?";
+  const body = (() => {
+    switch (need as Need | undefined) {
+      case "new":
+        return `Hi, I'd like to talk about installing ${lift} at our ${place}. Could you please contact me to arrange a site visit?`;
+      case "modernise":
+        return `Hi, I'd like to talk about upgrading ${theLift} at our ${place}. ${soon}`;
+      case "amc":
+        return `Hi, I'd like to talk about an AMC for ${theLift} at our ${place}. ${soon}`;
+      case "repair":
+        return `Hi, ${theLift} at our ${place} needs a repair. Could someone from your team please get in touch as soon as possible?`;
+      default:
+        return `Hi, I'd like to talk about ${lift} for our ${place}. ${soon}`;
+    }
+  })();
+  return `${body}\n${messageSignOff}`;
 }
+
+/** The one-word sign-off at the end of every ready-made message. */
+export const messageSignOff = "Thanks!";
 
 /**
  * What a fresh form starts with: the standard floors, a message written

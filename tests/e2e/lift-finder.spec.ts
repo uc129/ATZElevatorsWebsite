@@ -106,7 +106,7 @@ test.describe("Find your lift to a pre-filled quote", () => {
     await expect(drawer.getByLabel("Floors (incl. ground)")).toHaveValue("6");
     await expect(drawer.getByLabel("City")).toHaveValue("Patna");
     await expect(drawer.getByLabel("Anything else?")).toHaveValue(
-      "Hi, I'd like to talk about installing a hospital lift at our hospital. Could you please contact me to arrange a site visit?",
+      "Hi, I'd like to talk about installing a hospital lift at our hospital. Could you please contact me to arrange a site visit?\nThanks!",
     );
 
     // The header (or phone bar) button knows the page's answers too.
@@ -123,7 +123,7 @@ test.describe("Find your lift to a pre-filled quote", () => {
     await expect(drawer.getByLabel("Lift type")).toHaveValue("unsure");
     await expect(drawer.getByLabel("Floors (incl. ground)")).toHaveValue("6");
     await expect(drawer.getByLabel("Anything else?")).toHaveValue(
-      "Hi, I'd like to talk about a lift for our building. Could you please get in touch at your convenience?",
+      "Hi, I'd like to talk about a lift for our building. Could you please get in touch soon?\nThanks!",
     );
   });
 
