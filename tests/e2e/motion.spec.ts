@@ -105,3 +105,48 @@ test.describe("homepage lift types with reduced motion", () => {
     ).toHaveAttribute("aria-selected", "true");
   });
 });
+
+test.describe("homepage testimonials rotate in sets", () => {
+  const interval = 10_000; // --animate-set-progress
+  const set = (page: import("@playwright/test").Page, n: number) =>
+    page.getByRole("group", { name: `Testimonials, set ${n} of 3` });
+
+  async function showTestimonials(page: import("@playwright/test").Page) {
+    await page.goto("/");
+    // The cards themselves must be on screen (on a phone they stack into a tall block).
+    await page
+      .getByRole("group", { name: "Testimonials, set 1 of 3" })
+      .evaluate((el) => el.scrollIntoView({ block: "start" }));
+    await page.mouse.move(0, 0);
+  }
+
+  test("the next set shows after one interval", async ({ page }) => {
+    test.setTimeout(30_000);
+    await showTestimonials(page);
+    await expect(set(page, 1)).toBeVisible();
+    await expect(set(page, 2)).toBeHidden();
+    await expect(set(page, 2)).toBeVisible({ timeout: interval + 4_000 });
+    await expect(set(page, 1)).toBeHidden();
+  });
+
+  test("choosing a set shows it and stops the rotation", async ({ page }) => {
+    test.setTimeout(30_000);
+    await showTestimonials(page);
+    await page.getByRole("button", { name: "Show set 3 of 3" }).click();
+    await page.mouse.move(0, 0);
+    await expect(set(page, 3)).toBeVisible();
+    await expect(page.getByRole("button", { name: /Pause testimonials/ })).toHaveCount(0);
+    await page.waitForTimeout(interval + 1_000);
+    await expect(set(page, 3)).toBeVisible();
+  });
+});
+
+test.describe("homepage testimonials with reduced motion", () => {
+  test.use({ reducedMotion: "reduce" });
+
+  test("stay on the first set with no Pause button", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.getByRole("button", { name: /Pause testimonials/ })).toHaveCount(0);
+    await expect(page.getByRole("group", { name: "Testimonials, set 1 of 3" })).toBeVisible();
+  });
+});
