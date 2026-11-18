@@ -10,6 +10,8 @@ related:
   - ../adr/0003-content-as-typed-modules-no-db.md
 ---
 
+> Progress, 18-Nov-2026: steps 1, 2, 3, 5 and 6 done; step 4 skipped (ATZ). Changes from the plan: the guide page and `/quote` render on each request so results and pre-fill work without JavaScript; every quote button on a page (header, phone bar, call-to-action band) uses what the page knows (guide answers, lift type, service, office city); fresh forms start with six floors, the visitor's approximate city (Vercel) and a short message in the visitor's voice. Links to the guide: homepage hero, Lifts menu, phone menu, `/lifts`, footer and sitemap. Remaining: step 7 (docs; most tests are already in).
+
 # Find your lift guide plan
 
 ## Context

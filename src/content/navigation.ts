@@ -18,12 +18,16 @@ export const supportLink: NavLink = { label: "Customer support", href: "/support
 
 export const quoteHref = "/quote";
 
+/** The Find your lift guide. */
+export const finderHref = "/find-your-lift";
+
 export const footerNav: { title: string; links: NavLink[] }[] = [
   {
     title: "Lifts",
     links: [
       ...liftCategories.map((c) => ({ label: c.name, href: liftHref(c.slug) })),
       { label: "All lifts", href: "/lifts" },
+      { label: "Find your lift", href: finderHref },
     ],
   },
   {

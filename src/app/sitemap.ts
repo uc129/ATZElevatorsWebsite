@@ -8,6 +8,7 @@ import { siteUrl } from "@/lib/seo";
 const staticRoutes = [
   "/",
   "/lifts",
+  "/find-your-lift",
   "/services",
   "/projects",
   "/about",

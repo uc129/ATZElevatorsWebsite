@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/sections/page-header";
-import { finderPath, LiftFinderForm } from "@/components/sections/lift-finder/lift-finder-form";
+import { LiftFinderForm } from "@/components/sections/lift-finder/lift-finder-form";
+import { finderHref } from "@/content/navigation";
 import { LiftRecommendation } from "@/components/sections/lift-finder/lift-recommendation";
 import { Container, Section } from "@/components/ui/container";
 import { finderPage } from "@/content/lift-finder";
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   description:
     "Answer a few quick questions about your building and ATZ Elevators will suggest the lift that fits, with the reasons.",
   // Results live on query strings; search engines should index the guide itself.
-  alternates: { canonical: finderPath },
+  alternates: { canonical: finderHref },
 };
 
 type SearchParams = PageProps<"/find-your-lift">["searchParams"];

@@ -8,9 +8,10 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useId, useRef, useState } from "react";
+import { ButtonLink } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 import { liftCategories, liftHref } from "@/content/lifts";
-import { mainNav, supportLink } from "@/content/navigation";
+import { finderHref, mainNav, supportLink } from "@/content/navigation";
 import { EnquiryButton } from "./enquiry";
 import { isActive } from "./nav-link";
 import { useDismiss } from "./use-dismiss";
@@ -83,7 +84,16 @@ export function MobileMenu() {
             </li>
           ))}
         </ul>
-        <EnquiryButton size="lg" className="mt-4 w-full" onClick={close}>
+        <ButtonLink
+          href={finderHref}
+          variant="outline"
+          size="lg"
+          className="mt-4 w-full"
+          onClick={close}
+        >
+          Find your lift
+        </ButtonLink>
+        <EnquiryButton size="lg" className="mt-3 w-full" onClick={close}>
           Get a quote
         </EnquiryButton>
       </nav>

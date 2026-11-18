@@ -9,10 +9,9 @@ import { Card } from "@/components/ui/card";
 import { ChoiceCard, ChoiceGroup } from "@/components/ui/choice";
 import { Input } from "@/components/ui/field";
 import { finderForm, finderQuestions, floorLimits, type FinderOption } from "@/content/lift-finder";
+import { finderHref } from "@/content/navigation";
 import type { FinderKey, PartialAnswers } from "@/lib/lift-finder";
 import { finderIcons } from "./finder-icons";
-
-export const finderPath = "/find-your-lift";
 
 type OptionKey = Exclude<FinderKey, "floors">;
 
@@ -71,7 +70,7 @@ export function LiftFinderForm({
     missing.includes(key) ? (key === "floors" ? finderForm.floors : finderForm.choose) : undefined;
 
   return (
-    <form method="get" action={finderPath} noValidate className="flex flex-col gap-6">
+    <form method="get" action={finderHref} noValidate className="flex flex-col gap-6">
       {missing.length > 0 ? (
         <p
           role="alert"

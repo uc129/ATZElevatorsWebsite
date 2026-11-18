@@ -11,9 +11,11 @@ import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useId, useRef, useState } from "react";
+import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { cn } from "@/lib/cn";
 import { liftCategories, liftHref } from "@/content/lifts";
+import { finderHref } from "@/content/navigation";
 import { EnquiryButton } from "./enquiry";
 import { navLinkStyles } from "./nav-link";
 import { useDismiss } from "./use-dismiss";
@@ -79,10 +81,16 @@ export function ProductsMenu() {
           <div className="flex flex-col justify-between gap-3 rounded-lg border border-box-line bg-box glow-diffuse p-6">
             <p className="font-heading text-h4 font-bold text-navy">Not sure which lift fits?</p>
             <p className="text-sm text-muted">
-              Book a free site survey. An engineer checks your shaft, load and power supply, then
-              recommends a lift.
+              Answer a few quick questions and we will suggest the lift that fits, with the reasons.
             </p>
-            <EnquiryButton onClick={close}>Book a site survey</EnquiryButton>
+            <div className="flex flex-col items-start gap-1">
+              <ButtonLink href={finderHref} onClick={close}>
+                Find your lift
+              </ButtonLink>
+              <EnquiryButton variant="ghost" onClick={close}>
+                Or book a site survey
+              </EnquiryButton>
+            </div>
           </div>
         </Container>
       </div>

@@ -12,6 +12,7 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { Photo } from "@/components/ui/photo";
 import { company, telHref } from "@/content/company";
 import { finderPage, maintainResult } from "@/content/lift-finder";
+import { finderHref } from "@/content/navigation";
 import { findLift, liftHref } from "@/content/lifts";
 import { officeHref } from "@/content/offices";
 import { serviceHref, services } from "@/content/services";
@@ -25,7 +26,6 @@ import {
 import { defaultsWhatsappUrl } from "@/lib/enquiry";
 import { LiftCards } from "../lift-cards";
 import { IconPanel } from "../lift-showcase";
-import { finderPath } from "./lift-finder-form";
 
 const textLink = "inline-flex min-h-11 items-center gap-1.5 font-semibold";
 
@@ -80,10 +80,10 @@ function AnswersPanel({ answers }: { answers: FinderAnswers }) {
         ))}
       </dl>
       <div className="flex flex-wrap gap-x-6">
-        <Link href={`${finderPath}?${query}&edit=1`} className={textLink}>
+        <Link href={`${finderHref}?${query}&edit=1`} className={textLink}>
           {finderPage.changeAnswers}
         </Link>
-        <Link href={finderPath} className={textLink}>
+        <Link href={finderHref} className={textLink}>
           {finderPage.startAgain}
         </Link>
       </div>

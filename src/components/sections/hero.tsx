@@ -1,10 +1,12 @@
 import { ArrowRight, Check } from "lucide-react";
+import Link from "next/link";
 import { EnquiryButton } from "@/components/layout/enquiry";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Photo } from "@/components/ui/photo";
 import { company } from "@/content/company";
+import { finderHref } from "@/content/navigation";
 import { hero } from "@/content/home";
 
 export function Hero() {
@@ -27,6 +29,15 @@ export function Hero() {
               Report a breakdown
             </ButtonLink>
           </div>
+          <p className="-mt-3 text-muted">
+            Not sure which lift?{" "}
+            <Link
+              href={finderHref}
+              className="inline-flex min-h-11 items-center gap-1 font-semibold"
+            >
+              Find your lift <ArrowRight aria-hidden="true" className="size-4" />
+            </Link>
+          </p>
           <ul className="flex flex-wrap gap-x-7 gap-y-2 text-muted">
             {hero.assurances.map((item) => (
               <li key={item} className="inline-flex items-center gap-2">

@@ -84,3 +84,40 @@ test("the breakdown line uses the service number", async ({ page }) => {
     "tel:+919334119103",
   );
 });
+
+test.describe("reaching Find your lift", () => {
+  const guideHeading = "Which lift is right for your building?";
+
+  test("from the homepage hero", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("main").getByRole("link", { name: "Find your lift" }).first().click();
+    await expect(page).toHaveURL(/\/find-your-lift$/);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(guideHeading);
+  });
+
+  test("from the Lifts menu (desktop) or the phone menu", async ({ page, isMobile }) => {
+    await page.goto("/about");
+    if (isMobile) {
+      await page.getByRole("button", { name: "Open menu" }).click();
+      await page
+        .getByRole("navigation", { name: "Mobile" })
+        .getByRole("link", { name: "Find your lift" })
+        .click();
+    } else {
+      await page.getByRole("banner").getByRole("button", { name: "Lifts" }).click();
+      await page.getByRole("banner").getByRole("link", { name: "Find your lift" }).click();
+    }
+    await expect(page).toHaveURL(/\/find-your-lift$/);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(guideHeading);
+  });
+
+  test("from the lifts page and the footer", async ({ page }) => {
+    await page.goto("/lifts");
+    await expect(
+      page.getByRole("main").getByRole("link", { name: "Find your lift" }).first(),
+    ).toHaveAttribute("href", "/find-your-lift");
+    await expect(
+      page.getByRole("contentinfo").getByRole("link", { name: "Find your lift" }),
+    ).toHaveAttribute("href", "/find-your-lift");
+  });
+});
