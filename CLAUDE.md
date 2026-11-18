@@ -11,7 +11,7 @@ Plan: [docshub/plans/2026-11-18-website-foundation-plan.md](docshub/plans/2026-1
 - `npm run dev`: local dev server
 - `npm run check`: lint, typecheck, unit tests, build (run before every commit)
 - `npm run e2e`: Playwright tests at desktop and phone size, with axe accessibility scans (builds and serves on :3100; first run: `npx playwright install chromium`)
-- CI: `.github/workflows/ci.yml` runs lint, format, types, unit and browser tests on every push to master and every pull request
+- CI: `.github/workflows/ci.yml` runs lint, format, types, unit and browser tests on every push to `master` or `production` and on every pull request
 - `npm run format`: Prettier (with Tailwind class sorting)
 
 ## Layout
@@ -61,7 +61,11 @@ Plan: [docshub/plans/2026-11-18-website-foundation-plan.md](docshub/plans/2026-1
 
 ## Git and docs
 
-- `master` is the default branch. One branch per feature, cut from an up-to-date `master`.
+- `master` is the default branch and the **testing** branch. One branch per feature, cut from an up-to-date `master`; every feature merges into `master`.
+- `production` is the **release** branch. Vercel deploys the live site from it. It was cut from `master` on 18-Nov-2026 (same flow as the ERP).
+  - Work reaches `production` only through a `master` -> `production` pull request, after it has been checked and cleaned up on `master`. Never commit to `production` directly, never push to it, and never merge a feature branch into it.
+  - The user merges the promotion PR. CI runs on the PR and again on the push to `production`.
+  - Blocking direct pushes to `production` is a GitHub branch-protection setting the user manages.
 - Stage paths explicitly; never `git add -A` or `git commit -a`.
 - Commit subjects: plain imperative sentence case, no conventional-commit prefixes.
 - Docs follow the `docs-conventions` skill: `docshub/` with YAML front matter, indexed in `docshub/README.md`. Significant decisions get an ADR in `docshub/adr/`.
