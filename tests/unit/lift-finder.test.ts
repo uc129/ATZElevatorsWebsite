@@ -114,7 +114,10 @@ describe("recommendLift", () => {
     expect(pick({ roof: "unsure", floors: 15 }).primary).toBe("mrl");
     expect(pick({ roof: "unsure", floors: 4 }).primary).toBe("passenger");
     expect(pick({ roof: "unsure", floors: 16 }).primary).toBe("passenger");
-    expect(pick({ roof: "no", floors: 20 }).primary).toBe("mrl");
+    expect(pick({ roof: "no", floors: 15 }).primary).toBe("mrl");
+    const highRiseNoRoof = pick({ roof: "no", floors: 16 });
+    expect(highRiseNoRoof.primary).toBe("passenger");
+    expect(highRiseNoRoof.reasons).toContain(finderReasons.highRise);
     expect(pick({}).primary).toBe("passenger");
   });
 

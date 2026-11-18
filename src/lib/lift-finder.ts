@@ -148,6 +148,9 @@ function pickLift(a: Omit<FinderAnswers, "city">): Pick {
       reasons: a.roof === "no" ? ["mall", "noRoof"] : ["mall"],
     };
   }
+  if (highRise) {
+    return { primary: "passenger", alternatives: [], reasons: ["passenger", "highRise"] };
+  }
   if (a.roof === "no") {
     return { primary: "mrl", alternatives: ["passenger"], reasons: ["noRoof"] };
   }

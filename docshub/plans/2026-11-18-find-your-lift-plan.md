@@ -140,7 +140,7 @@ Branch: `feature/find-your-lift` from `master`. Merge `docs/elevator-websites-su
 1. The name `/find-your-lift` stays.
 2. "Government or institution" stays as its own building type.
 3. Malls and hotels get the panoramic lift as the main pick.
-4. Floor ranges: MRL from 5 to 15 floors (when roof space is not sure; "no room" always gets MRL), gearless as the alternative to a passenger lift from 8 to 15 floors. Above 15 floors the guide suggests a passenger lift and says the engineers plan high-rise lifts on the survey.
+4. Floor ranges: MRL from 5 to 15 floors (when roof space is not sure; "no room" gets MRL up to 15 floors), gearless as the alternative to a passenger lift from 8 to 15 floors. Above 15 floors, whatever the roof answer, the guide suggests a passenger lift and says the engineers plan high-rise lifts on the survey.
 
 ## Verification
 
