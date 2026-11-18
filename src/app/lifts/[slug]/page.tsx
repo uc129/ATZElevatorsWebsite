@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { Check } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -6,7 +5,7 @@ import { EnquiryButton } from "@/components/layout/enquiry";
 import { CtaBand } from "@/components/sections/cta-band";
 import { LiftCards } from "@/components/sections/lift-cards";
 import { IconPanel } from "@/components/sections/lift-showcase";
-import { PageHeader, PageHeaderSkeleton } from "@/components/sections/page-header";
+import { PageHeader } from "@/components/sections/page-header";
 import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -24,7 +23,14 @@ export async function generateMetadata({ params }: PageProps<"/lifts/[slug]">): 
   return lift ? { title: lift.name, description: lift.blurb } : {};
 }
 
-async function LiftContent({ params }: { params: PageProps<"/lifts/[slug]">["params"] }) {
+/**
+ * Every valid page is prerendered from generateStaticParams. The page may
+ * block on params (instant = false) so an unknown slug returns a real 404
+ * status; streaming it inside Suspense would send 200 first.
+ */
+export const instant = false;
+
+export default async function LiftPage({ params }: PageProps<"/lifts/[slug]">) {
   const lift = findLift((await params).slug);
   if (!lift) notFound();
   const others = liftCategories.filter((l) => l.slug !== lift.slug).slice(0, 3);
@@ -100,14 +106,5 @@ async function LiftContent({ params }: { params: PageProps<"/lifts/[slug]">["par
       </Section>
       <CtaBand />
     </>
-  );
-}
-
-/** Params are read inside Suspense (Cache Components); known pages are still prerendered. */
-export default function LiftPage(props: PageProps<"/lifts/[slug]">) {
-  return (
-    <Suspense fallback={<PageHeaderSkeleton />}>
-      <LiftContent params={props.params} />
-    </Suspense>
   );
 }

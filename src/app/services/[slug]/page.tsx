@@ -1,9 +1,8 @@
-import { Suspense } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { EnquiryButton } from "@/components/layout/enquiry";
 import { CtaBand } from "@/components/sections/cta-band";
-import { PageHeader, PageHeaderSkeleton } from "@/components/sections/page-header";
+import { PageHeader } from "@/components/sections/page-header";
 import { BreakdownBand, serviceIcons } from "@/components/sections/services";
 import { ButtonLink } from "@/components/ui/button";
 import { Container, Section } from "@/components/ui/container";
@@ -26,7 +25,14 @@ export async function generateMetadata({
   return service ? { title: service.title, description: service.lead } : {};
 }
 
-async function ServiceContent({ params }: { params: PageProps<"/services/[slug]">["params"] }) {
+/**
+ * Every valid page is prerendered from generateStaticParams. The page may
+ * block on params (instant = false) so an unknown slug returns a real 404
+ * status; streaming it inside Suspense would send 200 first.
+ */
+export const instant = false;
+
+export default async function ServicePage({ params }: PageProps<"/services/[slug]">) {
   const service = findService((await params).slug);
   if (!service) notFound();
   const Icon = serviceIcons[service.icon];
@@ -92,14 +98,5 @@ async function ServiceContent({ params }: { params: PageProps<"/services/[slug]"
       </Section>
       <CtaBand />
     </>
-  );
-}
-
-/** Params are read inside Suspense (Cache Components); known pages are still prerendered. */
-export default function ServicePage(props: PageProps<"/services/[slug]">) {
-  return (
-    <Suspense fallback={<PageHeaderSkeleton />}>
-      <ServiceContent params={props.params} />
-    </Suspense>
   );
 }

@@ -7,7 +7,6 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { Skeleton } from "@/components/ui/skeleton";
 
 export type Crumb = { label: string; href: string };
 
@@ -55,21 +54,6 @@ export function PageHeader({
           {actions ? <div className="flex flex-wrap gap-3">{actions}</div> : null}
         </div>
         {aside ? <div className="lg:col-span-5">{aside}</div> : null}
-      </Container>
-    </section>
-  );
-}
-
-/** Loading state for dynamic pages while their params resolve. */
-export function PageHeaderSkeleton() {
-  return (
-    <section className="border-b border-line" role="status">
-      <span className="sr-only">Loading</span>
-      <Container className="flex flex-col gap-5 py-12 lg:py-20">
-        <Skeleton className="h-4 w-48" />
-        <Skeleton className="h-4 w-32" />
-        <Skeleton className="h-12 w-full max-w-xl" />
-        <Skeleton className="h-6 w-full max-w-2xl" />
       </Container>
     </section>
   );

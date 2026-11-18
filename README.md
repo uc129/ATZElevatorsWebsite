@@ -20,7 +20,7 @@ Open http://localhost:3000.
 | `npm run dev`    | Dev server                                                                              |
 | `npm run check`  | Lint, typecheck, unit tests and production build                                        |
 | `npm run test`   | Vitest unit tests                                                                       |
-| `npm run e2e`    | Playwright smoke and accessibility tests (first run: `npx playwright install chromium`) |
+| `npm run e2e`    | Playwright page, navigation, form and accessibility tests (first run: `npx playwright install chromium`) |
 | `npm run format` | Prettier with Tailwind class sorting                                                    |
 
 ## Docs

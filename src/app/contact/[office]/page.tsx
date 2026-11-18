@@ -1,10 +1,9 @@
-import { Suspense } from "react";
 import { MapPin } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ContactOptions } from "@/components/sections/contact-options";
 import { CtaBand } from "@/components/sections/cta-band";
-import { PageHeader, PageHeaderSkeleton } from "@/components/sections/page-header";
+import { PageHeader } from "@/components/sections/page-header";
 import { Card } from "@/components/ui/card";
 import { Container, Section } from "@/components/ui/container";
 import { company } from "@/content/company";
@@ -26,7 +25,14 @@ export async function generateMetadata({
     : {};
 }
 
-async function OfficeContent({ params }: { params: PageProps<"/contact/[office]">["params"] }) {
+/**
+ * Every valid page is prerendered from generateStaticParams. The page may
+ * block on params (instant = false) so an unknown slug returns a real 404
+ * status; streaming it inside Suspense would send 200 first.
+ */
+export const instant = false;
+
+export default async function OfficePage({ params }: PageProps<"/contact/[office]">) {
   const office = findOffice((await params).office);
   if (!office) notFound();
 
@@ -73,14 +79,5 @@ async function OfficeContent({ params }: { params: PageProps<"/contact/[office]"
       </Section>
       <CtaBand />
     </>
-  );
-}
-
-/** Params are read inside Suspense (Cache Components); known pages are still prerendered. */
-export default function OfficePage(props: PageProps<"/contact/[office]">) {
-  return (
-    <Suspense fallback={<PageHeaderSkeleton />}>
-      <OfficeContent params={props.params} />
-    </Suspense>
   );
 }

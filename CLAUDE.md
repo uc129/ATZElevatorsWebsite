@@ -10,7 +10,8 @@ Plan: [docshub/plans/2026-11-18-website-foundation-plan.md](docshub/plans/2026-1
 
 - `npm run dev`: local dev server
 - `npm run check`: lint, typecheck, unit tests, build (run before every commit)
-- `npm run e2e`: Playwright smoke and accessibility tests (builds and serves on :3100)
+- `npm run e2e`: Playwright tests at desktop and phone size, with axe accessibility scans (builds and serves on :3100; first run: `npx playwright install chromium`)
+- CI: `.github/workflows/ci.yml` runs lint, format, types, unit and browser tests on every push to master and every pull request
 - `npm run format`: Prettier (with Tailwind class sorting)
 
 ## Layout
