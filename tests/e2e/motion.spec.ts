@@ -41,6 +41,10 @@ test("the About page story: no video, photo first, then the heading and text", a
   const photoTop = (await photo.boundingBox())!.y;
   const headingTop = (await heading.boundingBox())!.y;
   expect(headingTop).toBeGreaterThan(photoTop);
-  const textTop = (await page.getByText(/was incorporated in Patna/).boundingBox())!.y;
+  const textTop = (await page
+    .locator("#story-title ~ *, section:has(#story-title) p")
+    .filter({ hasText: /was incorporated in Patna/ })
+    .first()
+    .boundingBox())!.y;
   expect(textTop).toBeGreaterThan(headingTop);
 });
