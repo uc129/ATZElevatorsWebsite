@@ -32,8 +32,15 @@ test.describe("with reduced motion", () => {
   });
 });
 
-test("the About page has no video, and its story has a photo", async ({ page }) => {
+test("the About page story: no video, photo first, then the heading and text", async ({ page }) => {
   await page.goto("/about");
   await expect(page.locator("main video")).toHaveCount(0);
-  await expect(page.getByRole("img", { name: /new lift tower rising/ })).toBeVisible();
+  const photo = page.getByRole("img", { name: /Patna seen from the top of Golghar/ });
+  const heading = page.getByRole("heading", { name: "Rooted in Patna, rising with the city." });
+  await expect(photo).toBeVisible();
+  const photoTop = (await photo.boundingBox())!.y;
+  const headingTop = (await heading.boundingBox())!.y;
+  expect(headingTop).toBeGreaterThan(photoTop);
+  const textTop = (await page.getByText(/was incorporated in Patna/).boundingBox())!.y;
+  expect(textTop).toBeGreaterThan(headingTop);
 });
