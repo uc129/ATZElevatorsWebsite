@@ -163,15 +163,15 @@ export function enquiryMessage({
   const theLift = lift.replace(/^an? /, "the ");
   switch (need as Need | undefined) {
     case "new":
-      return `Hi, I'd like to talk about installing ${lift} at our ${place}. I would be grateful if you could contact me to arrange a site visit.`;
+      return `Hi, I'd like to talk about installing ${lift} at our ${place}. Could you please contact me to arrange a site visit?`;
     case "modernise":
-      return `Hi, I'd like to talk about upgrading ${theLift} at our ${place}. I would be grateful if you could contact me at your earliest convenience.`;
+      return `Hi, I'd like to talk about upgrading ${theLift} at our ${place}. Could you please get in touch at your convenience?`;
     case "amc":
-      return `Hi, I'd like to talk about an AMC for ${theLift} at our ${place}. I would be grateful if you could contact me at your earliest convenience.`;
+      return `Hi, I'd like to talk about an AMC for ${theLift} at our ${place}. Could you please get in touch at your convenience?`;
     case "repair":
-      return `Hi, ${theLift} at our ${place} needs a repair. I would be grateful if someone from your team could get in touch as soon as possible.`;
+      return `Hi, ${theLift} at our ${place} needs a repair. Could someone from your team please get in touch as soon as possible?`;
     default:
-      return `Hi, I'd like to talk about ${lift} for our ${place}. I would be grateful if you could contact me at your earliest convenience.`;
+      return `Hi, I'd like to talk about ${lift} for our ${place}. Could you please get in touch at your convenience?`;
   }
 }
 
