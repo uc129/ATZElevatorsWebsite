@@ -22,6 +22,16 @@ describe("content rules", () => {
     expect(numbers.filter((n) => n !== "24" && n !== "7")).toEqual([]);
   });
 
+  it("tells each lift's story without figures (years in words)", () => {
+    for (const lift of liftCategories) {
+      for (const text of [lift.history, lift.atz]) {
+        expect(text.length).toBeGreaterThan(100);
+        // "24×7" describes the service hours, not a statistic.
+        expect((text.match(/\d+/g) ?? []).filter((n) => n !== "24" && n !== "7")).toEqual([]);
+      }
+    }
+  });
+
   it("states the 2002 founding year and never 1998", () => {
     expect(company.founded).toBe(2002);
     expect(JSON.stringify({ hero, highlights, stages })).not.toContain("1998");

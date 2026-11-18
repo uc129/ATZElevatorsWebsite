@@ -67,7 +67,7 @@ export default async function LiftPage({ params }: PageProps<"/lifts/[slug]">) {
       />
 
       <Section>
-        <Container className="grid gap-6 lg:grid-cols-2">
+        <Container className="flex flex-col gap-10">
           <Card className="flex flex-col gap-4 p-6 md:p-8">
             <h2 className="text-h3 font-bold">Available as</h2>
             <ul className="flex flex-wrap gap-2">
@@ -84,6 +84,11 @@ export default async function LiftPage({ params }: PageProps<"/lifts/[slug]">) {
               survey, and written into an itemised quotation.
             </p>
           </Card>
+          <div className="flex max-w-3xl flex-col gap-4 md:px-8">
+            <h2 className="text-h3 font-bold">Then and now</h2>
+            <p className="text-lg text-muted">{lift.history}</p>
+            <p className="text-lg text-muted">{lift.atz}</p>
+          </div>
           <Card className="flex flex-col gap-4 p-6 md:p-8">
             <h2 className="text-h3 font-bold">Ideal for</h2>
             <ul className="flex flex-col gap-2.5">

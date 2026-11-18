@@ -156,7 +156,7 @@ export function LiftRecommendation({
               <p className="text-lg text-muted">{lift ? lift.blurb : maintainResult.lead}</p>
               {lift ? (
                 <Link href={liftHref(lift.slug)} className={textLink}>
-                  More about {lift.name.toLowerCase()}
+                  More about this lift
                   <ArrowRight aria-hidden="true" className="size-4" />
                 </Link>
               ) : null}
