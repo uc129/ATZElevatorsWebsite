@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { Button, ButtonLink } from "@/components/ui/button";
+import { ChoiceCard, ChoiceGroup } from "@/components/ui/choice";
 import { Input } from "@/components/ui/field";
 import { Tabs } from "@/components/ui/tabs";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
@@ -84,5 +85,40 @@ describe("VerifiedBadge", () => {
   it("says verified client when verified", () => {
     render(<VerifiedBadge verified />);
     expect(screen.getByText("Verified client")).toBeInTheDocument();
+  });
+});
+
+describe("ChoiceCard", () => {
+  function Roof({ error }: { error?: string }) {
+    return (
+      <form aria-label="Roof">
+        <ChoiceGroup legend="Room on the roof?" hint="For the machine room." error={error}>
+          <ChoiceCard name="roof" value="yes" label="Yes" hint="There is space" />
+          <ChoiceCard name="roof" value="no" label="No" />
+          <ChoiceCard name="roof" value="unsure" label="Not sure" disabled />
+        </ChoiceGroup>
+      </form>
+    );
+  }
+
+  it("is a real radio group named by its legend", () => {
+    render(<Roof error="Choose an answer." />);
+    const group = screen.getByRole("group", { name: "Room on the roof?" });
+    expect(group).toHaveAccessibleDescription("For the machine room. Choose an answer.");
+    expect(screen.getByRole("radio", { name: "Yes" })).toHaveAccessibleDescription(
+      "There is space",
+    );
+    expect(screen.getByRole("radio", { name: "Not sure" })).toBeDisabled();
+  });
+
+  it("selects by clicking the card and moves with the arrow keys", async () => {
+    const user = userEvent.setup();
+    render(<Roof />);
+    await user.click(screen.getByText("Yes"));
+    expect(screen.getByRole("radio", { name: "Yes" })).toBeChecked();
+    await user.keyboard("{ArrowDown}");
+    expect(screen.getByRole("radio", { name: "No" })).toBeChecked();
+    const data = new FormData(screen.getByRole("form", { name: "Roof" }) as HTMLFormElement);
+    expect(data.get("roof")).toBe("no");
   });
 });

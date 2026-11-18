@@ -1,5 +1,8 @@
 import {
   ArrowRight,
+  Building2,
+  Hospital,
+  House,
   CircleCheck,
   CircleX,
   Info,
@@ -10,6 +13,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Card, cardStyles, FramedCard } from "@/components/ui/card";
+import { ChoiceCard, ChoiceGroup } from "@/components/ui/choice";
 import { Spotlight } from "@/components/ui/spotlight";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Input, Select, Textarea } from "@/components/ui/field";
@@ -158,6 +162,61 @@ export function ComponentsDemo() {
           />
           <Input label="City" name="city" disabled defaultValue="Patna" />
         </form>
+      </Demo>
+
+      <Demo title="Choice cards">
+        <div className="grid gap-8 lg:grid-cols-2">
+          <ChoiceGroup
+            legend="What kind of building is it?"
+            hint="Choose the closest match."
+            listClassName="sm:grid-cols-2"
+          >
+            <ChoiceCard
+              name="demo-building"
+              value="home"
+              label="Independent house"
+              icon={<House aria-hidden="true" />}
+            />
+            <ChoiceCard
+              name="demo-building"
+              value="apartment"
+              label="Apartment society"
+              icon={<Building2 aria-hidden="true" />}
+              defaultChecked
+            />
+            <ChoiceCard
+              name="demo-building"
+              value="hospital"
+              label="Hospital or clinic"
+              icon={<Hospital aria-hidden="true" />}
+            />
+            <ChoiceCard name="demo-building" value="closed" label="Not available" disabled />
+          </ChoiceGroup>
+          <ChoiceGroup
+            legend="Is there room on the roof for a machine room?"
+            error="Choose an answer."
+            required
+          >
+            <ChoiceCard
+              name="demo-roof"
+              value="yes"
+              label="Yes"
+              hint="There is space above the top floor"
+            />
+            <ChoiceCard
+              name="demo-roof"
+              value="no"
+              label="No"
+              hint="The roof is used or there is no space"
+            />
+            <ChoiceCard
+              name="demo-roof"
+              value="unsure"
+              label="Not sure"
+              hint="Our engineer checks this on the survey"
+            />
+          </ChoiceGroup>
+        </div>
       </Demo>
 
       <Demo title="Tabs">
