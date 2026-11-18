@@ -2,15 +2,13 @@ import type { Metadata } from "next";
 import { CtaBand } from "@/components/sections/cta-band";
 import { LiftJourney } from "@/components/sections/lift-journey";
 import { PageHeader } from "@/components/sections/page-header";
-import { VideoLoop } from "@/components/sections/video-loop";
-import { Card } from "@/components/ui/card";
+import { Card, FramedCard } from "@/components/ui/card";
 import { Container, Section } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Photo } from "@/components/ui/photo";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { quality, story, values } from "@/content/about";
 import { company } from "@/content/company";
-import { patnaRising } from "@/content/home";
 
 export const metadata: Metadata = {
   title: "About ATZ",
@@ -35,8 +33,8 @@ export default function AboutPage() {
       />
 
       <Section>
-        <Container className="grid gap-10 lg:grid-cols-12">
-          <div className="flex flex-col gap-4 lg:col-span-7">
+        <Container className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+          <div className="flex flex-col gap-4 lg:col-span-6">
             <Eyebrow>Our story</Eyebrow>
             <h2 className="text-h2 font-bold">Rooted in Patna, rising with the city.</h2>
             {story.map((p) => (
@@ -45,16 +43,13 @@ export default function AboutPage() {
               </p>
             ))}
           </div>
-          <div className="mx-auto w-full max-w-xs lg:col-span-4 lg:col-start-9">
-            <div className="rounded-lg border border-box-line bg-box p-1.5 shadow-diffuse">
-              <VideoLoop
-                sources={[{ src: patnaRising.video }]}
-                poster={patnaRising.poster}
-                label="Slow drone view over tall buildings under construction beside the Ganga in Patna"
-                className="aspect-9/16 rounded-md"
-              />
-            </div>
-          </div>
+          <FramedCard as="figure" className="lg:col-span-6" innerClassName="overflow-hidden">
+            <Photo
+              id="patnaLiftConstruction"
+              sizes="(min-width: 1024px) 45vw, 100vw"
+              className="aspect-4/3 size-full"
+            />
+          </FramedCard>
         </Container>
       </Section>
 

@@ -31,3 +31,9 @@ test.describe("with reduced motion", () => {
     expect(animation).toBe("none");
   });
 });
+
+test("the About page has no video, and its story has a photo", async ({ page }) => {
+  await page.goto("/about");
+  await expect(page.locator("main video")).toHaveCount(0);
+  await expect(page.getByRole("img", { name: /new lift tower rising/ })).toBeVisible();
+});

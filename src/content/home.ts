@@ -31,18 +31,6 @@ export const inMotion = {
   text: "Malls, hospitals and homes across India move people floor to floor all day. We keep that movement safe, smooth and on time, from the first survey to the last safety check.",
 };
 
-/**
- * Patna drone film (On Road, Instagram), slowed to 0.625x. For the About page
- * (step 6). Permission from the creator is pending: do not ship until confirmed.
- */
-export const patnaRising = {
-  eyebrow: "Patna is rising",
-  title: "New floors go up across the city every season.",
-  text: "Hospitals, offices and homes are climbing higher along the Ganga. Every new floor needs a lift that is planned early, built right and cared for over a lifetime. That is the work we do.",
-  video: "/media/patna-rising.mp4",
-  poster: "/media/patna-rising-poster.jpg",
-};
-
 /** Client buildings with openly licensed photos (PMCH). Others to follow from ATZ. */
 export const clientBuildings = [
   { photo: "patnaPmchNight", caption: "PMCH, Patna" },
