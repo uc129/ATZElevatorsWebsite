@@ -1,7 +1,7 @@
 import { Check } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { EnquiryButton } from "@/components/layout/enquiry";
+import { EnquiryButton, PageEnquiryDefaults } from "@/components/layout/enquiry";
 import { CtaBand } from "@/components/sections/cta-band";
 import { LiftCards } from "@/components/sections/lift-cards";
 import { IconPanel } from "@/components/sections/lift-showcase";
@@ -34,9 +34,11 @@ export default async function LiftPage({ params }: PageProps<"/lifts/[slug]">) {
   const lift = findLift((await params).slug);
   if (!lift) notFound();
   const others = liftCategories.filter((l) => l.slug !== lift.slug).slice(0, 3);
+  const enquiryDefaults = { need: "new", liftType: lift.slug } as const;
 
   return (
     <>
+      <PageEnquiryDefaults defaults={enquiryDefaults} />
       <PageHeader
         eyebrow={lift.short}
         title={lift.name}
@@ -44,7 +46,7 @@ export default async function LiftPage({ params }: PageProps<"/lifts/[slug]">) {
         trail={[{ label: "Lifts", href: "/lifts" }]}
         actions={
           <>
-            <EnquiryButton size="lg" defaults={{ need: "new", liftType: lift.slug }}>
+            <EnquiryButton size="lg" defaults={enquiryDefaults}>
               Get a quote for this lift
             </EnquiryButton>
             <ButtonLink href="/lifts" variant="outline" size="lg">

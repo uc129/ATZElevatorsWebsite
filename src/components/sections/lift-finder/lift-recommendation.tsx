@@ -5,12 +5,12 @@
  */
 import { ArrowRight, Check, MessageCircle, Phone } from "lucide-react";
 import Link from "next/link";
-import { EnquiryButton } from "@/components/layout/enquiry";
+import { EnquiryButton, PageEnquiryDefaults } from "@/components/layout/enquiry";
 import { ButtonLink } from "@/components/ui/button";
 import { Card, FramedCard } from "@/components/ui/card";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Photo } from "@/components/ui/photo";
-import { company, telHref, whatsappHref } from "@/content/company";
+import { company, telHref } from "@/content/company";
 import { finderPage, maintainResult } from "@/content/lift-finder";
 import { findLift, liftHref } from "@/content/lifts";
 import { officeHref } from "@/content/offices";
@@ -22,6 +22,7 @@ import {
   type FinderAnswers,
   type Recommendation,
 } from "@/lib/lift-finder";
+import { defaultsWhatsappUrl } from "@/lib/enquiry";
 import { LiftCards } from "../lift-cards";
 import { IconPanel } from "../lift-showcase";
 import { finderPath } from "./lift-finder-form";
@@ -46,7 +47,6 @@ function Reasons({ reasons }: { reasons: string[] }) {
 
 function Actions({ answers }: { answers: FinderAnswers }) {
   const defaults = enquiryDefaultsFromAnswers(answers) ?? {};
-  const whatsappText = `${finderPage.whatsappIntro}\n${defaults.message ?? ""}`;
   return (
     <div className="flex flex-wrap gap-3">
       {/* Opens the drawer pre-filled; without JavaScript, /quote pre-filled. */}
@@ -54,7 +54,7 @@ function Actions({ answers }: { answers: FinderAnswers }) {
         {finderPage.quote}
       </EnquiryButton>
       <ButtonLink
-        href={whatsappHref(company.phones.marketing, whatsappText)}
+        href={defaultsWhatsappUrl(defaults)}
         variant="whatsapp"
         size="lg"
         target="_blank"
@@ -133,6 +133,7 @@ export function LiftRecommendation({
 
   return (
     <div className="flex flex-col gap-16">
+      <PageEnquiryDefaults defaults={enquiryDefaultsFromAnswers(answers) ?? {}} />
       <div className="grid gap-8 lg:grid-cols-12">
         <FramedCard as="article" className="lg:col-span-8" innerClassName="overflow-hidden">
           {lift ? (

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { EnquiryButton } from "@/components/layout/enquiry";
+import { EnquiryButton, PageEnquiryDefaults } from "@/components/layout/enquiry";
 import { CtaBand } from "@/components/sections/cta-band";
 import { PageHeader } from "@/components/sections/page-header";
 import { BreakdownBand, serviceIcons } from "@/components/sections/services";
@@ -46,9 +46,11 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
   if (!service) notFound();
   const Icon = serviceIcons[service.icon];
   const isRepair = service.slug === "repairs";
+  const enquiryDefaults = { need: serviceNeeds[service.slug] };
 
   return (
     <>
+      <PageEnquiryDefaults defaults={enquiryDefaults} />
       <PageHeader
         eyebrow="Services"
         title={service.title}
@@ -60,7 +62,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
               Call {company.phones.service.display}
             </ButtonLink>
           ) : (
-            <EnquiryButton size="lg" defaults={{ need: serviceNeeds[service.slug] }}>
+            <EnquiryButton size="lg" defaults={enquiryDefaults}>
               {service.cta}
             </EnquiryButton>
           )

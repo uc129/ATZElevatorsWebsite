@@ -5,6 +5,8 @@ import {
   enquiryWhatsappUrl,
   parseEnquiryDefaults,
   quoteHrefWith,
+  startingValues,
+  visitorCityFrom,
 } from "@/lib/enquiry";
 
 const valid = {
@@ -100,5 +102,33 @@ describe("pre-filled enquiries", () => {
     expect(
       parseEnquiryDefaults(Object.fromEntries(new URL(href, "http://x").searchParams)),
     ).toEqual({ liftType: "home", message: "Line one\nLine two" });
+  });
+});
+
+describe("starting values", () => {
+  it("starts with six floors and a short message for the need", () => {
+    expect(startingValues()).toEqual({
+      floors: "6",
+      message: "Please call me to book a free site survey.",
+    });
+    expect(startingValues({ need: "repair" }).message).toBe(
+      "Our lift needs a repair. Please call me.",
+    );
+  });
+
+  it("uses the visitor's city unless the page knows one, and ignores empty values", () => {
+    expect(startingValues({}, "Gaya").city).toBe("Gaya");
+    expect(startingValues({ city: "Kolkata", floors: "" }, "Gaya")).toMatchObject({
+      city: "Kolkata",
+      floors: "6",
+    });
+  });
+
+  it("reads the visitor's city from Vercel's header, and nothing else", () => {
+    const h = (value?: string) => new Headers(value ? { "x-vercel-ip-city": value } : {});
+    expect(visitorCityFrom(h("Patna"))).toBe("Patna");
+    expect(visitorCityFrom(h("New%20Delhi"))).toBe("New Delhi");
+    expect(visitorCityFrom(h("<script>"))).toBeUndefined();
+    expect(visitorCityFrom(h())).toBeUndefined();
   });
 });

@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { EnquiryForm } from "@/components/layout/enquiry-form";
 import { Container, Section } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { parseEnquiryDefaults } from "@/lib/enquiry";
+import { headers } from "next/headers";
+import { parseEnquiryDefaults, visitorCityFrom } from "@/lib/enquiry";
 
 export const metadata: Metadata = {
   title: "Get a free quote",
@@ -22,6 +23,7 @@ export const instant = false;
 /** The quote form as a page: the fallback for the enquiry drawer. */
 export default async function QuotePage({ searchParams }: PageProps<"/quote">) {
   const defaults = parseEnquiryDefaults(await searchParams);
+  const visitorCity = visitorCityFrom(await headers());
   return (
     <Section>
       <Container className="grid gap-10 lg:grid-cols-12">
@@ -34,7 +36,7 @@ export default async function QuotePage({ searchParams }: PageProps<"/quote">) {
           </p>
         </div>
         <div className="lg:col-span-6 lg:col-start-7">
-          <EnquiryForm defaults={defaults} />
+          <EnquiryForm defaults={defaults} visitorCity={visitorCity} />
         </div>
       </Container>
     </Section>

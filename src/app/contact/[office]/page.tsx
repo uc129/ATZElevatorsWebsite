@@ -1,6 +1,7 @@
 import { MapPin } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { PageEnquiryDefaults } from "@/components/layout/enquiry";
 import { ContactOptions } from "@/components/sections/contact-options";
 import { CtaBand } from "@/components/sections/cta-band";
 import { PageHeader } from "@/components/sections/page-header";
@@ -38,6 +39,7 @@ export default async function OfficePage({ params }: PageProps<"/contact/[office
 
   return (
     <>
+      <PageEnquiryDefaults defaults={{ city: office.city }} />
       <PageHeader
         eyebrow={`${office.kind} · ${office.state}`}
         title={`ATZ in ${office.city}`}

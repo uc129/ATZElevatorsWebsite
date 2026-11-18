@@ -198,7 +198,9 @@ describe("enquiryDefaultsFromAnswers", () => {
       floors: "6",
       city: "Patna",
     });
-    expect(defaults?.message).toContain("Suggested: Hospital lifts");
+    expect(defaults?.message).toBe(
+      "Find your lift suggested: Hospital lifts. Please call me to book a free site survey.",
+    );
     const parsed = enquirySchema.safeParse({ ...defaults, name: "Asha", phone: "9876543210" });
     expect(parsed.success).toBe(true);
   });
@@ -210,8 +212,12 @@ describe("enquiryDefaultsFromAnswers", () => {
       stage: "maintain",
       city: "other",
     });
-    expect(maintain).toMatchObject({ need: "amc", liftType: "unsure", floors: "", city: "" });
-    expect(maintain?.message).not.toContain("Suggested");
+    // Unknown floors and city are left out, so the form's standard ones apply.
+    expect(maintain).toEqual({
+      need: "amc",
+      liftType: "unsure",
+      message: "Please call me about an AMC for our lift.",
+    });
   });
 
   it("uses lift slugs the enquiry form knows", () => {

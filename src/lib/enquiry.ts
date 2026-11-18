@@ -126,6 +126,73 @@ export function quoteHrefWith(defaults?: EnquiryDefaults) {
 const labelOf = (options: readonly { value: string; label: string }[], value: string) =>
   options.find((o) => o.value === value)?.label ?? value;
 
+/** A typical building, so the floors field is never empty; the visitor can change it. */
+export const defaultFloors = "6";
+
+type Need = (typeof needOptions)[number]["value"];
+
+/**
+ * One short line, ready to send. It does not repeat the need, lift type,
+ * floors or city: those travel as their own fields, so the line cannot go
+ * out of date when the visitor edits one.
+ */
+export function needMessage(need?: string) {
+  const messages: Record<Need, string> = {
+    new: "Please call me to book a free site survey.",
+    amc: "Please call me about an AMC for our lift.",
+    modernise: "Please call me about modernising our lift.",
+    repair: "Our lift needs a repair. Please call me.",
+  };
+  return messages[need as Need] ?? messages.new;
+}
+
+/**
+ * What a fresh form starts with: the standard floors and message, the
+ * visitor's city when known, then whatever the page or link knows on top.
+ */
+export function startingValues(defaults: EnquiryDefaults = {}, visitorCity?: string) {
+  const known = Object.fromEntries(
+    Object.entries(defaults).filter(([, value]) => Boolean(value)),
+  ) as EnquiryDefaults;
+  return {
+    floors: defaultFloors,
+    message: needMessage(known.need),
+    ...(visitorCity ? { city: visitorCity } : {}),
+    ...known,
+  } satisfies EnquiryDefaults;
+}
+
+/** A WhatsApp message to the sales number from pre-filled values, before any name. */
+export function defaultsWhatsappUrl(defaults: EnquiryDefaults) {
+  const lines = [
+    "Hello ATZ, I would like a quote.",
+    defaults.need ? `Need: ${labelOf(needOptions, defaults.need)}` : null,
+    defaults.liftType && defaults.liftType !== "unsure"
+      ? `Lift type: ${labelOf(liftTypeOptions, defaults.liftType)}`
+      : null,
+    defaults.floors ? `Floors: ${defaults.floors}` : null,
+    defaults.city ? `City: ${defaults.city}` : null,
+    defaults.message ?? null,
+  ].filter(Boolean);
+  return whatsappHref(company.phones.marketing, lines.join("\n"));
+}
+
+/**
+ * The visitor's approximate city, from the header Vercel adds to each
+ * request (worked out from the internet address; no location prompt, not
+ * stored). Absent locally and off Vercel.
+ */
+export function visitorCityFrom(headers: Headers): string | undefined {
+  const raw = headers.get("x-vercel-ip-city");
+  if (!raw) return undefined;
+  try {
+    const city = decodeURIComponent(raw).trim();
+    return /^[\p{L} .'-]{2,60}$/u.test(city) ? city : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 /** The enquiry as a WhatsApp message to the sales number. */
 export function enquiryWhatsappUrl(e: Enquiry) {
   const lines = [

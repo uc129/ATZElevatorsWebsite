@@ -14,6 +14,7 @@ import { company, telHref } from "@/content/company";
 import {
   liftTypeOptions,
   needOptions,
+  startingValues,
   type EnquiryDefaults,
   type EnquiryField,
   type EnquiryState,
@@ -24,10 +25,13 @@ const initialState: EnquiryState = { status: "idle" };
 export function EnquiryForm({
   onDone,
   defaults,
+  visitorCity,
 }: {
   onDone?: () => void;
   /** Pre-filled answers, e.g. from the Find your lift guide. Never name or mobile. */
   defaults?: EnquiryDefaults;
+  /** The visitor's approximate city, used when the page does not know one. */
+  visitorCity?: string;
 }) {
   const [state, formAction, pending] = useActionState(sendEnquiry, initialState);
   const formRef = useRef<HTMLFormElement>(null);
@@ -87,7 +91,7 @@ export function EnquiryForm({
 
   const errors = state.status === "invalid" ? state.errors : {};
   const values: Partial<Record<EnquiryField, string>> =
-    state.status === "invalid" ? state.values : (defaults ?? {});
+    state.status === "invalid" ? state.values : startingValues(defaults, visitorCity);
   const errorCount = Object.keys(errors).length;
 
   return (

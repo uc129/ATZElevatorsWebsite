@@ -12,6 +12,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -23,13 +24,19 @@ import { buttonStyles, type ButtonSize, type ButtonVariant } from "@/components/
 import { quoteHrefWith, type EnquiryDefaults } from "@/lib/enquiry";
 import { EnquiryForm } from "./enquiry-form";
 
-type EnquiryContextValue = { open: (defaults?: EnquiryDefaults) => void; close: () => void };
+type EnquiryContextValue = {
+  open: (defaults?: EnquiryDefaults) => void;
+  close: () => void;
+  /** What the current page knows (e.g. its lift type), for quote buttons anywhere on it. */
+  pageDefaults?: EnquiryDefaults;
+  setPageDefaults: (defaults?: EnquiryDefaults) => void;
+};
 
 const EnquiryContext = createContext<EnquiryContextValue | null>(null);
 
 export function EnquiryProvider({ children }: { children: ReactNode }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  // A new key per opening gives a fresh, empty form each time.
+  // A new key per opening gives a fresh form each time.
   const [formKey, setFormKey] = useState(0);
   // Pre-filled answers for this opening only; the next opening starts clean.
   const [defaults, setDefaults] = useState<EnquiryDefaults>();
@@ -40,7 +47,27 @@ export function EnquiryProvider({ children }: { children: ReactNode }) {
     dialogRef.current?.showModal();
   }, []);
   const close = useCallback(() => dialogRef.current?.close(), []);
-  const value = useMemo(() => ({ open, close }), [open, close]);
+  const [pageDefaults, setPageDefaults] = useState<EnquiryDefaults>();
+
+  // The visitor's approximate city, asked once per visit (Vercel only).
+  const [visitorCity, setVisitorCity] = useState<string>();
+  useEffect(() => {
+    let active = true;
+    fetch("/api/visitor-city")
+      .then((r) => (r.ok ? (r.json() as Promise<{ city: string | null }>) : null))
+      .then((data) => {
+        if (active && data?.city) setVisitorCity(data.city);
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const value = useMemo(
+    () => ({ open, close, pageDefaults, setPageDefaults }),
+    [open, close, pageDefaults],
+  );
 
   function onBackdropClick(event: MouseEvent<HTMLDialogElement>) {
     if (event.target === event.currentTarget) close();
@@ -74,7 +101,7 @@ export function EnquiryProvider({ children }: { children: ReactNode }) {
               <X aria-hidden="true" className="size-5" />
             </button>
           </div>
-          <EnquiryForm key={formKey} onDone={close} defaults={defaults} />
+          <EnquiryForm key={formKey} onDone={close} defaults={defaults} visitorCity={visitorCity} />
         </div>
       </dialog>
     </EnquiryContext.Provider>
@@ -83,6 +110,23 @@ export function EnquiryProvider({ children }: { children: ReactNode }) {
 
 export function useEnquiry() {
   return useContext(EnquiryContext);
+}
+
+/**
+ * Tells every quote button on the page (header, phone bar, call-to-action
+ * band) what this page already knows, so the drawer opens pre-filled.
+ * Renders nothing; cleared when the page changes. Buttons given their own
+ * `defaults` keep them. Without JavaScript those buttons go to plain /quote.
+ */
+export function PageEnquiryDefaults({ defaults }: { defaults: EnquiryDefaults }) {
+  const setPageDefaults = useEnquiry()?.setPageDefaults;
+  const key = JSON.stringify(defaults);
+  useEffect(() => {
+    if (!setPageDefaults) return;
+    setPageDefaults(JSON.parse(key) as EnquiryDefaults);
+    return () => setPageDefaults(undefined);
+  }, [key, setPageDefaults]);
+  return null;
 }
 
 /**
@@ -101,16 +145,17 @@ export function EnquiryButton({
   "href"
 >) {
   const enquiry = useEnquiry();
+  const prefill = defaults ?? enquiry?.pageDefaults;
   return (
     <Link
-      href={quoteHrefWith(defaults)}
+      href={quoteHrefWith(prefill)}
       className={buttonStyles({ variant, size, className })}
       onClick={(event) => {
         onClick?.(event);
         if (!enquiry || event.defaultPrevented) return;
         if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
         event.preventDefault();
-        enquiry.open(defaults);
+        enquiry.open(prefill);
       }}
       {...props}
     />

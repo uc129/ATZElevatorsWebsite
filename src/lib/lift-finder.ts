@@ -19,7 +19,7 @@ import {
 } from "@/content/lift-finder";
 import { liftCategories, type LiftCategory } from "@/content/lifts";
 import { findOffice, type Office } from "@/content/offices";
-import type { EnquiryDefaults } from "@/lib/enquiry";
+import { needMessage, type EnquiryDefaults } from "@/lib/enquiry";
 
 /**
  * Thresholds, in floors including the ground. Named here so ATZ engineers
@@ -235,27 +235,26 @@ export function answerList(
   });
 }
 
-/** A plain-text summary of the answers, for the enquiry message and WhatsApp. */
-export function answersSummary(answers: FinderAnswers, rec: Recommendation): string {
-  const lines = [
-    "From the Find your lift guide:",
-    ...answerList(answers).map((a) => `${a.label}: ${a.value}`),
-  ];
-  if (rec.kind === "lift") lines.push(`Suggested: ${liftName(rec.primary)}`);
-  return lines.join("\n");
-}
-
-/** Defaults for the enquiry form, with the same field names and values. */
+/**
+ * Defaults for the enquiry form, with the same field names and values. The
+ * message is one short line: the other answers travel as their own fields.
+ * Floors and city are left out when unknown, so the form's standard ones
+ * (six floors, the visitor's city) apply.
+ */
 export function enquiryDefaultsFromAnswers(answers: PartialAnswers): EnquiryDefaults | null {
   const rec = recommendLift(answers);
   if (!rec) return null;
   const a = answers as FinderAnswers;
-  const need = { new: "new", upgrade: "modernise", maintain: "amc" } as const;
-  return {
-    need: need[a.stage],
+  const need = ({ new: "new", upgrade: "modernise", maintain: "amc" } as const)[a.stage];
+  const defaults: EnquiryDefaults = {
+    need,
     liftType: rec.kind === "lift" ? rec.primary : "unsure",
-    floors: rec.kind === "lift" ? String(a.floors) : "",
-    city: rec.office?.city ?? "",
-    message: answersSummary(a, rec),
+    message:
+      rec.kind === "lift"
+        ? `Find your lift suggested: ${liftName(rec.primary)}. ${needMessage(need)}`
+        : needMessage(need),
   };
+  if (rec.kind === "lift") defaults.floors = String(a.floors);
+  if (rec.office) defaults.city = rec.office.city;
+  return defaults;
 }

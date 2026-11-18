@@ -140,7 +140,6 @@ export const finderPage = {
   startAgain: "Start again",
   quote: "Get a quote with these answers",
   whatsapp: "Send on WhatsApp",
-  whatsappIntro: "Hello ATZ, I would like a quote.",
   nextTitle: "Next step",
   officeTitle: "Your nearest team",
   otherCity:
