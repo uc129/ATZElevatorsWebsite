@@ -54,7 +54,7 @@ Plan: [docshub/plans/2026-11-18-website-foundation-plan.md](docshub/plans/2026-1
 - Clients are handpicked by ATZ. Government emblems (Government of Bihar, MES) are shown by name, never as a logo.
 - Do not use the old ATZ group (team) photo.
 - Photos: recognisable Patna buildings and streets (Creative Commons) and clean lift close-ups (Pexels); ATZ's own photos when they arrive. No generic or foreign building stock. Credits are never shown on the page, on hover or in the footer: every asset is listed on `/credits` (from `src/content/credits.ts`), linked from the footer legal links.
-- Video: the homepage uses the Indian mall escalator film. The Patna drone reel (On Road, Instagram) is slowed and reserved for the About page; do not publish it until the creator's permission is confirmed.
+- Video: the homepage uses the Indian mall escalator film, the only video on the site. The Patna drone reel (On Road, Instagram) is not used: it was taken off the About page on 18-Nov-2026 (no permission from the creator; its still frame carries their watermark, so don't use that either).
 - Phones: marketing and sales 72570 01413 (also WhatsApp, enquiries); service and breakdowns 93341 19103.
 - Sample photos and testimonials stay labelled as samples ("Verification pending" badge) until real ones arrive. Every photo and film has an entry in `src/content/credits.ts`.
 - No database. The enquiry form sends through one seam, `submitEnquiry()` in `src/lib/enquiry.ts`, until the ERP endpoint is provided.
