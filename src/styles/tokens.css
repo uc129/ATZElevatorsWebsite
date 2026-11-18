@@ -186,7 +186,7 @@
   }
 
   /* A rotating panel or set fading in (lift tabs, testimonials): slow enough to read as calm. */
-  --animate-fade-in: fade-in 700ms var(--ease-out);
+  --animate-fade-in: fade-in 450ms var(--ease-out);
   @keyframes fade-in {
     from {
       opacity: 0;
