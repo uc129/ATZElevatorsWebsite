@@ -112,10 +112,11 @@ describe("starting values", () => {
   it("starts with six floors and a message in the visitor's voice", () => {
     expect(startingValues()).toEqual({
       floors: "6",
-      message: "Hi, I'd like to talk about a lift for our building. Could you give me a call?",
+      message:
+        "Hi, I'd like to talk about a lift for our building. I would be grateful if you could contact me at your earliest convenience.",
     });
     expect(startingValues({ need: "new", liftType: "home" }).message).toBe(
-      "Hi, I'd like to talk about installing a home lift at our building. Could you call me to arrange a site visit?",
+      "Hi, I'd like to talk about installing a home lift at our building. I would be grateful if you could contact me to arrange a site visit.",
     );
     expect(startingValues({ need: "message-wins", message: "My own words" }).message).toBe(
       "My own words",
@@ -124,10 +125,10 @@ describe("starting values", () => {
 
   it("writes a message for every need and lift type, without selling phrases", () => {
     expect(enquiryMessage({ need: "modernise", liftType: "mrl", place: "office" })).toBe(
-      "Hi, I'd like to talk about upgrading the machine-room-less lift at our office. Could you give me a call?",
+      "Hi, I'd like to talk about upgrading the machine-room-less lift at our office. I would be grateful if you could contact me at your earliest convenience.",
     );
     expect(enquiryMessage({ need: "repair", liftType: "unsure" })).toBe(
-      "Hi, the lift at our building needs a repair. Could you give me a call?",
+      "Hi, the lift at our building needs a repair. Please contact me as soon as possible.",
     );
     for (const need of [...needOptions.map((o) => o.value), undefined])
       for (const liftType of liftTypeOptions.map((o) => o.value)) {
