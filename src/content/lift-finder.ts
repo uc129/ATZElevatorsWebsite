@@ -135,6 +135,8 @@ export const finderReasons = {
   unsureRoof: "If the roof turns out to be tight, a lift with no machine room avoids building one.",
   passenger: "A passenger lift is the dependable choice for people moving between floors.",
   tall: "For a taller building, a gearless lift gives a quieter, smoother ride.",
+  highRise:
+    "For a high-rise, our engineers plan the lifts around the building's traffic and shaft on the survey.",
   upgrade:
     "You already have a lift, so modernisation can keep the shaft and replace what is worn out.",
   maintain: "We maintain and repair lifts of every brand, with a 24×7 breakdown line.",

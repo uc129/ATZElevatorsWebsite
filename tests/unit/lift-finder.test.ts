@@ -110,14 +110,23 @@ describe("recommendLift", () => {
     expect(pick({ building: "home" }).primary).toBe("home");
     expect(pick({ building: "mall" }).primary).toBe("panoramic");
     expect(pick({ roof: "no" }).primary).toBe("mrl");
-    expect(pick({ roof: "unsure", floors: finderThresholds.mrlWhenUnsure }).primary).toBe("mrl");
-    expect(pick({ roof: "unsure", floors: 3 }).primary).toBe("passenger");
+    expect(pick({ roof: "unsure", floors: 5 }).primary).toBe("mrl");
+    expect(pick({ roof: "unsure", floors: 15 }).primary).toBe("mrl");
+    expect(pick({ roof: "unsure", floors: 4 }).primary).toBe("passenger");
+    expect(pick({ roof: "unsure", floors: 16 }).primary).toBe("passenger");
+    expect(pick({ roof: "no", floors: 20 }).primary).toBe("mrl");
     expect(pick({}).primary).toBe("passenger");
   });
 
-  it("suggests MRL alongside passenger lifts in tall buildings", () => {
-    expect(pick({ floors: finderThresholds.tall }).alternatives).toEqual(["mrl"]);
-    expect(pick({ floors: 3 }).alternatives).toEqual([]);
+  it("offers gearless alongside passenger lifts from 8 to 15 floors", () => {
+    expect(finderThresholds.mrl).toEqual({ min: 5, max: 15 });
+    expect(finderThresholds.gearless).toEqual({ min: 8, max: 15 });
+    expect(pick({ floors: 7 }).alternatives).toEqual([]);
+    expect(pick({ floors: 8 }).alternatives).toEqual(["mrl"]);
+    expect(pick({ floors: 15 }).alternatives).toEqual(["mrl"]);
+    const highRise = pick({ floors: 16 });
+    expect(highRise.alternatives).toEqual([]);
+    expect(highRise.reasons).toContain(finderReasons.highRise);
     expect(pick({ building: "home", floors: finderThresholds.homeTall }).alternatives).toEqual([
       "passenger",
     ]);

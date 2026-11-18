@@ -22,16 +22,21 @@ import type { EnquiryField } from "@/lib/enquiry";
 
 /**
  * Thresholds, in floors including the ground. Named here so ATZ engineers
- * can tune them in one place (open question 4 in the plan).
+ * can tune them in one place (open question 4 in the plan, answered by ATZ).
  */
 export const finderThresholds = {
-  /** With "not sure" about roof space, suggest MRL from this height up. */
-  mrlWhenUnsure: 5,
-  /** Suggest gearless or MRL as an alternative from this height up. */
-  tall: 8,
+  /** With "not sure" about roof space, suggest MRL in this range (ATZ, 18-Nov-2026). */
+  mrl: { min: 5, max: 15 },
+  /** Offer gearless (the MRL and gearless range) alongside a passenger lift in this range. */
+  gearless: { min: 8, max: 15 },
+  /** Above this, the engineers plan the lift around the building. */
+  highRise: 15,
   /** A house this tall gets a passenger lift as an alternative. */
   homeTall: 5,
 } as const;
+
+const within = (floors: number, range: { min: number; max: number }) =>
+  floors >= range.min && floors <= range.max;
 
 const values = <T extends readonly { value: string }[]>(options: T) =>
   options.map((o) => o.value) as [T[number]["value"], ...T[number]["value"][]];
@@ -108,7 +113,8 @@ type Pick = { primary: LiftSlug; alternatives: LiftSlug[]; reasons: FinderReason
 
 /** The lift rules, in order; the first match wins. */
 function pickLift(a: Omit<FinderAnswers, "city">): Pick {
-  const tall = a.floors >= finderThresholds.tall;
+  const gearless = within(a.floors, finderThresholds.gearless);
+  const highRise = a.floors > finderThresholds.highRise;
 
   if (a.carry === "small") {
     return { primary: "dumbwaiter", alternatives: ["freight"], reasons: ["small"] };
@@ -145,13 +151,17 @@ function pickLift(a: Omit<FinderAnswers, "city">): Pick {
   if (a.roof === "no") {
     return { primary: "mrl", alternatives: ["passenger"], reasons: ["noRoof"] };
   }
-  if (a.roof === "unsure" && a.floors >= finderThresholds.mrlWhenUnsure) {
+  if (a.roof === "unsure" && within(a.floors, finderThresholds.mrl)) {
     return { primary: "mrl", alternatives: ["passenger"], reasons: ["unsureRoof"] };
   }
   return {
     primary: "passenger",
-    alternatives: tall ? ["mrl"] : [],
-    reasons: tall ? ["passenger", "tall"] : ["passenger"],
+    alternatives: gearless ? ["mrl"] : [],
+    reasons: gearless
+      ? ["passenger", "tall"]
+      : highRise
+        ? ["passenger", "highRise"]
+        : ["passenger"],
   };
 }
 

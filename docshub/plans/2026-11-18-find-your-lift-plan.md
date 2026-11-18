@@ -135,12 +135,12 @@ Branch: `feature/find-your-lift` from `master`. Merge `docs/elevator-websites-su
 - **searchParams makes the page dynamic.** The questions shell still prerenders. Only the result streams in Suspense, as `/contact/[office]` does today.
 - **Drawer state.** Pre-filled defaults must not survive into the next blank opening. `formKey` already remounts the form on each opening.
 
-## Open questions for ATZ
+## Decisions from ATZ (18-Nov-2026)
 
-1. Is `/find-your-lift` the right name? "Lift guide" is the other option.
-2. Should "Government or institution" stay as its own building type, or fold into "Office or shop"?
-3. Should the panoramic lift be a primary pick for malls and hotels, or only an alternative?
-4. The floor thresholds for suggesting MRL and gearless, for ATZ engineers to confirm.
+1. The name `/find-your-lift` stays.
+2. "Government or institution" stays as its own building type.
+3. Malls and hotels get the panoramic lift as the main pick.
+4. Floor ranges: MRL from 5 to 15 floors (when roof space is not sure; "no room" always gets MRL), gearless as the alternative to a passenger lift from 8 to 15 floors. Above 15 floors the guide suggests a passenger lift and says the engineers plan high-rise lifts on the survey.
 
 ## Verification
 
