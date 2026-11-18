@@ -15,13 +15,13 @@ Open http://localhost:3000.
 
 ## Scripts
 
-| Script           | What it does                                                                            |
-| ---------------- | --------------------------------------------------------------------------------------- |
-| `npm run dev`    | Dev server                                                                              |
-| `npm run check`  | Lint, typecheck, unit tests and production build                                        |
-| `npm run test`   | Vitest unit tests                                                                       |
+| Script           | What it does                                                                                             |
+| ---------------- | -------------------------------------------------------------------------------------------------------- |
+| `npm run dev`    | Dev server                                                                                               |
+| `npm run check`  | Lint, typecheck, unit tests and production build                                                         |
+| `npm run test`   | Vitest unit tests                                                                                        |
 | `npm run e2e`    | Playwright page, navigation, form and accessibility tests (first run: `npx playwright install chromium`) |
-| `npm run format` | Prettier with Tailwind class sorting                                                    |
+| `npm run format` | Prettier with Tailwind class sorting                                                                     |
 
 ## Docs
 

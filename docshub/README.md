@@ -6,9 +6,9 @@ Started on 18-Nov-2026. The design prototype (audit, sitemap, desktop and phone 
 
 ## Plans
 
-| Date       | Doc                                                                    | Status      | Summary                                                                                                                           |
-| ---------- | ---------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-18 | [Website foundation plan](plans/2026-11-18-website-foundation-plan.md) | done        | Next.js + Tailwind v4 + cuicui, no database, ERP tokens and UI rules; seven steps from repo bootstrap to tests; all seven steps done |
+| Date       | Doc                                                                    | Status | Summary                                                                                                                              |
+| ---------- | ---------------------------------------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| 2026-11-18 | [Website foundation plan](plans/2026-11-18-website-foundation-plan.md) | done   | Next.js + Tailwind v4 + cuicui, no database, ERP tokens and UI rules; seven steps from repo bootstrap to tests; all seven steps done |
 
 ## Decisions (ADRs)
 
