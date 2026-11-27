@@ -92,10 +92,10 @@ export function ChoiceCard({ label, hint, icon, className, id, ...props }: Choic
     <label
       htmlFor={inputId}
       className={cn(
-        "group relative flex min-h-11 cursor-pointer items-center gap-3 rounded-md border-2 border-line-strong bg-white px-4 py-3 text-ink transition duration-150 ease-default",
+        "group relative flex min-h-11 cursor-pointer items-center gap-3 rounded-md border-2 border-control-line bg-white px-4 py-3 text-ink transition duration-150 ease-default",
         "hover:border-subtle hover:bg-box",
-        "has-checked:border-brand-line has-checked:bg-white has-checked:shadow-active",
-        "has-focus-visible:ring-4 has-focus-visible:ring-brand-line/25",
+        "has-checked:border-brand has-checked:bg-white has-checked:shadow-active",
+        "has-focus-visible:ring-4 has-focus-visible:ring-focus/25",
         "has-disabled:cursor-not-allowed has-disabled:border-line has-disabled:bg-tint has-disabled:text-subtle",
         className,
       )}
@@ -126,7 +126,7 @@ export function ChoiceCard({ label, hint, icon, className, id, ...props }: Choic
       {/* The dot: selection is shown by shape, not by colour alone. */}
       <span
         aria-hidden="true"
-        className="flex size-5 shrink-0 items-center justify-center rounded-full border-2 border-line-strong bg-white transition-colors group-has-checked:border-brand"
+        className="flex size-5 shrink-0 items-center justify-center rounded-full border-2 border-control-line bg-white transition-colors group-has-checked:border-brand"
       >
         <span className="size-2.5 scale-0 rounded-full bg-brand transition-transform duration-150 group-has-checked:scale-100" />
       </span>

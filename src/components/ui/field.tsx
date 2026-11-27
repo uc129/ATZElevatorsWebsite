@@ -18,7 +18,7 @@ import {
 import { cn } from "@/lib/cn";
 
 const control =
-  "w-full min-h-11 rounded-control border-2 border-line-strong bg-white px-3.5 py-2.5 text-base text-ink placeholder:text-subtle transition-colors duration-150 hover:border-subtle focus-visible:border-brand-line focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-line/25 aria-invalid:border-danger disabled:cursor-not-allowed disabled:border-line disabled:bg-tint disabled:text-subtle";
+  "w-full min-h-11 rounded-control border-2 border-control-line bg-white px-3.5 py-2.5 text-base text-ink placeholder:text-subtle transition-colors duration-150 hover:border-subtle focus-visible:border-focus focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-focus/25 aria-invalid:border-danger disabled:cursor-not-allowed disabled:border-line disabled:bg-tint disabled:text-subtle";
 
 type FieldFrameProps = {
   label: string;
