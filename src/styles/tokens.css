@@ -20,18 +20,25 @@
 
   --color-white: #ffffff;
 
-  /* Text and headings (on white: navy 16.6:1, ink 15.3:1, muted 8.3:1, subtle 5.4:1) */
+  /*
+   * Text and headings, from the ATZ ERP design system (text-primary, text-muted).
+   * On white: navy 16.7:1, ink 16.0:1, muted 8.0:1, subtle 5.4:1.
+   * Subtle stays darker than the design system's #66737f, which is 4.49:1 on box.
+   */
   --color-navy: #0b1f33;
-  --color-ink: #10243a;
-  --color-muted: #3f5468;
+  --color-ink: #16232f;
+  --color-muted: #44525e;
   --color-subtle: #5a6e80;
 
   /* Brand cyan: interactive accent only, used sparingly. Never large fills. */
   --color-brand: #0e7a99; /* fill behind white text (AA) */
   --color-brand-hover: #0b617a;
   --color-brand-ink: #0b617a; /* cyan as text on white (5.9:1) */
-  --color-brand-line: #1fa3c4; /* strokes, focus ring, illustration */
+  --color-brand-line: #1fa3c4; /* strokes, illustration. 2.96:1 on white: never a focus ring or a state edge */
   --color-brand-ice: #8fe7ff;
+
+  /* Focus ring, as the ERP: 5.5:1 on white, 5.1:1 on box (WCAG 2.2 needs 3:1). */
+  --color-focus: #0c7289;
 
   /* Surfaces: white page, soft grey containers */
   --color-box: #f5f6f7;
@@ -39,39 +46,41 @@
   --color-tint: #f2f3f5;
   --color-tint-line: #e3e5e8;
   --color-line: #e6e8eb;
-  --color-line-strong: #d5d9de;
+  --color-line-strong: #d5d9de; /* decorative frames and secondary buttons (they carry text) */
+  --color-control-line: #8a949e; /* field and choice edges, 3.1:1 on white (the ERP's border-strong) */
 
   /*
-   * Status, after cuicui "Advanced badges" (https://cuicui.day/common-ui/badges):
-   * a tinted fill (the 400 hue at ~12% on white, made solid so contrast holds
-   * on grey cards), a soft border (the 200 hue) and deep text, from Tailwind's
-   * own palette as cuicui uses it. Text is AA on its tint (ratios below).
+   * Status, from the ATZ ERP design system: solid, tint and text values are the
+   * ERP's, so a status reads the same on the site and in the app. The badge
+   * shape stays cuicui's "Advanced badges" (https://cuicui.day/common-ui/badges):
+   * tint, soft border, deep text. -line is the solid at 30% on white, made
+   * solid so it holds on grey cards. Info is blue so cyan stays interactive.
    * Status is always shown with a text label, never colour alone.
-   *   -     solid: icons, dots, input borders
+   *   -     solid: icons, dots, input borders (all 4.8:1 or more on white)
    *   -light tint: badge and alert fill
    *   -line  soft border
-   *   -text  label text
+   *   -text  label text (ratio on its tint below)
    */
-  --color-success: #00a63e;
-  --color-success-light: #e1fbee;
-  --color-success-line: #b9f8cf;
-  --color-success-text: #016630; /* 6.5:1 on tint */
-  --color-warning: #f54900;
-  --color-warning-light: #fff1e1;
-  --color-warning-line: #ffd6a7;
-  --color-warning-text: #ca3500; /* 4.7:1 */
-  --color-danger: #e7000b;
-  --color-danger-light: #ffeced;
-  --color-danger-line: #ffc9c9;
-  --color-danger-text: #c10007; /* 5.7:1 */
-  --color-info: #155dfc;
-  --color-info-light: #eaf4ff;
-  --color-info-line: #bedbff;
-  --color-info-text: #1447e6; /* 6.1:1 */
-  --color-neutral: #737373;
-  --color-neutral-light: #f4f4f4;
-  --color-neutral-line: #e5e5e5;
-  --color-neutral-text: #525252; /* 7.1:1 */
+  --color-success: #1e7f3c;
+  --color-success-light: #e5f4e9;
+  --color-success-line: #bbd9c4;
+  --color-success-text: #196332; /* 6.4:1 */
+  --color-warning: #b45309;
+  --color-warning-light: #fcf1e0;
+  --color-warning-line: #e8cbb5;
+  --color-warning-text: #8a4106; /* 6.6:1 */
+  --color-danger: #bc2f2f;
+  --color-danger-light: #fbe9e9;
+  --color-danger-line: #ebc1c1;
+  --color-danger-text: #9e2323; /* 6.6:1 */
+  --color-info: #2f5fbf;
+  --color-info-light: #e9effa;
+  --color-info-line: #c1cfec;
+  --color-info-text: #24499c; /* 7.3:1 */
+  --color-neutral: #66737f;
+  --color-neutral-light: #eef1f4;
+  --color-neutral-line: #d1d5d9;
+  --color-neutral-text: #44525e; /* 7.1:1 */
 
   /* WhatsApp button (user-supplied style) */
   --color-whatsapp: #25d366;
